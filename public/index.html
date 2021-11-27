@@ -96,7 +96,13 @@
         alt="/headimg.jpeg"
         title="/headimg.jpeg" height="6rem" width="6rem"
     /></a></div><h1 class="home-title">芋头</h1><h2 class="home-subtitle"><div id="id-1" class="typeit"></div></h2><div class="links"><a href="https://github.com/yu-tou" title="GitHub" target="_blank" rel="noopener noreffer me"><i class="fab fa-github-alt fa-fw"></i></a><a href="https://www.zhihu.com/people/li-shou-xin" title="小芋头君" target="_blank" rel="noopener noreffer me"><i data-svg-src="/lib/simple-icons/icons/zhihu.min.svg"></i></a></div></div>
-<article class="single summary" itemscope itemtype="http://schema.org/Article"><div class="featured-image-preview">
+<article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
+        <a href="/posts/about-me/">ABOUT ME 关于我</a>
+    </h1><div class="content"></div><div class="post-meta">
+        <span class="post-author"><i class="author fas fa-user-circle fa-fw"></i><a href="/" title="Author" rel=" author" class="author">芋头</a>
+        </span>&nbsp;<span class="post-publish">发布于 <time datetime="2021-11-27">2021-11-27</time></span>&nbsp;<span class="post-category">收录于 </span>&nbsp;<span class="post-category">类别 <a href="/categories/%E6%8A%80%E6%9C%AF/"><i class="far fa-folder fa-fw"></i>技术</a></span></div><div class="post-footer">
+        <a href="/posts/about-me/">阅读全文</a></div>
+</article><article class="single summary" itemscope itemtype="http://schema.org/Article"><div class="featured-image-preview">
             <a href="/posts/display-video-in-console/" aria-label=如何在浏览器&#32;console&#32;控制台中播放视频？><img
         class="lazyload"
         data-src="/display-video-in-console/cover.jpeg"
@@ -107,7 +113,7 @@
     /></a>
         </div><h1 class="single-title" itemprop="name headline">
         <a href="/posts/display-video-in-console/">如何在浏览器 console 控制台中播放视频？</a>
-    </h1><div class="content">如何在浏览器 console 控制台中播放视频？ 要实现这个目标，主要涉及到这几个点： 如何获取和解析视频流？ 如何在 console 里播放动态内容？ 如何在 console 里播放彩色内容？ 如何连接视频流和 console？ 事实上最后的代码极其简单，我们就一步一步简单讲一下 效果 测试地址：https://yu-tou.github.io/colors-web/dist/camera.html 如何获取和解析视频流？ 这里我们用电脑摄像头捕获视频流，然后获取视频流每一帧的图像数据，作为下一步的输入。 // 捕捉电脑摄像头的视频流 const mediaStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true, }); // 创建一个 video 标签 const video = document.createElement(&#34;video&#34;); document.body.appendChild(video); video.onloadedmetadata = function (e) { video.play(); // 等摄像头数据加载完成后，开始播放 }; // video 标签播放视频流 video.srcObject = mediaStream; 如何获取每一帧图像的数据？创建一个 canvas 画布，可以将 video 当前的内容绘制到画布上，然后通过 canvas 的方法即可拿到图像的像素数据。 const ctx = canvas.getContext(&#34;2d&#34;); canvas.width = width; canvas.height = height; ctx.drawImage(video, 0, 0, width, height); const imageData = ctx.getImageData(0, 0, width, height); const data = imageData.data; // imageData 的结构是平铺的，需要自己去学习下 如何在 console 里播放</div><div class="post-meta">
+    </h1><div class="content">如何在浏览器 console 控制台中播放视频？ 要实现这个目标，主要涉及到这几个点： 如何获取和解析视频流？ 如何在 console 里播放动态内容？ 如何在 console 里播放彩色内容？ 如何连接视频流和 console？ 事实上最后的代码极其简单，我们就一步一步简单讲一下 效果 测试地址：https://yu-tou.github.io/colors-web/dist/camera.html 如何获取和解析视频流？ 这里我们用电脑摄像头捕获视频流，然后获取视频流每一帧的图像数据，作为下一步的输入。 1 2 3 4 5 6 7 8 9 10 11 12 13 14 // 捕捉电脑摄像头的视频流 const mediaStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true, }); // 创建一个 video 标签 const video = document.createElement(&#34;video&#34;); document.body.appendChild(video); video.onloadedmetadata = function (e) { video.play(); // 等摄像头数据加载完成后，开始播放 }; // video 标签播放视频流 video.srcObject = mediaStream; 如何获取每一帧图像的数据？创建一个 canvas 画布，可以将 video 当前的内容绘制到画布上，然后通过 canvas 的方法即可拿到图像的像素数据。 1 2 3 4 5 6 7 8 const ctx = canvas.getContext(&#34;2d&#34;); canvas.width = width; canvas.height = height; ctx.drawImage(video, 0, 0, width, height); const imageData = ctx.getImageData(0, 0, width, height); const data = imageData.data; // imageData 的</div><div class="post-meta">
         <span class="post-author"><i class="author fas fa-user-circle fa-fw"></i><a href="/" title="Author" rel=" author" class="author">芋头</a>
         </span>&nbsp;<span class="post-publish">发布于 <time datetime="2021-09-30">2021-09-30</time></span>&nbsp;<span class="post-category">收录于 </span>&nbsp;<span class="post-category">类别 <a href="/categories/%E6%8A%80%E6%9C%AF/"><i class="far fa-folder fa-fw"></i>技术</a></span></div><div class="post-footer">
         <a href="/posts/display-video-in-console/">阅读全文</a><div class="post-tags">
@@ -188,7 +194,7 @@
         </a>
     </div><div class="assets"><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/topbar/topbar.min.js"></script><script type="text/javascript" src="/lib/pjax/pjax.min.js"></script><script type="text/javascript" src="/js/theme.min.js"></script></div>
 
-<div class="pjax-assets"><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/typeit/typeit.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"data":{"desktop-header-typeit":"芋头乱炖","id-1":"码农，主要兴趣：JavaScript,Nodejs,GIS,Arduino,数据可视化,数码发烧友,HiFi玩家","mobile-header-typeit":"芋头乱炖"},"sharerjs":true,"typeit":{"cursorChar":null,"cursorSpeed":null,"data":{"desktop-header-typeit":["desktop-header-typeit"],"id-1":["id-1"],"mobile-header-typeit":["mobile-header-typeit"]},"duration":null,"speed":null}};</script></div>
+<div class="pjax-assets"><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/typeit/typeit.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":100},"data":{"desktop-header-typeit":"芋头乱炖","id-1":"码农，主要兴趣：JavaScript,Nodejs,GIS,Arduino,数据可视化,数码发烧友,HiFi玩家","mobile-header-typeit":"芋头乱炖"},"sharerjs":true,"typeit":{"cursorChar":null,"cursorSpeed":null,"data":{"desktop-header-typeit":["desktop-header-typeit"],"id-1":["id-1"],"mobile-header-typeit":["mobile-header-typeit"]},"duration":null,"speed":null}};</script></div>
 </body>
 
 </html>

@@ -3,9 +3,16 @@
         <title>芋头乱炖，野鸡码农，复制粘贴小能手</title>
         <link>http://example.org/</link>
         <description>芋头乱炖，野鸡码农，复制粘贴小能手</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Thu, 30 Sep 2021 23:17:00 &#43;0000</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sat, 27 Nov 2021 22:07:07 &#43;0800</lastBuildDate>
             <atom:link href="http://example.org/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>ABOUT ME 关于我</title>
+    <link>http://example.org/posts/about-me/</link>
+    <pubDate>Sat, 27 Nov 2021 22:07:07 &#43;0800</pubDate><author>
+        <name>芋头</name>
+    </author><guid>http://example.org/posts/about-me/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
     <title>如何在浏览器 console 控制台中播放视频？</title>
     <link>http://example.org/posts/display-video-in-console/</link>
     <pubDate>Thu, 30 Sep 2021 23:17:00 &#43;0000</pubDate><author>
@@ -13,7 +20,7 @@
     </author><guid>http://example.org/posts/display-video-in-console/</guid>
     <description><![CDATA[<div class="featured-image">
                 <img src="/display-video-in-console/cover.jpeg" referrerpolicy="no-referrer">
-            </div>如何在浏览器 console 控制台中播放视频？ 要实现这个目标，主要涉及到这几个点： 如何获取和解析视频流？ 如何在 console 里播放动态内容？ 如何在 console 里播放彩色内容？ 如何连接视频流和 console？ 事实上最后的代码极其简单，我们就一步一步简单讲一下 效果 测试地址：https://yu-tou.github.io/colors-web/dist/camera.html 如何获取和解析视频流？ 这里我们用电脑摄像头捕获视频流，然后获取视频流每一帧的图像数据，作为下一步的输入。 // 捕捉电脑摄像头的视频流 const mediaStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true, }); // 创建一个 video 标签 const video = document.createElement(&#34;video&#34;); document.body.appendChild(video); video.onloadedmetadata = function (e) { video.play(); // 等摄像头数据加载完成后，开始播放 }; // video 标签播放视频流 video.srcObject = mediaStream; 如何获取每一帧图像的数据？创建一个 canvas 画布，可以将 video 当前的内容绘制到画布上，然后通过 canvas 的方法即可拿到图像的像素数据。 const ctx = canvas.getContext(&#34;2d&#34;); canvas.width = width; canvas.height = height; ctx.drawImage(video, 0, 0, width, height); const imageData = ctx.getImageData(0, 0, width, height); const data = imageData.data; // imageData 的结构是平铺的，需要自己去学习下 如何在 console 里播放]]></description>
+            </div>如何在浏览器 console 控制台中播放视频？ 要实现这个目标，主要涉及到这几个点： 如何获取和解析视频流？ 如何在 console 里播放动态内容？ 如何在 console 里播放彩色内容？ 如何连接视频流和 console？ 事实上最后的代码极其简单，我们就一步一步简单讲一下 效果 测试地址：https://yu-tou.github.io/colors-web/dist/camera.html 如何获取和解析视频流？ 这里我们用电脑摄像头捕获视频流，然后获取视频流每一帧的图像数据，作为下一步的输入。 1 2 3 4 5 6 7 8 9 10 11 12 13 14 // 捕捉电脑摄像头的视频流 const mediaStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true, }); // 创建一个 video 标签 const video = document.createElement(&#34;video&#34;); document.body.appendChild(video); video.onloadedmetadata = function (e) { video.play(); // 等摄像头数据加载完成后，开始播放 }; // video 标签播放视频流 video.srcObject = mediaStream; 如何获取每一帧图像的数据？创建一个 canvas 画布，可以将 video 当前的内容绘制到画布上，然后通过 canvas 的方法即可拿到图像的像素数据。 1 2 3 4 5 6 7 8 const ctx = canvas.getContext(&#34;2d&#34;); canvas.width = width; canvas.height = height; ctx.drawImage(video, 0, 0, width, height); const imageData = ctx.getImageData(0, 0, width, height); const data = imageData.data; // imageData 的]]></description>
 </item><item>
     <title>mysql 8.0 中存储 gis 数据的正确姿势</title>
     <link>http://example.org/posts/mysql8-gis-srid/</link>
