@@ -1,0 +1,25 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>GIS - 标签 - 芋头乱炖，野鸡码农，复制粘贴小能手</title>
+        <link>http://example.org/tags/gis/</link>
+        <description>GIS - 标签 - 芋头乱炖，野鸡码农，复制粘贴小能手</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sun, 01 Aug 2021 23:17:00 &#43;0000</lastBuildDate><atom:link href="http://example.org/tags/gis/" rel="self" type="application/rss+xml" /><item>
+    <title>mysql 8.0 中存储 gis 数据的正确姿势</title>
+    <link>http://example.org/posts/mysql8-gis-srid/</link>
+    <pubDate>Sun, 01 Aug 2021 23:17:00 &#43;0000</pubDate><author>
+        <name>芋头</name>
+    </author><guid>http://example.org/posts/mysql8-gis-srid/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="/mysql8-gis-srid/cover.jpg" referrerpolicy="no-referrer">
+            </div>请为列指定 SRID 如果你想要在使用一些 spatial function 的时候获得尽可能精确的值，请务必为您的数据库中的 geometry 列指定 SRID，如 st_area st_distance 等。否则您将获得直角坐标上的距离，而不是真实的值，另外在 mysql 老版本中，不指定 SRID（默认为 0），可以使用某些计算函数，但是在 mysql 中，某些函数必须指定 SRID，也要求被计算的列必须指定 SRID。 什么是 SRID？ SRID 指定的是 spatial 数据的坐标系，地理数据中一个最重要的指标就是坐标系，没有坐标系，就不存在经纬度，不存在投影，不存在地心，不存在真实距离，一切将会变为平面坐标，与真实地理信息天差地别。 SRID 坐标系定义了什么？ 简单来说，这里不展开，坐标系定义了，大地水准面 -&gt; 椭球体 -&gt; 大地基准面，他们分别是海平面、地球形状和球心、球心偏移等，在每个尺度和地区，这些值都在发生变化，所以会定义不同的坐标系，以尽量消除误差。 最常用的 SRID 是什么？ 在服务端，通常存储数据都是使用 4326 的 SRID，在前端，地图渲染使用 3857 坐标系（代表]]></description>
+</item><item>
+    <title>点到任意折线组的最短距离（及 turf.js 的实现解析）</title>
+    <link>http://example.org/posts/turf-point-line-distance/</link>
+    <pubDate>Thu, 01 Apr 2021 23:44:00 &#43;0000</pubDate><author>
+        <name>芋头</name>
+    </author><guid>http://example.org/posts/turf-point-line-distance/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="/turf-poin-line-distance/cover.jpg" referrerpolicy="no-referrer">
+            </div>问题定义： 有一点 Pt，有一任意长度和形状的折线 L： [[P1,P2],[p2,p3],[p3,p4]…] 求 Pt 与折线 L 的最近距离 N 问题澄清： 注意：折线 L 上离 Pt 最近的点，必然在折线上 使用场景： 对行车轨迹进行贴路修正，轨迹点与路上最短的距离的点既是修正后的点。 问题分析： 假设我们还不知道最终答案，甚至还不知晓解题思路（已经知道的同学先不急，这个题其实的确很简单） 我们先画个图分析下可能的思路，按照题目，我们画一个比较“复杂的场景” 其实这个题简单的地方就是，当你把图画出来，基本靠人眼可以一眼判断出答案，如上图，L 中距离 Pt 最近的点很容易用肉眼找到。 事实上，要找出点到折线的最短距离，必然需要遍历整条折线，计算某条线段与点之间的距离，并取其中最小的值。 那如何判断一个点到一条线段的最小距离？这里其实是这道题目最核心的逻辑，基于刚才我们的提示，线段上距离点最近的点，必然在线段内，而不可超出线段之外，我们穷举下点和]]></description>
+</item></channel>
+</rss>

@@ -1,0 +1,16 @@
+<urlset
+    xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+    xmlns:xhtml="http://www.w3.org/1999/xhtml"
+    ><url>
+            <loc>http://example.org/categories/</loc><lastmod>2021-09-30T23:17:00&#43;00:00</lastmod></url><url>
+            <loc>http://example.org/tags/console/</loc><lastmod>2021-09-30T23:17:00&#43;00:00</lastmod></url><url>
+            <loc>http://example.org/tags/javascript/</loc><lastmod>2021-09-30T23:17:00&#43;00:00</lastmod></url><url>
+            <loc>http://example.org/posts/</loc><lastmod>2021-09-30T23:17:00&#43;00:00</lastmod></url><url>
+            <loc>http://example.org/tags/</loc><lastmod>2021-09-30T23:17:00&#43;00:00</lastmod></url><url>
+            <loc>http://example.org/posts/display-video-in-console/</loc><lastmod>2021-09-30T23:17:00&#43;00:00</lastmod></url><url>
+            <loc>http://example.org/categories/%E6%8A%80%E6%9C%AF/</loc><lastmod>2021-09-30T23:17:00&#43;00:00</lastmod></url><url>
+            <loc>http://example.org/</loc><lastmod>2021-09-30T23:17:00&#43;00:00</lastmod></url><url>
+            <loc>http://example.org/tags/gis/</loc><lastmod>2021-08-01T23:17:00&#43;00:00</lastmod></url><url>
+            <loc>http://example.org/posts/mysql8-gis-srid/</loc><lastmod>2021-08-01T23:17:00&#43;00:00</lastmod></url><url>
+            <loc>http://example.org/tags/turf.js/</loc><lastmod>2021-04-01T23:44:00&#43;00:00</lastmod></url><url>
+            <loc>http://example.org/posts/turf-point-line-distance/</loc><lastmod>2021-04-01T23:44:00&#43;00:00</lastmod></url></urlset>
