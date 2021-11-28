@@ -106,10 +106,13 @@
         title="/aboutme/cover.png" height="auto" width="auto"
     /></a>
         </div><h1 class="single-title" itemprop="name headline">
-        <a href="/posts/about-me/">ABOUT ME 关于我</a>
-    </h1><div class="content"></div><div class="post-meta">
+        <a href="/posts/about-me/">
+            <div class="title-date"><span class="year"><time datetime="2021">2021</time></span><span class="month"><time datetime="Nov">Nov</time></span></div>
+            <span class="title-content">ABOUT ME 关于我</span>
+        </a>
+    </h1><div class="post-meta">
         <span class="post-author"><i class="author fas fa-user-circle fa-fw"></i><a href="/" title="Author" rel=" author" class="author">芋头</a>
-        </span>&nbsp;<span class="post-publish">发布于 <time datetime="2021-11-27">2021-11-27</time></span>&nbsp;<span class="post-category">收录于 </span>&nbsp;<span class="post-category">类别 <a href="/categories/%E6%8A%80%E6%9C%AF/"><i class="far fa-folder fa-fw"></i>技术</a></span></div><div class="post-footer">
+        </span>&nbsp;<span class="post-publish"><time datetime="2021-11-27">2021-11-27</time></span></div><div class="content"></div><div class="post-footer">
         <a href="/posts/about-me/">阅读全文</a></div>
 </article><article class="single summary" itemscope itemtype="http://schema.org/Article"><div class="featured-image-preview">
             <a href="/posts/display-video-in-console/" aria-label=如何在浏览器&#32;console&#32;控制台中播放视频？><img
@@ -121,10 +124,13 @@
         title="/display-video-in-console/cover.jpeg" height="auto" width="auto"
     /></a>
         </div><h1 class="single-title" itemprop="name headline">
-        <a href="/posts/display-video-in-console/">如何在浏览器 console 控制台中播放视频？</a>
-    </h1><div class="content">如何在浏览器 console 控制台中播放视频？ 要实现这个目标，主要涉及到这几个点： 如何获取和解析视频流？ 如何在 console 里播放动态内容？ 如何在 console 里播放彩色内容？ 如何连接视频流和 console？ 事实上最后的代码极其简单，我们就一步一步简单讲一下 效果 测试地址：https://yu-tou.github.io/colors-web/dist/camera.html 如何获取和解析视频流？ 这里我们用电脑摄像头捕获视频流，然后获取视频流每一帧的图像数据，作为下一步的输入。 1 2 3 4 5 6 7 8 9 10 11 12 13 14 // 捕捉电脑摄像头的视频流 const mediaStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true, }); // 创建一个 video 标签 const video = document.createElement(&#34;video&#34;); document.body.appendChild(video); video.onloadedmetadata = function (e) { video.play(); // 等摄像头数据加载完成后，开始播放 }; // video 标签播放视频流 video.srcObject = mediaStream; 如何获取每一帧图像的数据？创建一个 canvas 画布，可以将 video 当前的内容绘制到画布上，然后通过 canvas 的方法即可拿到图像的像素数据。 1 2 3 4 5 6 7 8 const ctx = canvas.getContext(&#34;2d&#34;); canvas.width = width; canvas.height = height; ctx.drawImage(video, 0, 0, width, height); const imageData = ctx.getImageData(0, 0, width, height); const data = imageData.data; // imageData 的</div><div class="post-meta">
+        <a href="/posts/display-video-in-console/">
+            <div class="title-date"><span class="year"><time datetime="2021">2021</time></span><span class="month"><time datetime="Sep">Sep</time></span></div>
+            <span class="title-content">如何在浏览器 console 控制台中播放视频？</span>
+        </a>
+    </h1><div class="post-meta">
         <span class="post-author"><i class="author fas fa-user-circle fa-fw"></i><a href="/" title="Author" rel=" author" class="author">芋头</a>
-        </span>&nbsp;<span class="post-publish">发布于 <time datetime="2021-09-30">2021-09-30</time></span>&nbsp;<span class="post-category">收录于 </span>&nbsp;<span class="post-category">类别 <a href="/categories/%E6%8A%80%E6%9C%AF/"><i class="far fa-folder fa-fw"></i>技术</a></span></div><div class="post-footer">
+        </span>&nbsp;<span class="post-publish"><time datetime="2021-09-30">2021-09-30</time></span></div><div class="content">如何在浏览器 console 控制台中播放视频？ 要实现这个目标，主要涉及到这几个点： 如何获取和解析视频流？ 如何在 console 里播放动态内容？ 如何在 console 里播放彩色内容？ 如何连接视频流和 console？ 事实上最后的代码极其简单，我们就一步一步简单讲一下 效果 测试地址：https://yu-tou.github.io/colors-web/dist/camera.html 如何获取和解析视频流？ 这里我们用电脑摄像头捕获视频流，然后获取视频流每一帧的图像数据，作为下一步的输入。 1 2 3 4 5 6 7 8 9 10 11 12 13 14 // 捕捉电脑摄像头的视频流 const mediaStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true, }); // 创建一个 video 标签 const video = document.createElement(&#34;video&#34;); document.body.appendChild(video); video.onloadedmetadata = function (e) { video.play(); // 等摄像头数据加载完成后，开始播放 }; // video 标签播放视频流 video.srcObject = mediaStream; 如何获取每一帧图像的数据？创建一个 canvas 画布，可以将 video 当前的内容绘制到画布上，然后通过 canvas 的方法即可拿到图像的像素数据。 1 2 3 4 5 6 7 8 const ctx = canvas.getContext(&#34;2d&#34;); canvas.width = width; canvas.height = height; ctx.drawImage(video, 0, 0, width, height); const imageData = ctx.getImageData(0, 0, width, height); const data = imageData.data; // imageData 的</div><div class="post-footer">
         <a href="/posts/display-video-in-console/">阅读全文</a><div class="post-tags">
                 <i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/console/">Console</a>,&nbsp;<a href="/tags/javascript/">JavaScript</a></div></div>
 </article><article class="single summary" itemscope itemtype="http://schema.org/Article"><div class="featured-image-preview">
@@ -137,10 +143,13 @@
         title="/mysql8-gis-srid/cover.jpg" height="auto" width="auto"
     /></a>
         </div><h1 class="single-title" itemprop="name headline">
-        <a href="/posts/mysql8-gis-srid/">mysql 8.0 中存储 gis 数据的正确姿势</a>
-    </h1><div class="content">请为列指定 SRID 如果你想要在使用一些 spatial function 的时候获得尽可能精确的值，请务必为您的数据库中的 geometry 列指定 SRID，如 st_area st_distance 等。否则您将获得直角坐标上的距离，而不是真实的值，另外在 mysql 老版本中，不指定 SRID（默认为 0），可以使用某些计算函数，但是在 mysql 中，某些函数必须指定 SRID，也要求被计算的列必须指定 SRID。 什么是 SRID？ SRID 指定的是 spatial 数据的坐标系，地理数据中一个最重要的指标就是坐标系，没有坐标系，就不存在经纬度，不存在投影，不存在地心，不存在真实距离，一切将会变为平面坐标，与真实地理信息天差地别。 SRID 坐标系定义了什么？ 简单来说，这里不展开，坐标系定义了，大地水准面 -&gt; 椭球体 -&gt; 大地基准面，他们分别是海平面、地球形状和球心、球心偏移等，在每个尺度和地区，这些值都在发生变化，所以会定义不同的坐标系，以尽量消除误差。 最常用的 SRID 是什么？ 在服务端，通常存储数据都是使用 4326 的 SRID，在前端，地图渲染使用 3857 坐标系（代表</div><div class="post-meta">
+        <a href="/posts/mysql8-gis-srid/">
+            <div class="title-date"><span class="year"><time datetime="2021">2021</time></span><span class="month"><time datetime="Aug">Aug</time></span></div>
+            <span class="title-content">mysql 8.0 中存储 gis 数据的正确姿势</span>
+        </a>
+    </h1><div class="post-meta">
         <span class="post-author"><i class="author fas fa-user-circle fa-fw"></i><a href="/" title="Author" rel=" author" class="author">芋头</a>
-        </span>&nbsp;<span class="post-publish">发布于 <time datetime="2021-08-01">2021-08-01</time></span>&nbsp;<span class="post-category">收录于 </span>&nbsp;<span class="post-category">类别 <a href="/categories/%E6%8A%80%E6%9C%AF/"><i class="far fa-folder fa-fw"></i>技术</a></span></div><div class="post-footer">
+        </span>&nbsp;<span class="post-publish"><time datetime="2021-08-01">2021-08-01</time></span></div><div class="content">请为列指定 SRID 如果你想要在使用一些 spatial function 的时候获得尽可能精确的值，请务必为您的数据库中的 geometry 列指定 SRID，如 st_area st_distance 等。否则您将获得直角坐标上的距离，而不是真实的值，另外在 mysql 老版本中，不指定 SRID（默认为 0），可以使用某些计算函数，但是在 mysql 中，某些函数必须指定 SRID，也要求被计算的列必须指定 SRID。 什么是 SRID？ SRID 指定的是 spatial 数据的坐标系，地理数据中一个最重要的指标就是坐标系，没有坐标系，就不存在经纬度，不存在投影，不存在地心，不存在真实距离，一切将会变为平面坐标，与真实地理信息天差地别。 SRID 坐标系定义了什么？ 简单来说，这里不展开，坐标系定义了，大地水准面 -&gt; 椭球体 -&gt; 大地基准面，他们分别是海平面、地球形状和球心、球心偏移等，在每个尺度和地区，这些值都在发生变化，所以会定义不同的坐标系，以尽量消除误差。 最常用的 SRID 是什么？ 在服务端，通常存储数据都是使用 4326 的 SRID，在前端，地图渲染使用 3857 坐标系（代表</div><div class="post-footer">
         <a href="/posts/mysql8-gis-srid/">阅读全文</a><div class="post-tags">
                 <i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/gis/">GIS</a>,&nbsp;<a href="/tags/javascript/">JavaScript</a></div></div>
 </article><article class="single summary" itemscope itemtype="http://schema.org/Article"><div class="featured-image-preview">
@@ -153,10 +162,13 @@
         title="/turf-poin-line-distance/cover.jpg" height="auto" width="auto"
     /></a>
         </div><h1 class="single-title" itemprop="name headline">
-        <a href="/posts/turf-point-line-distance/">点到任意折线组的最短距离（及 turf.js 的实现解析）</a>
-    </h1><div class="content">问题定义： 有一点 Pt，有一任意长度和形状的折线 L： [[P1,P2],[p2,p3],[p3,p4]…] 求 Pt 与折线 L 的最近距离 N 问题澄清： 注意：折线 L 上离 Pt 最近的点，必然在折线上 使用场景： 对行车轨迹进行贴路修正，轨迹点与路上最短的距离的点既是修正后的点。 问题分析： 假设我们还不知道最终答案，甚至还不知晓解题思路（已经知道的同学先不急，这个题其实的确很简单） 我们先画个图分析下可能的思路，按照题目，我们画一个比较“复杂的场景” 其实这个题简单的地方就是，当你把图画出来，基本靠人眼可以一眼判断出答案，如上图，L 中距离 Pt 最近的点很容易用肉眼找到。 事实上，要找出点到折线的最短距离，必然需要遍历整条折线，计算某条线段与点之间的距离，并取其中最小的值。 那如何判断一个点到一条线段的最小距离？这里其实是这道题目最核心的逻辑，基于刚才我们的提示，线段上距离点最近的点，必然在线段内，而不可超出线段之外，我们穷举下点和</div><div class="post-meta">
+        <a href="/posts/turf-point-line-distance/">
+            <div class="title-date"><span class="year"><time datetime="2021">2021</time></span><span class="month"><time datetime="Apr">Apr</time></span></div>
+            <span class="title-content">点到任意折线组的最短距离（及 turf.js 的实现解析）</span>
+        </a>
+    </h1><div class="post-meta">
         <span class="post-author"><i class="author fas fa-user-circle fa-fw"></i><a href="/" title="Author" rel=" author" class="author">芋头</a>
-        </span>&nbsp;<span class="post-publish">发布于 <time datetime="2021-04-01">2021-04-01</time></span>&nbsp;<span class="post-category">收录于 </span>&nbsp;<span class="post-category">类别 <a href="/categories/%E6%8A%80%E6%9C%AF/"><i class="far fa-folder fa-fw"></i>技术</a></span></div><div class="post-footer">
+        </span>&nbsp;<span class="post-publish"><time datetime="2021-04-01">2021-04-01</time></span></div><div class="content">问题定义： 有一点 Pt，有一任意长度和形状的折线 L： [[P1,P2],[p2,p3],[p3,p4]…] 求 Pt 与折线 L 的最近距离 N 问题澄清： 注意：折线 L 上离 Pt 最近的点，必然在折线上 使用场景： 对行车轨迹进行贴路修正，轨迹点与路上最短的距离的点既是修正后的点。 问题分析： 假设我们还不知道最终答案，甚至还不知晓解题思路（已经知道的同学先不急，这个题其实的确很简单） 我们先画个图分析下可能的思路，按照题目，我们画一个比较“复杂的场景” 其实这个题简单的地方就是，当你把图画出来，基本靠人眼可以一眼判断出答案，如上图，L 中距离 Pt 最近的点很容易用肉眼找到。 事实上，要找出点到折线的最短距离，必然需要遍历整条折线，计算某条线段与点之间的距离，并取其中最小的值。 那如何判断一个点到一条线段的最小距离？这里其实是这道题目最核心的逻辑，基于刚才我们的提示，线段上距离点最近的点，必然在线段内，而不可超出线段之外，我们穷举下点和</div><div class="post-footer">
         <a href="/posts/turf-point-line-distance/">阅读全文</a><div class="post-tags">
                 <i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/turf.js/">turf.js</a>,&nbsp;<a href="/tags/gis/">GIS</a>,&nbsp;<a href="/tags/javascript/">JavaScript</a></div></div>
 </article><article class="single summary" itemscope itemtype="http://schema.org/Article"><div class="featured-image-preview">
@@ -169,10 +181,13 @@
         title="/code-with-another-man/cover.jpeg" height="auto" width="auto"
     /></a>
         </div><h1 class="single-title" itemprop="name headline">
-        <a href="/posts/code-with-another-man/">一次连续结对编程三天的经历</a>
-    </h1><div class="content">最近，公司的事情越发忙碌起来了，除了需要不断梳理架构团队的规划和进度之外，还要经常北上杭三地跑，平常好不容易有个完整的周末，也都瘫软在沙发上，一动脑就脑壳痛。感觉这种状态很容易让人疲惫乏力，需要改变一下，所以临近五一假期的时候，突发奇想，想完完整整写三天自己的代码！ 如果只是自己写，就略显无聊了，而且三天之内，很难写出什么成型的东西来，虽然之前脑子里有好几个想法，但是都不是三天可以做出一个线上产品的规模（例如一个开源的功能炒鸡多的 markdown 编辑器插件；或者是一个画脑图的网站？）顶多做做 demo ，成就感还是有差距的。 于是，我就想，为什么不找真正热爱编程和创造的人一起写呢！于是在五一前两天，在朋友圈征集了一波，最后找到了一个有一定编程经验的程序员，在五一假期三天基本上每天在咖啡馆编程至少 8 小时。 现场照片，节奏还是很紧张的 事实上，我发现这种结对编程，带来的优势比我想象中还要多很多。 结对编程的优势 高效。这个自不必</div><div class="post-meta">
+        <a href="/posts/code-with-another-man/">
+            <div class="title-date"><span class="year"><time datetime="2018">2018</time></span><span class="month"><time datetime="May">May</time></span></div>
+            <span class="title-content">一次连续结对编程三天的经历</span>
+        </a>
+    </h1><div class="post-meta">
         <span class="post-author"><i class="author fas fa-user-circle fa-fw"></i><a href="/" title="Author" rel=" author" class="author">芋头</a>
-        </span>&nbsp;<span class="post-publish">发布于 <time datetime="2018-05-27">2018-05-27</time></span>&nbsp;<span class="post-category">收录于 </span>&nbsp;<span class="post-category">类别 <a href="/categories/%E6%8A%80%E6%9C%AF/"><i class="far fa-folder fa-fw"></i>技术</a>&nbsp;<a href="/categories/%E4%BA%A7%E5%93%81/"><i class="far fa-folder fa-fw"></i>产品</a></span></div><div class="post-footer">
+        </span>&nbsp;<span class="post-publish"><time datetime="2018-05-27">2018-05-27</time></span></div><div class="content">最近，公司的事情越发忙碌起来了，除了需要不断梳理架构团队的规划和进度之外，还要经常北上杭三地跑，平常好不容易有个完整的周末，也都瘫软在沙发上，一动脑就脑壳痛。感觉这种状态很容易让人疲惫乏力，需要改变一下，所以临近五一假期的时候，突发奇想，想完完整整写三天自己的代码！ 如果只是自己写，就略显无聊了，而且三天之内，很难写出什么成型的东西来，虽然之前脑子里有好几个想法，但是都不是三天可以做出一个线上产品的规模（例如一个开源的功能炒鸡多的 markdown 编辑器插件；或者是一个画脑图的网站？）顶多做做 demo ，成就感还是有差距的。 于是，我就想，为什么不找真正热爱编程和创造的人一起写呢！于是在五一前两天，在朋友圈征集了一波，最后找到了一个有一定编程经验的程序员，在五一假期三天基本上每天在咖啡馆编程至少 8 小时。 现场照片，节奏还是很紧张的 事实上，我发现这种结对编程，带来的优势比我想象中还要多很多。 结对编程的优势 高效。这个自不必</div><div class="post-footer">
         <a href="/posts/code-with-another-man/">阅读全文</a></div>
 </article><article class="single summary" itemscope itemtype="http://schema.org/Article"><div class="featured-image-preview">
             <a href="/posts/make-app-with-wife/" aria-label=帅气程序员和漂亮幼师老婆一起做了一个&#32;app><img
@@ -184,10 +199,13 @@
         title="/make-app-with-wife/v2-455f120c78a4b74fb1b960084741385b_1440w.jpg" height="auto" width="auto"
     /></a>
         </div><h1 class="single-title" itemprop="name headline">
-        <a href="/posts/make-app-with-wife/">帅气程序员和漂亮幼师老婆一起做了一个 app</a>
-    </h1><div class="content">狗粮不想多撒了，大家可以下载玩一下，如果家里有孩子，那最好不错了，听过故事的都说卓老师的声音很好听，小孩听了会上瘾。没有小孩的，可以下载一个晚上听，有助于单身狗的睡眠。 程序员业余时间做的 app，这个倒不难，主要是里面的故事，录制、剪辑、素材准备，还是很不容易的。 App store 搜索 “喵老师绘本故事” 即可下载 或者直接用 H5 听： http://www.html-js.com/music/207 做个 app 真不容易啊，又不收费，也不知道是为了啥，纯粹好玩吧，感兴趣的同学支持下哈。 知乎管理员大大说我违规了，已经把媳妇照片删除。。</div><div class="post-meta">
+        <a href="/posts/make-app-with-wife/">
+            <div class="title-date"><span class="year"><time datetime="2018">2018</time></span><span class="month"><time datetime="Mar">Mar</time></span></div>
+            <span class="title-content">帅气程序员和漂亮幼师老婆一起做了一个 app</span>
+        </a>
+    </h1><div class="post-meta">
         <span class="post-author"><i class="author fas fa-user-circle fa-fw"></i><a href="/" title="Author" rel=" author" class="author">芋头</a>
-        </span>&nbsp;<span class="post-publish">发布于 <time datetime="2018-03-18">2018-03-18</time></span>&nbsp;<span class="post-category">收录于 </span>&nbsp;<span class="post-category">类别 <a href="/categories/%E6%8A%80%E6%9C%AF/"><i class="far fa-folder fa-fw"></i>技术</a>&nbsp;<a href="/categories/%E4%BA%A7%E5%93%81/"><i class="far fa-folder fa-fw"></i>产品</a></span></div><div class="post-footer">
+        </span>&nbsp;<span class="post-publish"><time datetime="2018-03-18">2018-03-18</time></span></div><div class="content">狗粮不想多撒了，大家可以下载玩一下，如果家里有孩子，那最好不错了，听过故事的都说卓老师的声音很好听，小孩听了会上瘾。没有小孩的，可以下载一个晚上听，有助于单身狗的睡眠。 程序员业余时间做的 app，这个倒不难，主要是里面的故事，录制、剪辑、素材准备，还是很不容易的。 App store 搜索 “喵老师绘本故事” 即可下载 或者直接用 H5 听： http://www.html-js.com/music/207 做个 app 真不容易啊，又不收费，也不知道是为了啥，纯粹好玩吧，感兴趣的同学支持下哈。 知乎管理员大大说我违规了，已经把媳妇照片删除。。</div><div class="post-footer">
         <a href="/posts/make-app-with-wife/">阅读全文</a></div>
 </article><article class="single summary" itemscope itemtype="http://schema.org/Article"><div class="featured-image-preview">
             <a href="/posts/2017-year/" aria-label=2017年年度总结><img
@@ -199,10 +217,13 @@
         title="/2017-year/cover.jpeg" height="auto" width="auto"
     /></a>
         </div><h1 class="single-title" itemprop="name headline">
-        <a href="/posts/2017-year/">2017年年度总结</a>
-    </h1><div class="content">今年的年终总结特别难写，迟迟无法下笔，以至于每年养成的12月底写个人年终总结的习惯都无法维继，至于原因，大多是因为随着年龄的增长，看着之前年年写的总结，越发觉得无足轻重，然而更深层的原因，可能也不是因为自己越来越施展开来，而只是看到的越多就越发敬畏。 忆往事 去年几年，可能唯一值得一提的事情，一是遇到小我五岁的女大学生，然后在她还没有毕业的时候领证结婚，她勇敢乐观，这给我的生活观和人生观带来极大的改变，在去年一年的时间里她辞掉幼师的工作，独自学习日语研究教育学，然后健身、会友、甚至参加公益话剧演出，看似轻松，实则在这个忙碌的社会中，并不是所有人都可以在这种生活方式下自得其乐，要么为金钱所困，要么为孤独所惑，要么执念于成就，要么颓废于无所事事。在沉寂一年后，2017年12月的时候她开始筹备自己的公司，一个有愿景的小梦想，通过幼儿教育慢慢改变小世界，我很支持她也很相信她，我在她身上看到了太多自己不</div><div class="post-meta">
+        <a href="/posts/2017-year/">
+            <div class="title-date"><span class="year"><time datetime="2017">2017</time></span><span class="month"><time datetime="Dec">Dec</time></span></div>
+            <span class="title-content">2017年年度总结</span>
+        </a>
+    </h1><div class="post-meta">
         <span class="post-author"><i class="author fas fa-user-circle fa-fw"></i><a href="/" title="Author" rel=" author" class="author">芋头</a>
-        </span>&nbsp;<span class="post-publish">发布于 <time datetime="2017-12-30">2017-12-30</time></span>&nbsp;<span class="post-category">收录于 </span>&nbsp;<span class="post-category">类别 <a href="/categories/%E6%80%BB%E7%BB%93/"><i class="far fa-folder fa-fw"></i>总结</a></span></div><div class="post-footer">
+        </span>&nbsp;<span class="post-publish"><time datetime="2017-12-30">2017-12-30</time></span></div><div class="content">今年的年终总结特别难写，迟迟无法下笔，以至于每年养成的12月底写个人年终总结的习惯都无法维继，至于原因，大多是因为随着年龄的增长，看着之前年年写的总结，越发觉得无足轻重，然而更深层的原因，可能也不是因为自己越来越施展开来，而只是看到的越多就越发敬畏。 忆往事 去年几年，可能唯一值得一提的事情，一是遇到小我五岁的女大学生，然后在她还没有毕业的时候领证结婚，她勇敢乐观，这给我的生活观和人生观带来极大的改变，在去年一年的时间里她辞掉幼师的工作，独自学习日语研究教育学，然后健身、会友、甚至参加公益话剧演出，看似轻松，实则在这个忙碌的社会中，并不是所有人都可以在这种生活方式下自得其乐，要么为金钱所困，要么为孤独所惑，要么执念于成就，要么颓废于无所事事。在沉寂一年后，2017年12月的时候她开始筹备自己的公司，一个有愿景的小梦想，通过幼儿教育慢慢改变小世界，我很支持她也很相信她，我在她身上看到了太多自己不</div><div class="post-footer">
         <a href="/posts/2017-year/">阅读全文</a></div>
 </article><article class="single summary" itemscope itemtype="http://schema.org/Article"><div class="featured-image-preview">
             <a href="/posts/js-decorator-code/" aria-label=JS&#32;装饰器（Decorator）场景实战><img
@@ -214,10 +235,13 @@
         title="js-decorator-code/cover.jpeg" height="auto" width="auto"
     /></a>
         </div><h1 class="single-title" itemprop="name headline">
-        <a href="/posts/js-decorator-code/">JS 装饰器（Decorator）场景实战</a>
-    </h1><div class="content">本文不会大篇幅介绍装饰器（Decorator）的概念和基础用法，核心介绍我们团队如何将装饰器应用于实际开发，和一些高级用法的实现。 装饰器简介 Decorator 是 ES7 的一个新语法，正如其“装饰器”的叫法所表达的，他可以对一些对象进行装饰包装然后返回一个被包装过的对象，可以装饰的对象包括：类，属性，方法等。Decorator 的写法与 Java 里的注解（Annotation）非常类似，但是一定不要把 JS 中的装饰器叫做是“注解”，因为这两者的原理和实现的功能还是有所区别的，在 Java 中，注解主要是对某个对象进行标注，然后在运行时或者编译时，可以通过例如反射这样的机制拿到被标注的对象，对其进行一些逻辑包装。而 Decorator 的原理和作用则更为简单，就是包装对象，然后返回一个新的对象描述（descriptor），其作用也非常单一简单，基本上就是获取包装对象的宿主、键值几个有限的信息。 关于 Decorator 的详细介绍参见文章： zhuanlan.zhihu.com/F</div><div class="post-meta">
+        <a href="/posts/js-decorator-code/">
+            <div class="title-date"><span class="year"><time datetime="2017">2017</time></span><span class="month"><time datetime="Oct">Oct</time></span></div>
+            <span class="title-content">JS 装饰器（Decorator）场景实战</span>
+        </a>
+    </h1><div class="post-meta">
         <span class="post-author"><i class="author fas fa-user-circle fa-fw"></i><a href="/" title="Author" rel=" author" class="author">芋头</a>
-        </span>&nbsp;<span class="post-publish">发布于 <time datetime="2017-10-26">2017-10-26</time></span>&nbsp;<span class="post-category">收录于 </span>&nbsp;<span class="post-category">类别 <a href="/categories/%E6%8A%80%E6%9C%AF/"><i class="far fa-folder fa-fw"></i>技术</a></span></div><div class="post-footer">
+        </span>&nbsp;<span class="post-publish"><time datetime="2017-10-26">2017-10-26</time></span></div><div class="content">本文不会大篇幅介绍装饰器（Decorator）的概念和基础用法，核心介绍我们团队如何将装饰器应用于实际开发，和一些高级用法的实现。 装饰器简介 Decorator 是 ES7 的一个新语法，正如其“装饰器”的叫法所表达的，他可以对一些对象进行装饰包装然后返回一个被包装过的对象，可以装饰的对象包括：类，属性，方法等。Decorator 的写法与 Java 里的注解（Annotation）非常类似，但是一定不要把 JS 中的装饰器叫做是“注解”，因为这两者的原理和实现的功能还是有所区别的，在 Java 中，注解主要是对某个对象进行标注，然后在运行时或者编译时，可以通过例如反射这样的机制拿到被标注的对象，对其进行一些逻辑包装。而 Decorator 的原理和作用则更为简单，就是包装对象，然后返回一个新的对象描述（descriptor），其作用也非常单一简单，基本上就是获取包装对象的宿主、键值几个有限的信息。 关于 Decorator 的详细介绍参见文章： zhuanlan.zhihu.com/F</div><div class="post-footer">
         <a href="/posts/js-decorator-code/">阅读全文</a><div class="post-tags">
                 <i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/decorator/">Decorator</a>,&nbsp;<a href="/tags/javascript/">JavaScript</a></div></div>
 </article><article class="single summary" itemscope itemtype="http://schema.org/Article"><div class="featured-image-preview">
@@ -230,10 +254,13 @@
         title="/self-developer-1/cover.jpeg" height="auto" width="auto"
     /></a>
         </div><h1 class="single-title" itemprop="name headline">
-        <a href="/posts/self-develper-1/">开发笔记：个人开发者的困境与突破</a>
-    </h1><div class="content">本文主要与大家分享我业余时间如何学习多门技术以及开发业余项目的一些心得，分为 初衷、硬技能、软技能、第一生产力、环境、时间几个部分，阅读大概需要 10 分钟。 关于我之前做的一些业余项目，我在知乎上的一个回答大概可以总结： 小芋头君：作为程序员，你有哪些正在做的个人项目？ 业余开发项目的初衷 总体来说，在我的感觉里，国内的环境对于业余开发者来说其实是非常不友好的，不过作为一个开发者，一味抱怨并不会有大的改观，能做的就是不忘初心，多做尝试多做积累。包括我之前也和一些朋友深入聊过类似的话题，例如“在行”上约我聊相关话题的同学，我其实是鼓励大家勇敢的去做自由职业者或者业余开发者，虽然环境的确不是很友好，但是年轻时多尝试总是没错的，毕竟我们还有资本去寻找更多可能性，而且我相信每个开发者其实内心都是向往利用自己的力量改变人们的生活方式的，而我们通常做的事情却总是一个大工程中的螺丝钉，时间长了失却了创新的初衷意味，这</div><div class="post-meta">
+        <a href="/posts/self-develper-1/">
+            <div class="title-date"><span class="year"><time datetime="2017">2017</time></span><span class="month"><time datetime="Oct">Oct</time></span></div>
+            <span class="title-content">开发笔记：个人开发者的困境与突破</span>
+        </a>
+    </h1><div class="post-meta">
         <span class="post-author"><i class="author fas fa-user-circle fa-fw"></i><a href="/" title="Author" rel=" author" class="author">芋头</a>
-        </span>&nbsp;<span class="post-publish">发布于 <time datetime="2017-10-12">2017-10-12</time></span>&nbsp;<span class="post-category">收录于 </span>&nbsp;<span class="post-category">类别 <a href="/categories/%E6%8A%80%E6%9C%AF/"><i class="far fa-folder fa-fw"></i>技术</a>&nbsp;<a href="/categories/%E4%BA%A7%E5%93%81/"><i class="far fa-folder fa-fw"></i>产品</a></span></div><div class="post-footer">
+        </span>&nbsp;<span class="post-publish"><time datetime="2017-10-12">2017-10-12</time></span></div><div class="content">本文主要与大家分享我业余时间如何学习多门技术以及开发业余项目的一些心得，分为 初衷、硬技能、软技能、第一生产力、环境、时间几个部分，阅读大概需要 10 分钟。 关于我之前做的一些业余项目，我在知乎上的一个回答大概可以总结： 小芋头君：作为程序员，你有哪些正在做的个人项目？ 业余开发项目的初衷 总体来说，在我的感觉里，国内的环境对于业余开发者来说其实是非常不友好的，不过作为一个开发者，一味抱怨并不会有大的改观，能做的就是不忘初心，多做尝试多做积累。包括我之前也和一些朋友深入聊过类似的话题，例如“在行”上约我聊相关话题的同学，我其实是鼓励大家勇敢的去做自由职业者或者业余开发者，虽然环境的确不是很友好，但是年轻时多尝试总是没错的，毕竟我们还有资本去寻找更多可能性，而且我相信每个开发者其实内心都是向往利用自己的力量改变人们的生活方式的，而我们通常做的事情却总是一个大工程中的螺丝钉，时间长了失却了创新的初衷意味，这</div><div class="post-footer">
         <a href="/posts/self-develper-1/">阅读全文</a></div>
 </article><article class="single summary" itemscope itemtype="http://schema.org/Article"><div class="featured-image-preview">
             <a href="/posts/smobx/" aria-label=如何自己实现一个&#32;mobx&#32;-&#32;原理解析><img
@@ -245,10 +272,13 @@
         title="/smobx/cover.jpeg" height="auto" width="auto"
     /></a>
         </div><h1 class="single-title" itemprop="name headline">
-        <a href="/posts/smobx/">如何自己实现一个 mobx - 原理解析</a>
-    </h1><div class="content">前言 Mobx 是一个非常优雅的状态管理库，具有相当大的自由度，并且使用非常简单，本文通过自己实现一个 mini 版的 mobx （s-mobx）来探究一下类似的 FRP 模式在 js 中的实现。 本文主要讲述了如何自己实现一个 mobx，主要是其核心几个 api 的实现。目的不是要重新造一个轮子，只是通过造轮子的过程，了解 mobx 的核心原理，以及一些具体实现的时候需要趟的坑，从而对RFP之类的编程范式有更深入的了解。 所以，不要将此文中提到的项目（s-mobx）应用于实际项目中，除非你真的想节省那一点点带宽（打包后 6K，GZip后 2.3K）。 另外，s-mobx 的实现和 mobx 的实现细节可能并不一致。 关于 s-mobx github: https://github.com/xinyu198736/s-mobx npm: npm install s-mobx —save 核心组成 S-mobx 最最核心是两个功能。 Observable 。用来包装一个属性为 被观察者 Autorun 。用来包装一个方法为 观察者 整个 s-mobx 就是围绕这两个功能做包装。 依赖收集 Autorun 是个神奇的函数，被他包装过的方法，就会变为观察者函数，并且这里有一个很重要的特性，这个函数只会观察自己依</div><div class="post-meta">
+        <a href="/posts/smobx/">
+            <div class="title-date"><span class="year"><time datetime="2017">2017</time></span><span class="month"><time datetime="Apr">Apr</time></span></div>
+            <span class="title-content">如何自己实现一个 mobx - 原理解析</span>
+        </a>
+    </h1><div class="post-meta">
         <span class="post-author"><i class="author fas fa-user-circle fa-fw"></i><a href="/" title="Author" rel=" author" class="author">芋头</a>
-        </span>&nbsp;<span class="post-publish">发布于 <time datetime="2017-04-25">2017-04-25</time></span>&nbsp;<span class="post-category">收录于 </span>&nbsp;<span class="post-category">类别 <a href="/categories/%E6%8A%80%E6%9C%AF/"><i class="far fa-folder fa-fw"></i>技术</a>&nbsp;<a href="/categories/%E4%BA%A7%E5%93%81/"><i class="far fa-folder fa-fw"></i>产品</a></span></div><div class="post-footer">
+        </span>&nbsp;<span class="post-publish"><time datetime="2017-04-25">2017-04-25</time></span></div><div class="content">前言 Mobx 是一个非常优雅的状态管理库，具有相当大的自由度，并且使用非常简单，本文通过自己实现一个 mini 版的 mobx （s-mobx）来探究一下类似的 FRP 模式在 js 中的实现。 本文主要讲述了如何自己实现一个 mobx，主要是其核心几个 api 的实现。目的不是要重新造一个轮子，只是通过造轮子的过程，了解 mobx 的核心原理，以及一些具体实现的时候需要趟的坑，从而对RFP之类的编程范式有更深入的了解。 所以，不要将此文中提到的项目（s-mobx）应用于实际项目中，除非你真的想节省那一点点带宽（打包后 6K，GZip后 2.3K）。 另外，s-mobx 的实现和 mobx 的实现细节可能并不一致。 关于 s-mobx github: https://github.com/xinyu198736/s-mobx npm: npm install s-mobx —save 核心组成 S-mobx 最最核心是两个功能。 Observable 。用来包装一个属性为 被观察者 Autorun 。用来包装一个方法为 观察者 整个 s-mobx 就是围绕这两个功能做包装。 依赖收集 Autorun 是个神奇的函数，被他包装过的方法，就会变为观察者函数，并且这里有一个很重要的特性，这个函数只会观察自己依</div><div class="post-footer">
         <a href="/posts/smobx/">阅读全文</a></div>
 </article><ul class="pagination"><li class="page-item active">
                     <span class="page-link">

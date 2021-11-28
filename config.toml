@@ -38,6 +38,23 @@ summaryLength = 400
   social = true
   # disclaimer (HTML format is supported)
   disclaimer = ""
+[params.section]
+  # special amount of posts in each section page
+  # section 页面每页显示文章数量
+  paginate = 20
+  # date format (month and day)
+  # 日期格式 (月和日)
+  dateFormat = "01-02"
+  # amount of RSS pages
+  # RSS 文章数目
+  rss = 10
+  # recently updated posts settings
+  # 最近更新文章设置
+  [params.section.recentlyUpdated]
+    enable = true
+    rss = true
+    days = 30
+    maxCount = 10
 [params.social]
   [params.social.GitHub]
     # 排列图标时的权重 (权重越大, 图标的位置越靠后)
