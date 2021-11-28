@@ -1,0 +1,30 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>总结 - 分类 - 芋头乱炖，野鸡码农，复制粘贴小能手</title>
+        <link>http://example.org/categories/%E6%80%BB%E7%BB%93/</link>
+        <description>总结 - 分类 - 芋头乱炖，野鸡码农，复制粘贴小能手</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sat, 30 Dec 2017 15:14:00 &#43;0000</lastBuildDate><atom:link href="http://example.org/categories/%E6%80%BB%E7%BB%93/" rel="self" type="application/rss+xml" /><item>
+    <title>2017年年度总结</title>
+    <link>http://example.org/posts/2017-year/</link>
+    <pubDate>Sat, 30 Dec 2017 15:14:00 &#43;0000</pubDate><author>
+        <name>芋头</name>
+    </author><guid>http://example.org/posts/2017-year/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="/2017-year/cover.jpeg" referrerpolicy="no-referrer">
+            </div>今年的年终总结特别难写，迟迟无法下笔，以至于每年养成的12月底写个人年终总结的习惯都无法维继，至于原因，大多是因为随着年龄的增长，看着之前年年写的总结，越发觉得无足轻重，然而更深层的原因，可能也不是因为自己越来越施展开来，而只是看到的越多就越发敬畏。 忆往事 去年几年，可能唯一值得一提的事情，一是遇到小我五岁的女大学生，然后在她还没有毕业的时候领证结婚，她勇敢乐观，这给我的生活观和人生观带来极大的改变，在去年一年的时间里她辞掉幼师的工作，独自学习日语研究教育学，然后健身、会友、甚至参加公益话剧演出，看似轻松，实则在这个忙碌的社会中，并不是所有人都可以在这种生活方式下自得其乐，要么为金钱所困，要么为孤独所惑，要么执念于成就，要么颓废于无所事事。在沉寂一年后，2017年12月的时候她开始筹备自己的公司，一个有愿景的小梦想，通过幼儿教育慢慢改变小世界，我很支持她也很相信她，我在她身上看到了太多自己不]]></description>
+</item><item>
+    <title>2015年年度总结</title>
+    <link>http://example.org/posts/2015-year/</link>
+    <pubDate>Wed, 30 Dec 2015 15:14:00 &#43;0000</pubDate><author>
+        <name>芋头</name>
+    </author><guid>http://example.org/posts/2015-year/</guid>
+    <description><![CDATA[偶然看到去年写的 2014年度总结 ，再看一下日子，感觉是时候总结下我的2015年了。 其实今年挺惊心动魄的，很多事情发生的时候都很激动，不过到了真正的触近年底的时候，反而没什么特别的感觉了，很多事情都已经融入到了正常的生活里，成为了自身的一部分。人生其实就是这样一个过程，不断寻求一些改变和刺激，然后这些经历沉积到你的内心深处，慢慢变成你的一部分，然后再去寻求更多的改变和刺激，这样活的才感觉是永远新鲜和充满挑战的。 今年，学会更谦卑，也学会更沉静，不再爱在虚拟的社交上出风头，也淡出除了工作之外的虚拟圈子、浮躁的创业圈子、天天聊股票的QQ群。把更多的精力放在眼下的事情上，团队中，公司里，家里，周围的人，或者真实的社交中。这些在下面的总结中都会有所体现。 废话不多说，直接来流水账吧。 1. 结婚 今年做的最大的一件事情就是5月份和卓老师，在她还没有毕业的时候，就果断去民政局领了证，领证的时候我身上钱真心不多了，]]></description>
+</item><item>
+    <title>2014年年度总结</title>
+    <link>http://example.org/posts/2014-year/</link>
+    <pubDate>Tue, 30 Dec 2014 15:14:00 &#43;0000</pubDate><author>
+        <name>芋头</name>
+    </author><guid>http://example.org/posts/2014-year/</guid>
+    <description><![CDATA[看到大漠叔叔写的2014年w3cplus总结，很精彩，于是我也心血来潮想总结下我的2014，做个备忘吧。 2014年，主要做了这样几件可以说道的事情。 1. 组建了大搜车的前端团队。 去年7月份脑子一热，结束了长达一年的自由职业生涯，入职了大搜车，然后在大搜车做了三个月java，从0开始学习，最后利用java独立搭建了车辆同步，网站H5后台，微信后台等系统，通过学习java，对nodejs的开发模式的理解也深入了一层。不过写的几个系统给后来的同学留了不少坑，太对不起他们鸟。 然后今年公司走入正轨，于是放弃java，继续投回前端的环抱。从0开始组建前端团队。我们第一个前端开发是一个妹子，被我连哄带骗忽悠来公司，从此撑起一片天。后来陆陆续续招了不少人，想想这一年，还真是收获满满啊，现在我们的团队已经有6个全职前端了，业务也延伸到网站，移动端，后台系统等领域，团队开始慢慢走向正轨。 团队带给我很多惊喜，让我成]]></description>
+</item></channel>
+</rss>

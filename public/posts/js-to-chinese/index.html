@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noodp" />
+    <title class="pjax-title">如何自己实现一个 mobx - 原理解析 - 芋头乱炖，野鸡码农，复制粘贴小能手</title><meta name="Description" content=""><meta property="og:title" content="如何自己实现一个 mobx - 原理解析" />
+<meta property="og:description" content="不少人应该知道JS里可以用部分unicode字符来命名变量和方法。想想挺好玩的，不但可以用中文来编程，还可以用颜文字和emoji来编程，想想也是醉了。 不过还是不建议在真实项目中这样做，但是这并不代表不可以用嘛，不过本文纯搞笑，大家别太较真，看看就行。 今天，跟大家介绍一下我写的一个《英文代码翻译器》可以用一句命令，把你的js代码翻译成中文变量命名并且还可以运行的js代码！ 虽然这个项目只是开个玩笑，单其中涉及到的几个技术要点，还是值得一说的。本文主要分以下几节： 介绍 | 代码编译 | 翻译 | 全局变量处理 | 重复翻译结果处理 | 小结 介绍 github地址： GitHub - xinyu198736/hancode: 把你的JS代码翻译成中文书写的代码，并且可执行 使用方式： GitHub - xinyu198736/hancode: 把你的JS代码翻译成中文书写的代码，并且可执行 sudo npm install hancode -g; 定位到某个目录 hancode -s ./code.js 会在当前目录生成一个 code.汉.js code.汉.js 的代码其实就是本库的中文版，测试可以跑通，并且结果一样。 一" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://example.org/posts/js-to-chinese/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2016-03-04T21:11:00+00:00" />
+<meta property="article:modified_time" content="2016-03-04T21:11:00+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="如何自己实现一个 mobx - 原理解析"/>
+<meta name="twitter:description" content="不少人应该知道JS里可以用部分unicode字符来命名变量和方法。想想挺好玩的，不但可以用中文来编程，还可以用颜文字和emoji来编程，想想也是醉了。 不过还是不建议在真实项目中这样做，但是这并不代表不可以用嘛，不过本文纯搞笑，大家别太较真，看看就行。 今天，跟大家介绍一下我写的一个《英文代码翻译器》可以用一句命令，把你的js代码翻译成中文变量命名并且还可以运行的js代码！ 虽然这个项目只是开个玩笑，单其中涉及到的几个技术要点，还是值得一说的。本文主要分以下几节： 介绍 | 代码编译 | 翻译 | 全局变量处理 | 重复翻译结果处理 | 小结 介绍 github地址： GitHub - xinyu198736/hancode: 把你的JS代码翻译成中文书写的代码，并且可执行 使用方式： GitHub - xinyu198736/hancode: 把你的JS代码翻译成中文书写的代码，并且可执行 sudo npm install hancode -g; 定位到某个目录 hancode -s ./code.js 会在当前目录生成一个 code.汉.js code.汉.js 的代码其实就是本库的中文版，测试可以跑通，并且结果一样。 一"/>
+<meta name="application-name" content="芋头乱炖，野鸡码农，复制粘贴小能手">
+<meta name="apple-mobile-web-app-title" content="芋头乱炖，野鸡码农，复制粘贴小能手">
+
+<meta name="theme-color" content="#f8f8f8"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="canonical" href="http://example.org/posts/js-to-chinese/" /><link rel="prev" href="http://example.org/posts/2015-year/" /><link rel="next" href="http://example.org/posts/pinyin-input-develop/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/fontawesome-free/all.min.css">
+    <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/animate/animate.min.css">
+    <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "如何自己实现一个 mobx - 原理解析",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/example.org\/posts\/js-to-chinese\/"
+        },"genre": "posts","wordcount":  2333 ,
+        "url": "http:\/\/example.org\/posts\/js-to-chinese\/","datePublished": "2016-03-04T21:11:00+00:00","dateModified": "2016-03-04T21:11:00+00:00","publisher": {
+            "@type": "Organization",
+            "name": "芋头"},"author": {
+                "@type": "Person",
+                "name": "芋头"
+            },"description": ""
+    }
+    </script></head>
+
+<body header-desktop="" header-mobile=""><script type="text/javascript">
+        function setTheme(theme) {document.body.setAttribute('theme', theme);}
+        function saveTheme(theme) {window.localStorage && localStorage.setItem('theme', theme);}
+        function getMeta(metaName) {const metas = document.getElementsByTagName('meta'); for (let i = 0; i < metas.length; i++) if (metas[i].getAttribute('name') === metaName) return metas[i]; return '';}
+        if (window.localStorage && localStorage.getItem('theme')) {let theme = localStorage.getItem('theme');theme === 'light' || theme === 'dark' || theme === 'black' ? setTheme(theme) : (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? setTheme('dark') : setTheme('light')); } else { if ('' === 'light' || '' === 'dark' || '' === 'black') setTheme(''), saveTheme(''); else saveTheme('auto'), window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? setTheme('dark') : setTheme('light');}
+        let metaColors = {'light': '#f8f8f8','dark': '#252627','black': '#000000'}
+        getMeta('theme-color').content = metaColors[document.body.getAttribute('theme')];
+    </script>
+    <div id="back-to-top"></div>
+    <div id="mask"></div><div class="wrapper"><div style="display: none"><img src="/android-chrome-512x512.png" width="320" height="320"/></div>
+<header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="芋头乱炖，野鸡码农，复制粘贴小能手"><img
+        class="lazyload logo"
+        data-src="/logo.png"
+        data-srcset="/logo.png, /logo.png 1.5x, /logo.png 2x"
+        data-sizes="auto"
+        alt="/logo.png"
+        title="/logo.png"
+    /><span id="desktop-header-typeit" class="typeit"></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><a href="#" onclick="return false;" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a></div>
+        </div>
+    </div>
+</header><div style="display: none"><img src="/android-chrome-512x512.png" width="320" height="320"/></div>
+<header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="芋头乱炖，野鸡码农，复制粘贴小能手"><img
+        class="lazyload logo"
+        data-src="/logo.png"
+        data-srcset="/logo.png, /logo.png 1.5x, /logo.png 2x"
+        data-sizes="auto"
+        alt="/logo.png"
+        title="/logo.png"
+    /><span id="mobile-header-typeit" class="typeit"></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a href="#" onclick="return false;" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+            <div class="container"><script src="/qrcode.js"></script><div class="toc" id="toc-auto">
+        <h2 class="toc-title">目录</h2>
+        <div class="toc-content" id="toc-content-auto"></div>
+        <h2 class="toc-title">分享此文章</h2>
+        <div id="qrcode" style="width:200px;"></div>
+        <script type="text/javascript">
+        new QRCode(document.getElementById("qrcode"),{
+            width: 128,
+	height: 128,
+    text:window.location.href
+        } );
+        </script>
+    </div><script>document.getElementsByTagName("main")[0].setAttribute("pageStyle", "normal")</script><article class="page single"><h1 class="single-title animate__animated animate__flipInX">如何自己实现一个 mobx - 原理解析</h1><div class="post-meta">
+            <div class="post-meta-line">
+                <span class="post-author"><i class="author fas fa-user-circle fa-fw"></i><a href="/" title="Author" rel=" author" class="author">芋头</a>
+                </span>&nbsp;<span class="post-category">收录于 </span>&nbsp;<span class="post-category">类别 <a href="/categories/%E6%8A%80%E6%9C%AF/"><i class="far fa-folder fa-fw"></i>技术</a>&nbsp;<a href="/categories/%E4%BA%A7%E5%93%81/"><i class="far fa-folder fa-fw"></i>产品</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2016-03-04">2016-03-04</time>&nbsp;<i class="far fa-edit fa-fw"></i>&nbsp;<time datetime="2016-03-04">2016-03-04</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2333 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 5 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#介绍">介绍</a></li>
+    <li><a href="#代码编译">代码编译</a></li>
+    <li><a href="#翻译">翻译</a></li>
+    <li><a href="#全局变量处理">全局变量处理</a></li>
+    <li><a href="#重复翻译结果处理">重复翻译结果处理</a></li>
+    <li><a href="#结语">结语</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>不少人应该知道JS里可以用部分unicode字符来命名变量和方法。想想挺好玩的，不但可以用中文来编程，还可以用颜文字和emoji来编程，想想也是醉了。</p>
+<p>不过还是不建议在真实项目中这样做，但是这并不代表不可以用嘛，不过本文纯搞笑，大家别太较真，看看就行。</p>
+<p>今天，跟大家介绍一下我写的一个《英文代码翻译器》可以用一句命令，把你的js代码翻译成中文变量命名并且还可以运行的js代码！</p>
+<p>虽然这个项目只是开个玩笑，单其中涉及到的几个技术要点，还是值得一说的。本文主要分以下几节：</p>
+<p>介绍 | 代码编译 | 翻译 | 全局变量处理 | 重复翻译结果处理 | 小结</p>
+<h2 id="介绍">介绍</h2>
+<p>github地址： GitHub - xinyu198736/hancode: 把你的JS代码翻译成中文书写的代码，并且可执行</p>
+<p>使用方式：</p>
+<p><a href="https://github.com/xinyu198736/hancode" target="_blank" rel="noopener noreffer">GitHub - xinyu198736/hancode: 把你的JS代码翻译成中文书写的代码，并且可执行</a></p>
+<p>sudo npm install hancode -g;</p>
+<p>定位到某个目录</p>
+<p>hancode -s ./code.js</p>
+<p>会在当前目录生成一个 code.汉.js</p>
+<p>code.汉.js 的代码其实就是本库的中文版，测试可以跑通，并且结果一样。</p>
+<p>一个编译后的在线地址： <a href="http://f2e.souche.com/assets/js/souche.%E6%B1%89.js" target="_blank" rel="noopener noreffer">http://f2e.souche.com/assets/js/souche.%E6%B1%89.js</a></p>
+<p>本库主代码编译后的结果：</p>
+<p><a href="http://f2e.souche.com/assets/js/souche.%E6%B1%89.js" target="_blank" rel="noopener noreffer">http://f2e.souche.com/assets/js/souche.%E6%B1%89.js</a></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">丑化JS</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="err">“</span><span class="nx">uglify</span><span class="o">-</span><span class="nx">js</span><span class="err">”</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="mi">_</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="err">“</span><span class="nx">underscore</span><span class="err">”</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">翻译工具</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="err">“</span><span class="p">.</span><span class="o">/</span><span class="nx">translate_util</span><span class="err">”</span><span class="p">);</span>
+
+<span class="nx">Var</span> <span class="nx">翻译对象</span> <span class="o">=</span> <span class="p">{};</span>
+
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">源代码</span><span class="p">,</span> <span class="nx">回调</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">AST的代码</span> <span class="o">=</span> <span class="nx">丑化JS</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">源代码</span><span class="p">);</span>
+    <span class="nx">Var</span> <span class="nx">无功节点</span> <span class="o">=</span> <span class="p">[];</span>
+    <span class="nx">Var</span> <span class="nx">参考节点</span> <span class="o">=</span> <span class="p">[];</span>
+    <span class="nx">Var</span> <span class="nx">跨语言</span> <span class="o">=</span> <span class="p">[];</span>
+    <span class="nx">AST的代码</span><span class="p">.</span><span class="nx">walk</span><span class="p">(</span><span class="k">new</span> <span class="nx">丑化JS</span><span class="p">.</span><span class="nx">TreeWalker</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">结</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">结</span> <span class="k">instanceof</span> <span class="nx">丑化JS</span><span class="p">.</span><span class="nx">AST_SymbolVar</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">无功节点</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">结</span><span class="p">);</span>
+            <span class="nx">跨语言</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">结</span><span class="p">.</span><span class="nx">name</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}));</span>
+    <span class="nx">AST的代码</span><span class="p">.</span><span class="nx">walk</span><span class="p">(</span><span class="k">new</span> <span class="nx">丑化JS</span><span class="p">.</span><span class="nx">TreeWalker</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">结</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">结</span> <span class="k">instanceof</span> <span class="nx">丑化JS</span><span class="p">.</span><span class="nx">AST_SymbolRef</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nx">跨语言</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">结</span><span class="p">.</span><span class="nx">name</span><span class="p">)</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nx">参考节点</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">结</span><span class="p">);</span>
+                <span class="nx">跨语言</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">结</span><span class="p">.</span><span class="nx">name</span><span class="p">);</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}));</span>
+    <span class="nx">跨语言</span> <span class="o">=</span> <span class="mi">_</span><span class="p">.</span><span class="nx">uniq</span><span class="p">(</span><span class="nx">跨语言</span><span class="p">);</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="err">“</span><span class="nx">翻译中</span><span class="err">”</span><span class="p">);</span>
+    <span class="nx">翻译工具</span><span class="p">(</span><span class="nx">跨语言</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">E</span><span class="p">,</span> <span class="nx">结果</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">翻译对象</span> <span class="o">=</span> <span class="nx">结果</span><span class="p">;</span>
+        <span class="nx">使uniq对象</span><span class="p">(</span><span class="nx">翻译对象</span><span class="p">);</span>
+        <span class="nx">无功节点</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">结</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">结</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="nx">翻译对象</span><span class="p">[</span><span class="nx">结</span><span class="p">.</span><span class="nx">name</span><span class="p">]</span> <span class="o">||</span> <span class="nx">结</span><span class="p">.</span><span class="nx">name</span><span class="p">;</span>
+        <span class="p">});</span>
+        <span class="nx">参考节点</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">结</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">结</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="nx">翻译对象</span><span class="p">[</span><span class="nx">结</span><span class="p">.</span><span class="nx">name</span><span class="p">]</span> <span class="o">||</span> <span class="nx">结</span><span class="p">.</span><span class="nx">name</span><span class="p">;</span>
+        <span class="p">});</span>
+        <span class="nx">回调</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="nx">AST的代码</span><span class="p">.</span><span class="nx">print_to_string</span><span class="p">({</span>
+            <span class="nx">beautify</span><span class="o">:</span> <span class="kc">true</span>
+        <span class="p">}));</span>
+    <span class="p">});</span>
+<span class="p">};</span>
+
+<span class="kd">var</span> <span class="nx">使uniq对象</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">obj</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">Var</span> <span class="nx">扫描值</span> <span class="o">=</span> <span class="p">[];</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">我</span> <span class="k">in</span> <span class="nx">obj</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">价值</span> <span class="o">=</span> <span class="nx">obj</span><span class="p">[</span><span class="nx">我</span><span class="p">];</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">扫描值</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">价值</span><span class="p">)</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">Var</span> <span class="nx">重复计数</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+            <span class="nx">扫描值</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">v</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">if</span> <span class="p">(</span><span class="nx">v</span> <span class="o">==</span> <span class="nx">价值</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="nx">重复计数</span><span class="o">++</span><span class="p">;</span>
+                <span class="p">}</span>
+            <span class="p">});</span>
+            <span class="nx">obj</span><span class="p">[</span><span class="nx">我</span><span class="p">]</span> <span class="o">=</span> <span class="nx">价值</span> <span class="o">+</span> <span class="err">“</span><span class="mi">_</span><span class="err">”</span> <span class="o">+</span> <span class="nx">重复计数</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="nx">扫描值</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">价值</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="代码编译">代码编译</h2>
+<p>AST这个名词相信很多人都接触过，在做代码压缩的时候，都是先把js转换成AST语法树，然后操作ast语法树，最后再把ast语法树组装回代码，这样做的安全性比较高，比用单纯的正则匹配精确很多，之前我做过一个拆分代码拼接图案的库，用状态机自己写的，中间处理了很多兼容和条件，而且还不能百分百确保正确，而用AST的话其实就简单很多了。</p>
+<p>关于编译理论的知识，说起来实在太长，这里就不深入了，主要讲讲我如何利用其替换js中的变量的。</p>
+<p>现在比较流行的JS解析器主要是：( <a href="https://github.com/mishoo/UglifyJS2" target="_blank" rel="noopener noreffer">https://github.com/mishoo/UglifyJS2)[UglifyJS2]</a>%5BUglifyJS2%5D)</p>
+<p>UglifyJS2的主要功能其实是用来压缩js代码，不过他的压缩过程大概分了三步：parse,transform,generate code；平常我们可能并不需要关心这三步，一个方法就能搞定，不过稍微研究下就会发现，这三步拆分开很有意思，特别是transform这一步，我们可以替换成自己的逻辑，然后做很多改编代码行为的事情。</p>
+<p>看我们的实现代码：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">UglifyJS</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="err">“</span><span class="nx">uglify</span><span class="o">-</span><span class="nx">js</span><span class="err">”</span><span class="p">);</span>
+<span class="c1">//解析ast
+</span><span class="c1"></span><span class="kd">var</span> <span class="nx">ast_code</span> <span class="o">=</span> <span class="nx">UglifyJS</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">source_code</span><span class="p">);</span> 
+
+<span class="c1">//遍历ast，找出所有定义的变量
+</span><span class="c1">//为何分成两次，为了排除没有定义而直接使用的全局变量
+</span><span class="c1"></span><span class="nx">ast_code</span><span class="p">.</span><span class="nx">walk</span><span class="p">(</span><span class="k">new</span> <span class="nx">UglifyJS</span><span class="p">.</span><span class="nx">TreeWalker</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">node</span><span class="p">){</span>
+    <span class="c1">//如果是变量定义的节点
+</span><span class="c1"></span>    <span class="k">if</span><span class="p">(</span><span class="nx">node</span> <span class="k">instanceof</span> <span class="nx">UglifyJS</span><span class="p">.</span><span class="nx">AST_SymbolVar</span><span class="p">){</span>
+        <span class="nx">varNodes</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">node</span><span class="p">);</span>
+        <span class="nx">for_trans_words</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">node</span><span class="p">.</span><span class="nx">name</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}));</span>
+<span class="nx">ast_code</span><span class="p">.</span><span class="nx">walk</span><span class="p">(</span><span class="k">new</span> <span class="nx">UglifyJS</span><span class="p">.</span><span class="nx">TreeWalker</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">node</span><span class="p">){</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">node</span> <span class="k">instanceof</span> <span class="nx">UglifyJS</span><span class="p">.</span><span class="nx">AST_SymbolRef</span><span class="p">){</span>
+        <span class="k">if</span><span class="p">(</span><span class="nx">for_trans_words</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">node</span><span class="p">.</span><span class="nx">name</span><span class="p">)</span><span class="o">!=-</span><span class="mi">1</span><span class="p">){</span>
+            <span class="nx">refNodes</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">node</span><span class="p">);</span>
+            <span class="nx">for_trans_words</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">node</span><span class="p">.</span><span class="nx">name</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}));</span>
+<span class="err">…</span> <span class="nx">处理替换ast节点中的name</span>
+
+<span class="c1">//生成最终代码
+</span><span class="c1"></span><span class="nx">ast_code</span><span class="p">.</span><span class="nx">print_to_string</span><span class="p">({</span>
+    <span class="nx">beautify</span><span class="o">:</span><span class="kc">true</span>
+<span class="p">})</span>   
+</code></pre></td></tr></table>
+</div>
+</div><p>解析和生成代码，UglifyJS都已经帮我们做好了，我们需要做的就是利用 UglifyJS.TreeWalker 来遍历所有的AST节点，判断其类型，然后替换或者转换。</p>
+<p>我们这次的需求其实很简单，就是找到某些节点，把他们的name翻译成中文。</p>
+<p>具体的实现见github。</p>
+<h2 id="翻译">翻译</h2>
+<p>hancode使用百度翻译来翻译英文到中文。事实上百度翻译支持很多语言的互译，使用也很简单。</p>
+<p>百度翻译有专门的云服务平台，地址如下： 百度翻译开放平台</p>
+<p>前端乱炖的url seo也是用的这个api。</p>
+<p><a href="http://api.fanyi.baidu.com/api/trans/product/index" target="_blank" rel="noopener noreffer">百度翻译开放平台</a></p>
+<h2 id="全局变量处理">全局变量处理</h2>
+<p>这个库里面有一些小细节，例如有些变量是全局变量，但是AST里并没有标记出来，需要自己判断，如果判断有Ref但是没有定义的变量，即为全局变量，例如 require/console 之类的。</p>
+<p>这就是上面的代码片段中为何要遍历两次ast的原因。</p>
+<h2 id="重复翻译结果处理">重复翻译结果处理</h2>
+<p>这也是一个细节，如果两个变量的意思很接近，可能会被翻译成同一个结果，如果直接使用会造成代码错乱。</p>
+<p>其实一个简单的方法就可以处理：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="cm">/**
+</span><span class="cm"> * 把一个object里的value都变成唯一的，如果不是唯一的，给他加_1，如果出现两次则_2
+</span><span class="cm"> * @param obj
+</span><span class="cm"> */</span>
+<span class="kd">var</span> <span class="nx">makeUniqObject</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">obj</span><span class="p">){</span>
+    <span class="kd">var</span> <span class="nx">scaned_values</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">I</span> <span class="k">in</span> <span class="nx">obj</span><span class="p">){</span>
+        <span class="kd">var</span> <span class="nx">value</span> <span class="o">=</span> <span class="nx">obj</span><span class="p">[</span><span class="nx">I</span><span class="p">];</span>
+        <span class="k">if</span><span class="p">(</span><span class="nx">scaned_values</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">value</span><span class="p">)</span><span class="o">!=-</span><span class="mi">1</span><span class="p">){</span>
+            <span class="kd">var</span> <span class="nx">repeat_count</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+            <span class="nx">scaned_values</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">v</span><span class="p">){</span>
+                <span class="k">if</span><span class="p">(</span><span class="nx">v</span><span class="o">==</span><span class="nx">value</span><span class="p">){</span>
+                    <span class="nx">repeat_count</span><span class="o">++</span><span class="p">;</span>
+                <span class="p">}</span>
+            <span class="p">})</span>
+            <span class="nx">obj</span><span class="p">[</span><span class="nx">I</span><span class="p">]</span> <span class="o">=</span> <span class="nx">value</span><span class="o">+</span><span class="err">”</span><span class="mi">_</span><span class="err">”</span><span class="o">+</span><span class="nx">repeat_count</span>
+        <span class="p">}</span>
+        <span class="nx">scaned_values</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">value</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="结语">结语</h2>
+<p>这个项目其实没什么高深的，但是的确挺好玩，可以拿去唬人。</p>
+</div>
+
+        <div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2016-03-04</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="#" onclick="return false;" title="分享到 微博" data-sharer="weibo" data-url="http://example.org/posts/js-to-chinese/" data-title="如何自己实现一个 mobx - 原理解析"><i class="fab fa-weibo fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/2015-year/" class="prev" rel="prev" title="2015年年度总结"><i class="fas fa-angle-left fa-fw"></i>2015年年度总结</a>
+            <a href="/posts/pinyin-input-develop/" class="next" rel="next" title="手把手教你写一个全功能全拼输入法">手把手教你写一个全功能全拼输入法<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="disqus_thread" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://disqus.com/?ref_noscript">Disqus</a>.
+            </noscript></div></article></div>
+        </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank" rel="noopener noreferrer"></a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+                    <span class="icp"><a href='https://beian.miit.gov.cn/'>浙ICP备12047043号-10</a></span></div>
+        </div></footer><script src="//res.wx.qq.com/open/js/jweixin-1.6.0.js" ></script>
+<script>
+    wx.config({
+        appId: 'wx79db0b4a70c6ae63', 
+        timestamp: new Date().getTime(), 
+        nonceStr: 'ddd', 
+        signature: 'fdsfsdf',
+        jsApiList: ['updateAppMessageShareData','updateTimelineShareData'] 
+        });
+        wx.ready(function () {   
+  wx.updateAppMessageShareData({ 
+    title: document.title, 
+    desc: 'JavaScript,Nodejs,GIS,Arduino,数据可视化,数码发烧友,HiFi玩家', 
+    link: window.location.href, 
+    imgUrl: 'http://yootou.com/logo.png', 
+    success: function () {
+      
+    }
+  })
+  wx.updateTimelineShareData({ 
+    title: document.title, 
+    link: window.location.href, 
+    imgUrl: 'http://yootou.com/logo.png', 
+    success: function () {
+      
+    }
+  })
+}); 
+
+
+</script>
+</div>
+
+    <div id="fixed-buttons"><a href="#back-to-top" id="back-to-top-button" class="fixed-button" title="回到顶部">
+            <i class="fas fa-arrow-up fa-fw"></i>
+        </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+            <i class="fas fa-comment fa-fw"></i>
+        </a>
+    </div><div class="assets"><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/topbar/topbar.min.js"></script><script type="text/javascript" src="/lib/pjax/pjax.min.js"></script><script type="text/javascript" src="/js/theme.min.js"></script></div>
+
+<div class="pjax-assets"><script type="text/javascript" src="https://yu-tou-luan-tun.disqus.com/embed.js" defer></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/typeit/typeit.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":100},"comment":{},"data":{"desktop-header-typeit":"芋头乱炖","mobile-header-typeit":"芋头乱炖"},"sharerjs":true,"typeit":{"cursorChar":null,"cursorSpeed":null,"data":{"desktop-header-typeit":["desktop-header-typeit"],"mobile-header-typeit":["mobile-header-typeit"]},"duration":null,"speed":null}};</script></div>
+</body>
+
+</html>

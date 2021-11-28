@@ -31,5 +31,12 @@
         <name>作者</name>
     </author><guid>http://example.org/tags/turf.js/</guid>
     <description><![CDATA[]]></description>
+</item><item>
+    <title>Decorator</title>
+    <link>http://example.org/tags/decorator/</link>
+    <pubDate>Thu, 26 Oct 2017 22:36:00 &#43;0000</pubDate><author>
+        <name>作者</name>
+    </author><guid>http://example.org/tags/decorator/</guid>
+    <description><![CDATA[]]></description>
 </item></channel>
 </rss>
