@@ -1,0 +1,25 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>分享 - 分类 - 芋头乱炖，野鸡码农，复制粘贴小能手</title>
+        <link>http://example.org/categories/%E5%88%86%E4%BA%AB/</link>
+        <description>分享 - 分类 - 芋头乱炖，野鸡码农，复制粘贴小能手</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Thu, 15 Jul 2021 15:14:00 &#43;0000</lastBuildDate><atom:link href="http://example.org/categories/%E5%88%86%E4%BA%AB/" rel="self" type="application/rss+xml" /><item>
+    <title>分享：地理可视化，不止于炫酷</title>
+    <link>http://example.org/posts/dilikeshihua/</link>
+    <pubDate>Thu, 15 Jul 2021 15:14:00 &#43;0000</pubDate><author>
+        <name>芋头</name>
+    </author><guid>http://example.org/posts/dilikeshihua/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="/%e5%9c%b0%e7%90%86%e5%8f%af%e8%a7%86%e5%8c%96,%e4%b8%8d%e6%ad%a2%e4%ba%8e%e7%82%ab%e9%85%b7/cover.jpeg" referrerpolicy="no-referrer">
+            </div>本博文内容来自于七月份的一个分享，主要内容是介绍地理可视化中的坐标参考系相关的概念。]]></description>
+</item><item>
+    <title>分享：晋升参考和自查手册</title>
+    <link>http://example.org/posts/jinsheng-shouce/</link>
+    <pubDate>Wed, 05 May 2021 15:14:00 &#43;0000</pubDate><author>
+        <name>芋头</name>
+    </author><guid>http://example.org/posts/jinsheng-shouce/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="/jinsheng/%e6%99%8b%e5%8d%87%e5%8f%82%e8%80%83%e5%92%8c%e8%87%aa%e6%9f%a5%e6%89%8b%e5%86%8c.001.jpeg" referrerpolicy="no-referrer">
+            </div>本博文内容来自于五月份的一个分享，暂时先把 ppt 内容贴上，如果有空，补充一些分享内容。]]></description>
+</item></channel>
+</rss>

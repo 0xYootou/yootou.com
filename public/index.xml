@@ -33,6 +33,24 @@
                 <img src="/mysql8-gis-srid/cover.jpg" referrerpolicy="no-referrer">
             </div>请为列指定 SRID 如果你想要在使用一些 spatial function 的时候获得尽可能精确的值，请务必为您的数据库中的 geometry 列指定 SRID，如 st_area st_distance 等。否则您将获得直角坐标上的距离，而不是真实的值，另外在 mysql 老版本中，不指定 SRID（默认为 0），可以使用某些计算函数，但是在 mysql 中，某些函数必须指定 SRID，也要求被计算的列必须指定 SRID。 什么是 SRID？ SRID 指定的是 spatial 数据的坐标系，地理数据中一个最重要的指标就是坐标系，没有坐标系，就不存在经纬度，不存在投影，不存在地心，不存在真实距离，一切将会变为平面坐标，与真实地理信息天差地别。 SRID 坐标系定义了什么？ 简单来说，这里不展开，坐标系定义了，大地水准面 -&gt; 椭球体 -&gt; 大地基准面，他们分别是海平面、地球形状和球心、球心偏移等，在每个尺度和地区，这些值都在发生变化，所以会定义不同的坐标系，以尽量消除误差。 最常用的 SRID 是什么？ 在服务端，通常存储数据都是使用 4326 的 SRID，在前端，地图渲染使用 3857 坐标系（代表]]></description>
 </item><item>
+    <title>分享：地理可视化，不止于炫酷</title>
+    <link>http://example.org/posts/dilikeshihua/</link>
+    <pubDate>Thu, 15 Jul 2021 15:14:00 &#43;0000</pubDate><author>
+        <name>芋头</name>
+    </author><guid>http://example.org/posts/dilikeshihua/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="/%e5%9c%b0%e7%90%86%e5%8f%af%e8%a7%86%e5%8c%96,%e4%b8%8d%e6%ad%a2%e4%ba%8e%e7%82%ab%e9%85%b7/cover.jpeg" referrerpolicy="no-referrer">
+            </div>本博文内容来自于七月份的一个分享，主要内容是介绍地理可视化中的坐标参考系相关的概念。]]></description>
+</item><item>
+    <title>分享：晋升参考和自查手册</title>
+    <link>http://example.org/posts/jinsheng-shouce/</link>
+    <pubDate>Wed, 05 May 2021 15:14:00 &#43;0000</pubDate><author>
+        <name>芋头</name>
+    </author><guid>http://example.org/posts/jinsheng-shouce/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="/jinsheng/%e6%99%8b%e5%8d%87%e5%8f%82%e8%80%83%e5%92%8c%e8%87%aa%e6%9f%a5%e6%89%8b%e5%86%8c.001.jpeg" referrerpolicy="no-referrer">
+            </div>本博文内容来自于五月份的一个分享，暂时先把 ppt 内容贴上，如果有空，补充一些分享内容。]]></description>
+</item><item>
     <title>点到任意折线组的最短距离（及 turf.js 的实现解析）</title>
     <link>http://example.org/posts/turf-point-line-distance/</link>
     <pubDate>Thu, 01 Apr 2021 23:44:00 &#43;0000</pubDate><author>
@@ -77,23 +95,5 @@
     <description><![CDATA[<div class="featured-image">
                 <img src="/js-decorator-code/cover.jpeg" referrerpolicy="no-referrer">
             </div>本文不会大篇幅介绍装饰器（Decorator）的概念和基础用法，核心介绍我们团队如何将装饰器应用于实际开发，和一些高级用法的实现。 装饰器简介 Decorator 是 ES7 的一个新语法，正如其“装饰器”的叫法所表达的，他可以对一些对象进行装饰包装然后返回一个被包装过的对象，可以装饰的对象包括：类，属性，方法等。Decorator 的写法与 Java 里的注解（Annotation）非常类似，但是一定不要把 JS 中的装饰器叫做是“注解”，因为这两者的原理和实现的功能还是有所区别的，在 Java 中，注解主要是对某个对象进行标注，然后在运行时或者编译时，可以通过例如反射这样的机制拿到被标注的对象，对其进行一些逻辑包装。而 Decorator 的原理和作用则更为简单，就是包装对象，然后返回一个新的对象描述（descriptor），其作用也非常单一简单，基本上就是获取包装对象的宿主、键值几个有限的信息。 关于 Decorator 的详细介绍参见文章： zhuanlan.zhihu.com/F]]></description>
-</item><item>
-    <title>开发笔记：个人开发者的困境与突破</title>
-    <link>http://example.org/posts/self-develper-1/</link>
-    <pubDate>Thu, 12 Oct 2017 23:20:00 &#43;0000</pubDate><author>
-        <name>芋头</name>
-    </author><guid>http://example.org/posts/self-develper-1/</guid>
-    <description><![CDATA[<div class="featured-image">
-                <img src="/self-developer-1/cover.jpeg" referrerpolicy="no-referrer">
-            </div>本文主要与大家分享我业余时间如何学习多门技术以及开发业余项目的一些心得，分为 初衷、硬技能、软技能、第一生产力、环境、时间几个部分，阅读大概需要 10 分钟。 关于我之前做的一些业余项目，我在知乎上的一个回答大概可以总结： 小芋头君：作为程序员，你有哪些正在做的个人项目？ 业余开发项目的初衷 总体来说，在我的感觉里，国内的环境对于业余开发者来说其实是非常不友好的，不过作为一个开发者，一味抱怨并不会有大的改观，能做的就是不忘初心，多做尝试多做积累。包括我之前也和一些朋友深入聊过类似的话题，例如“在行”上约我聊相关话题的同学，我其实是鼓励大家勇敢的去做自由职业者或者业余开发者，虽然环境的确不是很友好，但是年轻时多尝试总是没错的，毕竟我们还有资本去寻找更多可能性，而且我相信每个开发者其实内心都是向往利用自己的力量改变人们的生活方式的，而我们通常做的事情却总是一个大工程中的螺丝钉，时间长了失却了创新的初衷意味，这]]></description>
-</item><item>
-    <title>如何自己实现一个 mobx - 原理解析</title>
-    <link>http://example.org/posts/smobx/</link>
-    <pubDate>Tue, 25 Apr 2017 14:04:00 &#43;0000</pubDate><author>
-        <name>芋头</name>
-    </author><guid>http://example.org/posts/smobx/</guid>
-    <description><![CDATA[<div class="featured-image">
-                <img src="/smobx/cover.jpeg" referrerpolicy="no-referrer">
-            </div>前言 Mobx 是一个非常优雅的状态管理库，具有相当大的自由度，并且使用非常简单，本文通过自己实现一个 mini 版的 mobx （s-mobx）来探究一下类似的 FRP 模式在 js 中的实现。 本文主要讲述了如何自己实现一个 mobx，主要是其核心几个 api 的实现。目的不是要重新造一个轮子，只是通过造轮子的过程，了解 mobx 的核心原理，以及一些具体实现的时候需要趟的坑，从而对RFP之类的编程范式有更深入的了解。 所以，不要将此文中提到的项目（s-mobx）应用于实际项目中，除非你真的想节省那一点点带宽（打包后 6K，GZip后 2.3K）。 另外，s-mobx 的实现和 mobx 的实现细节可能并不一致。 关于 s-mobx github: https://github.com/xinyu198736/s-mobx npm: npm install s-mobx —save 核心组成 S-mobx 最最核心是两个功能。 Observable 。用来包装一个属性为 被观察者 Autorun 。用来包装一个方法为 观察者 整个 s-mobx 就是围绕这两个功能做包装。 依赖收集 Autorun 是个神奇的函数，被他包装过的方法，就会变为观察者函数，并且这里有一个很重要的特性，这个函数只会观察自己依]]></description>
 </item></channel>
 </rss>
