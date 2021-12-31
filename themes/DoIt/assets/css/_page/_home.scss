@@ -78,13 +78,21 @@
   .home-avatar img {
     width: 6rem;
   }
-
+  .summarys {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
   .summary {
-    padding-top: 1rem;
-    padding-bottom: 0.8rem;
+    margin-bottom: 2rem;
+    padding-bottom:0rem;
+    width: 49%;
     color: $global-font-color;
-    border-bottom: 3px dashed $global-border-color;
-
+    border: 1px solid #f0f8ff;
+    border-radius: 12px;
+    position: relative;
+    background: #fff;
     [theme="dark"] & {
       color: $global-font-color-dark;
       border-bottom: 3px dashed $global-border-color-dark;
@@ -93,13 +101,41 @@
       color: $global-font-color-black;
       border-bottom: 3px dashed $global-border-color-black;
     }
-
+    
+    @media (max-width: 768px){
+      &{
+        width: 100%;
+      }
+    }
+    transition: all .25s cubic-bezier(.02,.01,.47,1);
+    &::before{
+      content: "";
+      position: absolute;
+      top: 0px;
+      right: 10px;
+      bottom: 0;
+      left: 10px;
+      z-index: -1;
+      border-radius: 10px;
+      box-shadow: rgba(0, 0, 0, 0.08) 0px 10px 10px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px;
+      transition: all .25s cubic-bezier(.02,.01,.47,1);
+    }
+   
+    &:hover{
+      // transform: translateY(-0.3rem);
+    }
+     &:hover::before{
+      z-index: -1;
+      box-shadow: rgba(0, 0, 0, 0.2) 0px 10px 10px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px;
+    }
+   
     .featured-image-preview {
       width: 100%;
-      padding: 30% 0 0;
+      padding: 35% 0 0;
       position: relative;
-      margin: 0.6rem auto;
-      border-radius: 8px;
+      margin: 0rem auto;
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
       overflow: hidden;
       @include transition(transform 0.4s ease);
 
@@ -116,51 +152,52 @@
         @include object-fit(cover);
       }
 
-      &:hover {
-        @include transform(scale(1.01));
-      }
     }
-    .title-date{
-      background-color: #9FA476;
+    .meta{
+      background: #fff;
+      padding:1rem;
+    }
+    .title-date {
+      background-color: #9fa476;
       display: inline-block;
       padding: 0.2rem;
-      margin-left:-6px;
-      color:#fff;
+      margin-left: -8px;
+      color: #fff;
       border-radius: 5px;
       font-family: kefa;
-      transform: scale(0.7);
-      vertical-align: -3px;
-      .year{
+      transform: scale(0.55);
+      vertical-align: -6px;
+      .year {
         font-size: 0.8rem;
         display: block;
         text-align: center;
         line-height: 1rem;
       }
-      .month{
+      .month {
         font-size: 0.8rem;
         display: block;
-         text-align: center;
+        text-align: center;
         line-height: 1rem;
         text-transform: uppercase;
       }
     }
     .single-title {
-      font-size: 1.6rem;
+      font-size: 1.3rem;
       line-height: 140%;
-      margin: 1rem 0 0.5rem 0;
+      margin: 0rem 0rem 0.5rem 0rem;
       font-weight: 350;
-      font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-      .title-content{
-        margin-left:-7px;
+      // font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+      .title-content {
+        margin-left: -7px;
       }
     }
-    .post-meta{
-      margin-top:0rem;
+    .post-meta {
+      margin-top: 0rem;
+      margin: 0rem 0rem 0.5rem 0rem;
     }
     .content {
       @include box(vertical);
       -webkit-line-clamp: 3;
-      width: 100%;
       overflow: hidden;
       text-overflow: ellipsis;
       @include overflow-wrap(break-word);
@@ -169,7 +206,6 @@
       // color: var(--card-text-color-secondary);
       margin: 7px 0;
       line-height: 1.5;
-
       [theme="dark"] & {
         color: $global-font-secondary-color-dark;
       }
@@ -229,30 +265,30 @@
     }
   }
 
-  .summary:nth-child(4n){
-    .title-date{
-      background-color: #169D98;
+  .summary:nth-child(4n) {
+    .title-date {
+      background-color: #169d98;
     }
   }
-  .summary:nth-child(4n+1){
-    .title-date{
-      background-color: #D192F8;
+  .summary:nth-child(4n + 1) {
+    .title-date {
+      background-color: #d192f8;
     }
   }
-  .summary:nth-child(4n+2){
-    .title-date{
-      background-color: #6BCDB8;
+  .summary:nth-child(4n + 2) {
+    .title-date {
+      background-color: #6bcdb8;
     }
   }
 
-  .summary:nth-child(4n+3){
-    .title-date{
-      background-color: #FF2955;
+  .summary:nth-child(4n + 3) {
+    .title-date {
+      background-color: #ff2955;
     }
   }
-  .summary:nth-child(4n+4){
-    .title-date{
-      background-color: #F2C054;
+  .summary:nth-child(4n + 4) {
+    .title-date {
+      background-color: #f2c054;
     }
   }
 }
