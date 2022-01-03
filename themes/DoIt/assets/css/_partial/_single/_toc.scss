@@ -1,7 +1,9 @@
 .toc {
+  border-radius: 5px;
+  overflow: hidden;
   .toc-title {
     font-size: $toc-title-font-size;
-    font-weight: bold;
+    font-weight: normal;
     text-transform: uppercase;
   }
 
@@ -125,7 +127,7 @@
 
 #toc-static {
   display: none;
-  margin: 0.8rem 0;
+  margin: 1rem 0;
 
   &[kept="true"] {
     display: block;

@@ -1,9 +1,18 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
-        <title>总结 - 分类 - 芋头乱炖，野鸡码农，复制粘贴小能手</title>
+        <title>总结 - 分类 - 芋头乱炖，大龄码农的自留地</title>
         <link>http://example.org/categories/%E6%80%BB%E7%BB%93/</link>
-        <description>总结 - 分类 - 芋头乱炖，野鸡码农，复制粘贴小能手</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sat, 30 Dec 2017 15:14:00 &#43;0000</lastBuildDate><atom:link href="http://example.org/categories/%E6%80%BB%E7%BB%93/" rel="self" type="application/rss+xml" /><item>
+        <description>总结 - 分类 - 芋头乱炖，大龄码农的自留地</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Fri, 31 Dec 2021 23:59:59 &#43;0000</lastBuildDate><atom:link href="http://example.org/categories/%E6%80%BB%E7%BB%93/" rel="self" type="application/rss+xml" /><item>
+    <title>GOODBYE 2021, HELLO 2022</title>
+    <link>http://example.org/posts/2021-year-report/</link>
+    <pubDate>Fri, 31 Dec 2021 23:59:59 &#43;0000</pubDate><author>
+        <name>芋头</name>
+    </author><guid>http://example.org/posts/2021-year-report/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="/2021-year/cover.png" referrerpolicy="no-referrer">
+            </div>多年没写年终总结了，原因很多，我感觉比较重要的原因是因为随着年纪的增长，在生活或者工作上，都很难有新鲜的从 0 到 1 的事情总结和汇报，而 2021 年突然想写的原因，也是如此，因为有一些新鲜的事情想要总结和汇报。 2009 年年中的时候进入了前端的行业，至今已经 12 年了，不短，也不长，路依然很远，我依然很嫩，劲头依然很足，要学习的东西依然很多，而随着时间的推移，我觉得最重要的是事情想的越来越清楚，我和技术的关系，我和工作的关系，我和家庭的关系，我和世界的关系，而随着这些事情想的越来越清楚，我觉得最重要的影响是，依然对技术、工作、家庭、世界充满了热情和好奇，不犹豫，不彷徨，不违心。 换工作 2020 年年底的时候，我从大搜车离职了，离职的前一个月，我还跟同事喝酒的时候吹牛，我说我不会离职，而且我可能是在大搜车坚守到最后的人，说出这句话的本意是我对大搜车真的充满了热爱，对公司本身，对自己的团队，对我共事过的很多人，我付出了太多感情]]></description>
+</item><item>
     <title>2017年年度总结</title>
     <link>http://example.org/posts/2017-year/</link>
     <pubDate>Sat, 30 Dec 2017 15:14:00 &#43;0000</pubDate><author>

@@ -1,9 +1,9 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
-        <title>芋头乱炖，野鸡码农，复制粘贴小能手</title>
+        <title>芋头乱炖，大龄码农的自留地</title>
         <link>http://example.org/</link>
-        <description>芋头乱炖，野鸡码农，复制粘贴小能手</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sat, 27 Nov 2021 22:07:07 &#43;0800</lastBuildDate>
+        <description>芋头乱炖，大龄码农的自留地</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Fri, 31 Dec 2021 23:59:59 &#43;0000</lastBuildDate>
             <atom:link href="http://example.org/index.xml" rel="self" type="application/rss+xml" />
         <item>
     <title>ABOUT ME 关于我</title>
@@ -12,8 +12,26 @@
         <name>芋头</name>
     </author><guid>http://example.org/posts/about-me/</guid>
     <description><![CDATA[<div class="featured-image">
-                <img src="/aboutme/cover.png" referrerpolicy="no-referrer">
+                <img src="/aboutme/cover2.jpeg" referrerpolicy="no-referrer">
             </div>]]></description>
+</item><item>
+    <title>GOODBYE 2021, HELLO 2022</title>
+    <link>http://example.org/posts/2021-year-report/</link>
+    <pubDate>Fri, 31 Dec 2021 23:59:59 &#43;0000</pubDate><author>
+        <name>芋头</name>
+    </author><guid>http://example.org/posts/2021-year-report/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="/2021-year/cover.png" referrerpolicy="no-referrer">
+            </div>多年没写年终总结了，原因很多，我感觉比较重要的原因是因为随着年纪的增长，在生活或者工作上，都很难有新鲜的从 0 到 1 的事情总结和汇报，而 2021 年突然想写的原因，也是如此，因为有一些新鲜的事情想要总结和汇报。 2009 年年中的时候进入了前端的行业，至今已经 12 年了，不短，也不长，路依然很远，我依然很嫩，劲头依然很足，要学习的东西依然很多，而随着时间的推移，我觉得最重要的是事情想的越来越清楚，我和技术的关系，我和工作的关系，我和家庭的关系，我和世界的关系，而随着这些事情想的越来越清楚，我觉得最重要的影响是，依然对技术、工作、家庭、世界充满了热情和好奇，不犹豫，不彷徨，不违心。 换工作 2020 年年底的时候，我从大搜车离职了，离职的前一个月，我还跟同事喝酒的时候吹牛，我说我不会离职，而且我可能是在大搜车坚守到最后的人，说出这句话的本意是我对大搜车真的充满了热爱，对公司本身，对自己的团队，对我共事过的很多人，我付出了太多感情]]></description>
+</item><item>
+    <title>Prisma &#43; NestJs &#43; GraphQL 表现层应用开发</title>
+    <link>http://example.org/posts/prisma-nestjs-graphql/</link>
+    <pubDate>Mon, 20 Dec 2021 23:59:59 &#43;0000</pubDate><author>
+        <name>芋头</name>
+    </author><guid>http://example.org/posts/prisma-nestjs-graphql/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="/Nodejs/cover.jpg" referrerpolicy="no-referrer">
+            </div>介绍 本文 github 项目地址：https://github.com/yu-tou/nestjs-prisma-example 这是一个 prisma + nestjs + graphql 的集成示例 对于开发者来说，特别是使用 graphql 的时候，只需要写非常少量的代码即可完成数据的各种操作，同时也支持接口透传。 开发&amp;部署 本地开发 npm run start:dev swagger 地址：http://localhost:3001/swagger graphql playground：http://localhost:3001/index.html 核心能力 1. prisma 集成 prisma 接管数据模型定义 prisma 提供 orm 数据操作 prisma 提供数据订正和管理 2. graphql 集成 prisma-nestjs-graphql 提供 prisma 数据模型到 graphql 类型的转换 使用 nestjs 内置的代码优先模式，使用生成的类型提供 graphql 模型 使用 graphql 模型 + orm，自动通过 resolver 提供给前端访问接口 此方案中，普通和高级的增删改查基本不需要自己增加代码 3. restful api proxy 通过 swagger-to-graphql 将 openapi 接口通过 oas 文档直接转换为 graphql 定义 通过 graphqlHTTP 将请求代理到 restful 接口 此方案中，swagger 的描述无缝转换到]]></description>
 </item><item>
     <title>如何在浏览器 console 控制台中播放视频？</title>
     <link>http://example.org/posts/display-video-in-console/</link>
@@ -24,7 +42,7 @@
                 <img src="/display-video-in-console/cover.jpeg" referrerpolicy="no-referrer">
             </div>如何在浏览器 console 控制台中播放视频？ 要实现这个目标，主要涉及到这几个点： 如何获取和解析视频流？ 如何在 console 里播放动态内容？ 如何在 console 里播放彩色内容？ 如何连接视频流和 console？ 事实上最后的代码极其简单，我们就一步一步简单讲一下 效果 测试地址：https://yu-tou.github.io/colors-web/dist/camera.html 如何获取和解析视频流？ 这里我们用电脑摄像头捕获视频流，然后获取视频流每一帧的图像数据，作为下一步的输入。 1 2 3 4 5 6 7 8 9 10 11 12 13 14 // 捕捉电脑摄像头的视频流 const mediaStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true, }); // 创建一个 video 标签 const video = document.createElement(&#34;video&#34;); document.body.appendChild(video); video.onloadedmetadata = function (e) { video.play(); // 等摄像头数据加载完成后，开始播放 }; // video 标签播放视频流 video.srcObject = mediaStream; 如何获取每一帧图像的数据？创建一个 canvas 画布，可以将 video 当前的内容绘制到画布上，然后通过 canvas 的方法即可拿到图像的像素数据。 1 2 3 4 5 6 7 8 const ctx = canvas.getContext(&#34;2d&#34;); canvas.width = width; canvas.height = height; ctx.drawImage(video, 0, 0, width, height); const imageData = ctx.getImageData(0, 0, width, height); const data = imageData.data; // imageData 的]]></description>
 </item><item>
-    <title>mysql 8.0 中存储 gis 数据的正确姿势</title>
+    <title>Mysql 8.0 中存储 gis 数据的正确姿势</title>
     <link>http://example.org/posts/mysql8-gis-srid/</link>
     <pubDate>Sun, 01 Aug 2021 23:17:00 &#43;0000</pubDate><author>
         <name>芋头</name>
@@ -77,23 +95,5 @@
     <description><![CDATA[<div class="featured-image">
                 <img src="/make-app-with-wife/v2-455f120c78a4b74fb1b960084741385b_1440w.jpg" referrerpolicy="no-referrer">
             </div>狗粮不想多撒了，大家可以下载玩一下，如果家里有孩子，那最好不错了，听过故事的都说卓老师的声音很好听，小孩听了会上瘾。没有小孩的，可以下载一个晚上听，有助于单身狗的睡眠。 程序员业余时间做的 app，这个倒不难，主要是里面的故事，录制、剪辑、素材准备，还是很不容易的。 App store 搜索 “喵老师绘本故事” 即可下载 或者直接用 H5 听： http://www.html-js.com/music/207 做个 app 真不容易啊，又不收费，也不知道是为了啥，纯粹好玩吧，感兴趣的同学支持下哈。 知乎管理员大大说我违规了，已经把媳妇照片删除。。]]></description>
-</item><item>
-    <title>2017年年度总结</title>
-    <link>http://example.org/posts/2017-year/</link>
-    <pubDate>Sat, 30 Dec 2017 15:14:00 &#43;0000</pubDate><author>
-        <name>芋头</name>
-    </author><guid>http://example.org/posts/2017-year/</guid>
-    <description><![CDATA[<div class="featured-image">
-                <img src="/2017-year/cover.jpeg" referrerpolicy="no-referrer">
-            </div>今年的年终总结特别难写，迟迟无法下笔，以至于每年养成的12月底写个人年终总结的习惯都无法维继，至于原因，大多是因为随着年龄的增长，看着之前年年写的总结，越发觉得无足轻重，然而更深层的原因，可能也不是因为自己越来越施展开来，而只是看到的越多就越发敬畏。 忆往事 去年几年，可能唯一值得一提的事情，一是遇到小我五岁的女大学生，然后在她还没有毕业的时候领证结婚，她勇敢乐观，这给我的生活观和人生观带来极大的改变，在去年一年的时间里她辞掉幼师的工作，独自学习日语研究教育学，然后健身、会友、甚至参加公益话剧演出，看似轻松，实则在这个忙碌的社会中，并不是所有人都可以在这种生活方式下自得其乐，要么为金钱所困，要么为孤独所惑，要么执念于成就，要么颓废于无所事事。在沉寂一年后，2017年12月的时候她开始筹备自己的公司，一个有愿景的小梦想，通过幼儿教育慢慢改变小世界，我很支持她也很相信她，我在她身上看到了太多自己不]]></description>
-</item><item>
-    <title>JS 装饰器（Decorator）场景实战</title>
-    <link>http://example.org/posts/js-decorator-code/</link>
-    <pubDate>Thu, 26 Oct 2017 22:36:00 &#43;0000</pubDate><author>
-        <name>芋头</name>
-    </author><guid>http://example.org/posts/js-decorator-code/</guid>
-    <description><![CDATA[<div class="featured-image">
-                <img src="/js-decorator-code/cover.jpeg" referrerpolicy="no-referrer">
-            </div>本文不会大篇幅介绍装饰器（Decorator）的概念和基础用法，核心介绍我们团队如何将装饰器应用于实际开发，和一些高级用法的实现。 装饰器简介 Decorator 是 ES7 的一个新语法，正如其“装饰器”的叫法所表达的，他可以对一些对象进行装饰包装然后返回一个被包装过的对象，可以装饰的对象包括：类，属性，方法等。Decorator 的写法与 Java 里的注解（Annotation）非常类似，但是一定不要把 JS 中的装饰器叫做是“注解”，因为这两者的原理和实现的功能还是有所区别的，在 Java 中，注解主要是对某个对象进行标注，然后在运行时或者编译时，可以通过例如反射这样的机制拿到被标注的对象，对其进行一些逻辑包装。而 Decorator 的原理和作用则更为简单，就是包装对象，然后返回一个新的对象描述（descriptor），其作用也非常单一简单，基本上就是获取包装对象的宿主、键值几个有限的信息。 关于 Decorator 的详细介绍参见文章： zhuanlan.zhihu.com/F]]></description>
 </item></channel>
 </rss>

@@ -59,16 +59,16 @@
         {{- /* Meta */ -}}
         <div class="post-meta">
             <div class="post-meta-line">
-                <span class="post-author">
+                <!-- <span class="post-author">
                     {{- partial "meta/author.html" . }}
                 </span>
                 {{- with .Params.categories | or .Params.series -}}
                     &nbsp;<span class="post-category">
                         {{- T "includedIn" | safeHTML -}}
                     </span>
-                {{- end -}}
+                {{- end -}} -->
                 
-                {{- $categories := slice -}}
+                <!-- {{- $categories := slice -}}
                 {{- range .Params.categories -}}
                     {{- $category := partialCached "function/path.html" . . | printf "/categories/%v" | $.Site.GetPage -}}
                     {{- $categories = $categories | append (printf `<a href="%v"><i class="far fa-folder fa-fw"></i>%v</a>` $category.RelPermalink $category.Title) -}}
@@ -83,9 +83,9 @@
                     &nbsp;<span class="post-category">
                         {{- T "includedInAnd" | safeHTML -}}
                     </span>
-                {{- end -}}
+                {{- end -}} -->
 
-                {{- $series := slice -}}
+                <!-- {{- $series := slice -}}
                 {{- range .Params.series -}}
                     {{- $singleSeries := partialCached "function/path.html" . . | printf "/series/%v" | $.Site.GetPage -}}
                     {{- $series = $series | append (printf `<a href="%v"><i class="far fa-list-alt fa-fw"></i>%v</a>` $singleSeries.RelPermalink $singleSeries.Title) -}}
@@ -94,17 +94,17 @@
                     &nbsp;<span class="post-series">
                         {{- dict "Series" . | T "includedInSeries" | safeHTML -}}
                     </span>
-                {{- end -}}
+                {{- end -}} -->
             </div>
             <div class="post-meta-line">
                 {{- with .Site.Params.dateformat | default "2006-01-02" | .PublishDate.Format -}}
-                    <i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="{{ . }}">{{ . }}</time>&nbsp;
+                    <span style="padding-right:10px;"><time datetime="{{ . }}">{{ . }}</time> </span>
                 {{- end -}}
-                {{- with .Site.Params.dateformat | default "2006-01-02" | .Lastmod.Format -}}
+                <!-- {{- with .Site.Params.dateformat | default "2006-01-02" | .Lastmod.Format -}}
                     <i class="far fa-edit fa-fw"></i>&nbsp;<time datetime="{{ . }}">{{ . }}</time>&nbsp;
-                {{- end -}}
-                <i class="fas fa-pencil-alt fa-fw"></i>&nbsp;{{ T "wordCount" .WordCount }}&nbsp;
-                <i class="far fa-clock fa-fw"></i>&nbsp;{{ T "readingTime" .ReadingTime }}&nbsp;
+                {{- end -}} -->
+                <span style="padding-right:10px;">{{ T "wordCount" .WordCount }}</span>
+                <span style="padding-right:10px;">{{ T "readingTime" .ReadingTime }}</span>
                 {{- $comment := .Scratch.Get "comment" | default dict -}}
                 {{- /* Visitor Count */ -}}
                 {{- if $comment.enable | and $comment.valine.enable | and $comment.valine.visitor -}}
@@ -174,7 +174,7 @@
         
         {{- /* Static TOC */ -}}
         {{- if ne $toc.enable false -}}
-            <div class="details toc" id="toc-static"  kept="{{ if $toc.keepStatic }}true{{ end }}">
+            <div class="details toc open" id="toc-static"  kept="{{ if $toc.keepStatic }}true{{ end }}">
                 <div class="details-summary toc-title">
                     <span>{{ T "contents" }}</span>
                     <span><i class="details-icon fas fa-angle-right"></i></span>

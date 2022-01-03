@@ -1,12 +1,19 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
-        <title>Categories - 分类 - 芋头乱炖，野鸡码农，复制粘贴小能手</title>
+        <title>Categories - 分类 - 芋头乱炖，大龄码农的自留地</title>
         <link>http://example.org/categories/</link>
-        <description>Categories - 分类 - 芋头乱炖，野鸡码农，复制粘贴小能手</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sat, 27 Nov 2021 22:07:07 &#43;0800</lastBuildDate><atom:link href="http://example.org/categories/" rel="self" type="application/rss+xml" /><item>
+        <description>Categories - 分类 - 芋头乱炖，大龄码农的自留地</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Fri, 31 Dec 2021 23:59:59 &#43;0000</lastBuildDate><atom:link href="http://example.org/categories/" rel="self" type="application/rss+xml" /><item>
+    <title>总结</title>
+    <link>http://example.org/categories/%E6%80%BB%E7%BB%93/</link>
+    <pubDate>Fri, 31 Dec 2021 23:59:59 &#43;0000</pubDate><author>
+        <name>作者</name>
+    </author><guid>http://example.org/categories/%E6%80%BB%E7%BB%93/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
     <title>技术</title>
     <link>http://example.org/categories/%E6%8A%80%E6%9C%AF/</link>
-    <pubDate>Sat, 27 Nov 2021 22:07:07 &#43;0800</pubDate><author>
+    <pubDate>Mon, 20 Dec 2021 23:59:59 &#43;0000</pubDate><author>
         <name>作者</name>
     </author><guid>http://example.org/categories/%E6%8A%80%E6%9C%AF/</guid>
     <description><![CDATA[]]></description>
@@ -23,13 +30,6 @@
     <pubDate>Sun, 27 May 2018 16:26:00 &#43;0000</pubDate><author>
         <name>作者</name>
     </author><guid>http://example.org/categories/%E4%BA%A7%E5%93%81/</guid>
-    <description><![CDATA[]]></description>
-</item><item>
-    <title>总结</title>
-    <link>http://example.org/categories/%E6%80%BB%E7%BB%93/</link>
-    <pubDate>Sat, 30 Dec 2017 15:14:00 &#43;0000</pubDate><author>
-        <name>作者</name>
-    </author><guid>http://example.org/categories/%E6%80%BB%E7%BB%93/</guid>
     <description><![CDATA[]]></description>
 </item></channel>
 </rss>

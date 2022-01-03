@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noodp" />
-    <title class="pjax-title">mysql 8.0 中存储 gis 数据的正确姿势 - 芋头乱炖，野鸡码农，复制粘贴小能手</title><meta name="Description" content=""><meta property="og:title" content="mysql 8.0 中存储 gis 数据的正确姿势" />
+    <title class="pjax-title">Mysql 8.0 中存储 gis 数据的正确姿势 - 芋头乱炖，大龄码农的自留地</title><meta name="Description" content=""><meta property="og:title" content="Mysql 8.0 中存储 gis 数据的正确姿势" />
 <meta property="og:description" content="请为列指定 SRID 如果你想要在使用一些 spatial function 的时候获得尽可能精确的值，请务必为您的数据库中的 geometry 列指定 SRID，如 st_area st_distance 等。否则您将获得直角坐标上的距离，而不是真实的值，另外在 mysql 老版本中，不指定 SRID（默认为 0），可以使用某些计算函数，但是在 mysql 中，某些函数必须指定 SRID，也要求被计算的列必须指定 SRID。 什么是 SRID？ SRID 指定的是 spatial 数据的坐标系，地理数据中一个最重要的指标就是坐标系，没有坐标系，就不存在经纬度，不存在投影，不存在地心，不存在真实距离，一切将会变为平面坐标，与真实地理信息天差地别。 SRID 坐标系定义了什么？ 简单来说，这里不展开，坐标系定义了，大地水准面 -&gt; 椭球体 -&gt; 大地基准面，他们分别是海平面、地球形状和球心、球心偏移等，在每个尺度和地区，这些值都在发生变化，所以会定义不同的坐标系，以尽量消除误差。 最常用的 SRID 是什么？ 在服务端，通常存储数据都是使用 4326 的 SRID，在前端，地图渲染使用 3857 坐标系（代表" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://example.org/posts/mysql8-gis-srid/" /><meta property="article:section" content="posts" />
@@ -13,10 +13,10 @@
 <meta property="article:modified_time" content="2021-08-01T23:17:00+00:00" />
 
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="mysql 8.0 中存储 gis 数据的正确姿势"/>
+<meta name="twitter:title" content="Mysql 8.0 中存储 gis 数据的正确姿势"/>
 <meta name="twitter:description" content="请为列指定 SRID 如果你想要在使用一些 spatial function 的时候获得尽可能精确的值，请务必为您的数据库中的 geometry 列指定 SRID，如 st_area st_distance 等。否则您将获得直角坐标上的距离，而不是真实的值，另外在 mysql 老版本中，不指定 SRID（默认为 0），可以使用某些计算函数，但是在 mysql 中，某些函数必须指定 SRID，也要求被计算的列必须指定 SRID。 什么是 SRID？ SRID 指定的是 spatial 数据的坐标系，地理数据中一个最重要的指标就是坐标系，没有坐标系，就不存在经纬度，不存在投影，不存在地心，不存在真实距离，一切将会变为平面坐标，与真实地理信息天差地别。 SRID 坐标系定义了什么？ 简单来说，这里不展开，坐标系定义了，大地水准面 -&gt; 椭球体 -&gt; 大地基准面，他们分别是海平面、地球形状和球心、球心偏移等，在每个尺度和地区，这些值都在发生变化，所以会定义不同的坐标系，以尽量消除误差。 最常用的 SRID 是什么？ 在服务端，通常存储数据都是使用 4326 的 SRID，在前端，地图渲染使用 3857 坐标系（代表"/>
-<meta name="application-name" content="芋头乱炖，野鸡码农，复制粘贴小能手">
-<meta name="apple-mobile-web-app-title" content="芋头乱炖，野鸡码农，复制粘贴小能手">
+<meta name="application-name" content="芋头乱炖，大龄码农的自留地">
+<meta name="apple-mobile-web-app-title" content="芋头乱炖，大龄码农的自留地">
 
 <meta name="theme-color" content="#f8f8f8"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -26,7 +26,7 @@
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
-        "headline": "mysql 8.0 中存储 gis 数据的正确姿势",
+        "headline": "Mysql 8.0 中存储 gis 数据的正确姿势",
         "inLanguage": "zh-CN",
         "mainEntityOfPage": {
             "@type": "WebPage",
@@ -54,7 +54,7 @@
 <header class="desktop" id="header-desktop">
     <div class="header-wrapper">
         <div class="header-title">
-            <a href="/" title="芋头乱炖，野鸡码农，复制粘贴小能手"><img
+            <a href="/" title="芋头乱炖，大龄码农的自留地"><img
         class="lazyload logo"
         data-src="/logo.png"
         data-srcset="/logo.png, /logo.png 1.5x, /logo.png 2x"
@@ -74,7 +74,7 @@
     <div class="header-container">
         <div class="header-wrapper">
             <div class="header-title">
-                <a href="/" title="芋头乱炖，野鸡码农，复制粘贴小能手"><img
+                <a href="/" title="芋头乱炖，大龄码农的自留地"><img
         class="lazyload logo"
         data-src="/logo.png"
         data-srcset="/logo.png, /logo.png 1.5x, /logo.png 2x"
@@ -111,13 +111,18 @@
     text:window.location.href
         } );
         </script>
-    </div><script>document.getElementsByTagName("main")[0].setAttribute("pageStyle", "normal")</script><article class="page single"><h1 class="single-title animate__animated animate__flipInX">mysql 8.0 中存储 gis 数据的正确姿势</h1><div class="post-meta">
+    </div><script>document.getElementsByTagName("main")[0].setAttribute("pageStyle", "normal")</script><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Mysql 8.0 中存储 gis 数据的正确姿势</h1><div class="post-meta">
             <div class="post-meta-line">
-                <span class="post-author"><i class="author fas fa-user-circle fa-fw"></i><a href="/" title="Author" rel=" author" class="author">芋头</a>
-                </span>&nbsp;<span class="post-category">收录于 </span>&nbsp;<span class="post-category">类别 <a href="/categories/%E6%8A%80%E6%9C%AF/"><i class="far fa-folder fa-fw"></i>技术</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-08-01">2021-08-01</time>&nbsp;<i class="far fa-edit fa-fw"></i>&nbsp;<time datetime="2021-08-01">2021-08-01</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1979 字&nbsp;
-                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 4 分钟&nbsp;</div>
-        </div><div class="details toc" id="toc-static"  kept="">
+                
+                
+                
+
+                
+            </div>
+            <div class="post-meta-line"><span style="padding-right:10px;"><time datetime="2021-08-01">2021-08-01</time> </span>
+                <span style="padding-right:10px;">约 1979 字</span>
+                <span style="padding-right:10px;">预计阅读 4 分钟</span></div>
+        </div><div class="details toc open" id="toc-static"  kept="">
                 <div class="details-summary toc-title">
                     <span>目录</span>
                     <span><i class="details-icon fas fa-angle-right"></i></span>
@@ -278,7 +283,7 @@
         <div class="post-info-line">
             <div class="post-info-md"></div>
             <div class="post-info-share">
-                <span><a href="#" onclick="return false;" title="分享到 微博" data-sharer="weibo" data-url="http://example.org/posts/mysql8-gis-srid/" data-title="mysql 8.0 中存储 gis 数据的正确姿势" data-image="/mysql8-gis-srid/cover.jpg"><i class="fab fa-weibo fa-fw"></i></a></span>
+                <span><a href="#" onclick="return false;" title="分享到 微博" data-sharer="weibo" data-url="http://example.org/posts/mysql8-gis-srid/" data-title="Mysql 8.0 中存储 gis 数据的正确姿势" data-image="/mysql8-gis-srid/cover.jpg"><i class="fab fa-weibo fa-fw"></i></a></span>
             </div>
         </div>
     </div>

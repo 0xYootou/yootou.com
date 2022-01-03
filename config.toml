@@ -2,7 +2,7 @@ baseURL = "http://example.org/"
 defaultContentLanguage = "zh-cn"
 languageCode = "zh-CN"
 hasCJKLanguage = true
-title = "芋头乱炖，野鸡码农，复制粘贴小能手"
+title = "芋头乱炖，大龄码农的自留地"
 theme = "DoIt"
 summaryLength = 400
 [params]

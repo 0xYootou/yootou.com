@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noodp" />
-    <title class="pjax-title">如何自己实现一个 mobx - 原理解析 - 芋头乱炖，野鸡码农，复制粘贴小能手</title><meta name="Description" content=""><meta property="og:title" content="如何自己实现一个 mobx - 原理解析" />
+    <title class="pjax-title">如何自己实现一个 mobx - 原理解析 - 芋头乱炖，大龄码农的自留地</title><meta name="Description" content=""><meta property="og:title" content="如何自己实现一个 mobx - 原理解析" />
 <meta property="og:description" content="前言 Mobx 是一个非常优雅的状态管理库，具有相当大的自由度，并且使用非常简单，本文通过自己实现一个 mini 版的 mobx （s-mobx）来探究一下类似的 FRP 模式在 js 中的实现。 本文主要讲述了如何自己实现一个 mobx，主要是其核心几个 api 的实现。目的不是要重新造一个轮子，只是通过造轮子的过程，了解 mobx 的核心原理，以及一些具体实现的时候需要趟的坑，从而对RFP之类的编程范式有更深入的了解。 所以，不要将此文中提到的项目（s-mobx）应用于实际项目中，除非你真的想节省那一点点带宽（打包后 6K，GZip后 2.3K）。 另外，s-mobx 的实现和 mobx 的实现细节可能并不一致。 关于 s-mobx github: https://github.com/xinyu198736/s-mobx npm: npm install s-mobx —save 核心组成 S-mobx 最最核心是两个功能。 Observable 。用来包装一个属性为 被观察者 Autorun 。用来包装一个方法为 观察者 整个 s-mobx 就是围绕这两个功能做包装。 依赖收集 Autorun 是个神奇的函数，被他包装过的方法，就会变为观察者函数，并且这里有一个很重要的特性，这个函数只会观察自己依" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://example.org/posts/smobx/" /><meta property="article:section" content="posts" />
@@ -15,8 +15,8 @@
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="如何自己实现一个 mobx - 原理解析"/>
 <meta name="twitter:description" content="前言 Mobx 是一个非常优雅的状态管理库，具有相当大的自由度，并且使用非常简单，本文通过自己实现一个 mini 版的 mobx （s-mobx）来探究一下类似的 FRP 模式在 js 中的实现。 本文主要讲述了如何自己实现一个 mobx，主要是其核心几个 api 的实现。目的不是要重新造一个轮子，只是通过造轮子的过程，了解 mobx 的核心原理，以及一些具体实现的时候需要趟的坑，从而对RFP之类的编程范式有更深入的了解。 所以，不要将此文中提到的项目（s-mobx）应用于实际项目中，除非你真的想节省那一点点带宽（打包后 6K，GZip后 2.3K）。 另外，s-mobx 的实现和 mobx 的实现细节可能并不一致。 关于 s-mobx github: https://github.com/xinyu198736/s-mobx npm: npm install s-mobx —save 核心组成 S-mobx 最最核心是两个功能。 Observable 。用来包装一个属性为 被观察者 Autorun 。用来包装一个方法为 观察者 整个 s-mobx 就是围绕这两个功能做包装。 依赖收集 Autorun 是个神奇的函数，被他包装过的方法，就会变为观察者函数，并且这里有一个很重要的特性，这个函数只会观察自己依"/>
-<meta name="application-name" content="芋头乱炖，野鸡码农，复制粘贴小能手">
-<meta name="apple-mobile-web-app-title" content="芋头乱炖，野鸡码农，复制粘贴小能手">
+<meta name="application-name" content="芋头乱炖，大龄码农的自留地">
+<meta name="apple-mobile-web-app-title" content="芋头乱炖，大龄码农的自留地">
 
 <meta name="theme-color" content="#f8f8f8"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -54,7 +54,7 @@
 <header class="desktop" id="header-desktop">
     <div class="header-wrapper">
         <div class="header-title">
-            <a href="/" title="芋头乱炖，野鸡码农，复制粘贴小能手"><img
+            <a href="/" title="芋头乱炖，大龄码农的自留地"><img
         class="lazyload logo"
         data-src="/logo.png"
         data-srcset="/logo.png, /logo.png 1.5x, /logo.png 2x"
@@ -74,7 +74,7 @@
     <div class="header-container">
         <div class="header-wrapper">
             <div class="header-title">
-                <a href="/" title="芋头乱炖，野鸡码农，复制粘贴小能手"><img
+                <a href="/" title="芋头乱炖，大龄码农的自留地"><img
         class="lazyload logo"
         data-src="/logo.png"
         data-srcset="/logo.png, /logo.png 1.5x, /logo.png 2x"
@@ -113,11 +113,16 @@
         </script>
     </div><script>document.getElementsByTagName("main")[0].setAttribute("pageStyle", "normal")</script><article class="page single"><h1 class="single-title animate__animated animate__flipInX">如何自己实现一个 mobx - 原理解析</h1><div class="post-meta">
             <div class="post-meta-line">
-                <span class="post-author"><i class="author fas fa-user-circle fa-fw"></i><a href="/" title="Author" rel=" author" class="author">芋头</a>
-                </span>&nbsp;<span class="post-category">收录于 </span>&nbsp;<span class="post-category">类别 <a href="/categories/%E6%8A%80%E6%9C%AF/"><i class="far fa-folder fa-fw"></i>技术</a>&nbsp;<a href="/categories/%E4%BA%A7%E5%93%81/"><i class="far fa-folder fa-fw"></i>产品</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2017-04-25">2017-04-25</time>&nbsp;<i class="far fa-edit fa-fw"></i>&nbsp;<time datetime="2017-04-25">2017-04-25</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2270 字&nbsp;
-                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 5 分钟&nbsp;</div>
-        </div><div class="details toc" id="toc-static"  kept="">
+                
+                
+                
+
+                
+            </div>
+            <div class="post-meta-line"><span style="padding-right:10px;"><time datetime="2017-04-25">2017-04-25</time> </span>
+                <span style="padding-right:10px;">约 2270 字</span>
+                <span style="padding-right:10px;">预计阅读 5 分钟</span></div>
+        </div><div class="details toc open" id="toc-static"  kept="">
                 <div class="details-summary toc-title">
                     <span>目录</span>
                     <span><i class="details-icon fas fa-angle-right"></i></span>

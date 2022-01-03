@@ -1,8 +1,8 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
-        <title>Console - 标签 - 芋头乱炖，野鸡码农，复制粘贴小能手</title>
+        <title>Console - 标签 - 芋头乱炖，大龄码农的自留地</title>
         <link>http://example.org/tags/console/</link>
-        <description>Console - 标签 - 芋头乱炖，野鸡码农，复制粘贴小能手</description>
+        <description>Console - 标签 - 芋头乱炖，大龄码农的自留地</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Thu, 30 Sep 2021 23:17:00 &#43;0000</lastBuildDate><atom:link href="http://example.org/tags/console/" rel="self" type="application/rss+xml" /><item>
     <title>如何在浏览器 console 控制台中播放视频？</title>
     <link>http://example.org/posts/display-video-in-console/</link>

@@ -1,5 +1,5 @@
 ---
-title: mysql 8.0 中存储 gis 数据的正确姿势
+title: Mysql 8.0 中存储 gis 数据的正确姿势
 date: 2021-08-01 23:17:00
 author: 芋头
 featuredImage: /mysql8-gis-srid/cover.jpg
