@@ -2,15 +2,35 @@
 @import "../_partial/_single/toc";
 
 .single {
-
   .single-title {
-    margin: 4rem 0 1rem;
+    margin: 1rem 0 1rem;
     font-weight: 400;
     line-height: 160%;
-    font-size: 2rem;
+    font-size: 1.8rem;
     font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
   }
-
+  .featured-image-preview-post {
+    margin: 1rem 0 1rem;
+    border-radius: 10px;
+    overflow: hidden;
+    height: calc(15vw);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    animation-name: flipInX;
+    animation-fill-mode: both;
+    @media screen and (max-width: 768px) {
+      height: calc(35vw);
+    }
+    img {
+      width: 100%;
+      vertical-align: middle;
+    }
+    position: relative;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    box-shadow: rgba(0, 0, 0, 0.08) 0px 10px 10px 0px,
+      rgba(0, 0, 0, 0) 0px 0px 0px 0px;
+  }
   .single-subtitle {
     margin: 0.4rem 0;
     font-size: 1.2rem;
@@ -22,7 +42,7 @@
   .post-meta {
     font-size: 0.875rem;
     color: #bababa;
-    margin-bottom:1rem;
+    margin-bottom: 1rem;
 
     span {
       display: inline-block;
@@ -240,14 +260,16 @@
     img {
       max-width: 100%;
       min-height: 1em;
-      border: 1px solid #fff;
       border-radius: 8px;
       position: relative;
       box-shadow: rgba(0, 0, 0, 0.2) 0px 10px 10px 0px,
-          rgba(0, 0, 0, 0) 0px 0px 0px 0px;
-      
+        rgba(0, 0, 0, 0) 0px 0px 0px 0px;
+      margin-bottom: 1rem;
     }
-
+    .bilibili {
+      border-radius: 8px;
+      overflow: hidden;
+    }
     figure {
       margin: 0.5rem;
       text-align: center;

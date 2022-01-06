@@ -1,8 +1,8 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
-        <title>产品 - 分类 - 芋头乱炖，大龄码农的自留地</title>
+        <title>产品 - 分类 - 芋头乱炖，一只普通程序员的自留地</title>
         <link>http://example.org/categories/%E4%BA%A7%E5%93%81/</link>
-        <description>产品 - 分类 - 芋头乱炖，大龄码农的自留地</description>
+        <description>产品 - 分类 - 芋头乱炖，一只普通程序员的自留地</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sun, 27 May 2018 16:26:00 &#43;0000</lastBuildDate><atom:link href="http://example.org/categories/%E4%BA%A7%E5%93%81/" rel="self" type="application/rss+xml" /><item>
     <title>一次连续结对编程三天的经历</title>
     <link>http://example.org/posts/code-with-another-man/</link>

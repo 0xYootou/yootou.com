@@ -47,7 +47,30 @@
     {{- end -}}
 
     <article class="page single">
-        
+        {{- /* Featured image */ -}}
+    {{- $image := $params.featuredImagePreview | default $params.featuredImage -}}
+    {{- $height := "auto" -}}
+    {{- $width := "auto" -}}
+    {{- with .Resources.GetMatch (printf "%s" ($image)) -}}
+        {{- $image = .RelPermalink -}}
+        {{- $height = .Height -}}
+        {{- $width = .Width -}}
+    {{- end -}}
+    {{- with .Resources.GetMatch "featured-image" -}}
+        {{- $image = .RelPermalink -}}
+        {{- $height = .Height -}}
+        {{- $width = .Width -}}
+    {{- end -}}
+    {{- with .Resources.GetMatch "featured-image-preview" -}}
+        {{- $image = .RelPermalink -}}
+        {{- $height = .Height -}}
+        {{- $width = .Width -}}
+    {{- end -}}
+        {{- with $image -}}
+        <div class="featured-image-preview-post  animate__animated animate__flipInX">
+                {{- dict "Src" . "Title" $.Description "Resources" $.Resources "Height" $height "Width" $width | partial "plugin/image.html" -}}
+        </div>
+    {{- end -}}
         {{- /* Title */ -}}
         <h1 class="single-title animate__animated animate__flipInX">{{ .Title }}</h1>
 
@@ -103,8 +126,11 @@
                 <!-- {{- with .Site.Params.dateformat | default "2006-01-02" | .Lastmod.Format -}}
                     <i class="far fa-edit fa-fw"></i>&nbsp;<time datetime="{{ . }}">{{ . }}</time>&nbsp;
                 {{- end -}} -->
+                <span style="padding-right:10px;">阅读: <span id="{{ .RelPermalink }}" class="waline-visitor-count" ></span></span>
+                <span style="padding-right:10px;">评论: <span id="{{ .RelPermalink }}" class="waline-comment-count" ></span></span>
                 <span style="padding-right:10px;">{{ T "wordCount" .WordCount }}</span>
                 <span style="padding-right:10px;">{{ T "readingTime" .ReadingTime }}</span>
+                
                 {{- $comment := .Scratch.Get "comment" | default dict -}}
                 {{- /* Visitor Count */ -}}
                 {{- if $comment.enable | and $comment.valine.enable | and $comment.valine.visitor -}}

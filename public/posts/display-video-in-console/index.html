@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noodp" />
-    <title class="pjax-title">如何在浏览器 console 控制台中播放视频？ - 芋头乱炖，大龄码农的自留地</title><meta name="Description" content=""><meta property="og:title" content="如何在浏览器 console 控制台中播放视频？" />
+    <title class="pjax-title">如何在浏览器 console 控制台中播放视频？ - 芋头乱炖，一只普通程序员的自留地</title><meta name="Description" content=""><meta property="og:title" content="如何在浏览器 console 控制台中播放视频？" />
 <meta property="og:description" content="如何在浏览器 console 控制台中播放视频？ 要实现这个目标，主要涉及到这几个点： 如何获取和解析视频流？ 如何在 console 里播放动态内容？ 如何在 console 里播放彩色内容？ 如何连接视频流和 console？ 事实上最后的代码极其简单，我们就一步一步简单讲一下 效果 测试地址：https://yu-tou.github.io/colors-web/dist/camera.html 如何获取和解析视频流？ 这里我们用电脑摄像头捕获视频流，然后获取视频流每一帧的图像数据，作为下一步的输入。 1 2 3 4 5 6 7 8 9 10 11 12 13 14 // 捕捉电脑摄像头的视频流 const mediaStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true, }); // 创建一个 video 标签 const video = document.createElement(&#34;video&#34;); document.body.appendChild(video); video.onloadedmetadata = function (e) { video.play(); // 等摄像头数据加载完成后，开始播放 }; // video 标签播放视频流 video.srcObject = mediaStream; 如何获取每一帧图像的数据？创建一个 canvas 画布，可以将 video 当前的内容绘制到画布上，然后通过 canvas 的方法即可拿到图像的像素数据。 1 2 3 4 5 6 7 8 const ctx = canvas.getContext(&#34;2d&#34;); canvas.width = width; canvas.height = height; ctx.drawImage(video, 0, 0, width, height); const imageData = ctx.getImageData(0, 0, width, height); const data = imageData.data; // imageData 的" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://example.org/posts/display-video-in-console/" /><meta property="article:section" content="posts" />
@@ -15,8 +15,8 @@
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="如何在浏览器 console 控制台中播放视频？"/>
 <meta name="twitter:description" content="如何在浏览器 console 控制台中播放视频？ 要实现这个目标，主要涉及到这几个点： 如何获取和解析视频流？ 如何在 console 里播放动态内容？ 如何在 console 里播放彩色内容？ 如何连接视频流和 console？ 事实上最后的代码极其简单，我们就一步一步简单讲一下 效果 测试地址：https://yu-tou.github.io/colors-web/dist/camera.html 如何获取和解析视频流？ 这里我们用电脑摄像头捕获视频流，然后获取视频流每一帧的图像数据，作为下一步的输入。 1 2 3 4 5 6 7 8 9 10 11 12 13 14 // 捕捉电脑摄像头的视频流 const mediaStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true, }); // 创建一个 video 标签 const video = document.createElement(&#34;video&#34;); document.body.appendChild(video); video.onloadedmetadata = function (e) { video.play(); // 等摄像头数据加载完成后，开始播放 }; // video 标签播放视频流 video.srcObject = mediaStream; 如何获取每一帧图像的数据？创建一个 canvas 画布，可以将 video 当前的内容绘制到画布上，然后通过 canvas 的方法即可拿到图像的像素数据。 1 2 3 4 5 6 7 8 const ctx = canvas.getContext(&#34;2d&#34;); canvas.width = width; canvas.height = height; ctx.drawImage(video, 0, 0, width, height); const imageData = ctx.getImageData(0, 0, width, height); const data = imageData.data; // imageData 的"/>
-<meta name="application-name" content="芋头乱炖，大龄码农的自留地">
-<meta name="apple-mobile-web-app-title" content="芋头乱炖，大龄码农的自留地">
+<meta name="application-name" content="芋头乱炖，一只普通程序员的自留地">
+<meta name="apple-mobile-web-app-title" content="芋头乱炖，一只普通程序员的自留地">
 
 <meta name="theme-color" content="#f8f8f8"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -54,7 +54,7 @@
 <header class="desktop" id="header-desktop">
     <div class="header-wrapper">
         <div class="header-title">
-            <a href="/" title="芋头乱炖，大龄码农的自留地"><img
+            <a href="/" title="芋头乱炖，一只普通程序员的自留地"><img
         class="lazyload logo"
         data-src="/logo.png"
         data-srcset="/logo.png, /logo.png 1.5x, /logo.png 2x"
@@ -74,7 +74,7 @@
     <div class="header-container">
         <div class="header-wrapper">
             <div class="header-title">
-                <a href="/" title="芋头乱炖，大龄码农的自留地"><img
+                <a href="/" title="芋头乱炖，一只普通程序员的自留地"><img
         class="lazyload logo"
         data-src="/logo.png"
         data-srcset="/logo.png, /logo.png 1.5x, /logo.png 2x"
@@ -111,7 +111,14 @@
     text:window.location.href
         } );
         </script>
-    </div><script>document.getElementsByTagName("main")[0].setAttribute("pageStyle", "normal")</script><article class="page single"><h1 class="single-title animate__animated animate__flipInX">如何在浏览器 console 控制台中播放视频？</h1><div class="post-meta">
+    </div><script>document.getElementsByTagName("main")[0].setAttribute("pageStyle", "normal")</script><article class="page single"><div class="featured-image-preview-post  animate__animated animate__flipInX"><img
+        class="lazyload"
+        data-src="/display-video-in-console/cover.jpeg"
+        data-srcset="/display-video-in-console/cover.jpeg, /display-video-in-console/cover.jpeg 1.5x, /display-video-in-console/cover.jpeg 2x"
+        data-sizes="auto"
+        alt="/display-video-in-console/cover.jpeg"
+        title="/display-video-in-console/cover.jpeg" height="auto" width="auto"
+    /></div><h1 class="single-title animate__animated animate__flipInX">如何在浏览器 console 控制台中播放视频？</h1><div class="post-meta">
             <div class="post-meta-line">
                 
                 
@@ -120,6 +127,8 @@
                 
             </div>
             <div class="post-meta-line"><span style="padding-right:10px;"><time datetime="2021-09-30">2021-09-30</time> </span>
+                <span style="padding-right:10px;">阅读: <span id="/posts/display-video-in-console/" class="waline-visitor-count" ></span></span>
+                <span style="padding-right:10px;">评论: <span id="/posts/display-video-in-console/" class="waline-comment-count" ></span></span>
                 <span style="padding-right:10px;">约 1353 字</span>
                 <span style="padding-right:10px;">预计阅读 3 分钟</span></div>
         </div><div class="details toc open" id="toc-static"  kept="">
@@ -361,44 +370,22 @@
 
     <div class="post-nav"><a href="/posts/mysql8-gis-srid/" class="prev" rel="prev" title="Mysql 8.0 中存储 gis 数据的正确姿势"><i class="fas fa-angle-left fa-fw"></i>Mysql 8.0 中存储 gis 数据的正确姿势</a>
             <a href="/posts/prisma-nestjs-graphql/" class="next" rel="next" title="Prisma &#43; NestJs &#43; GraphQL 表现层应用开发">Prisma &#43; NestJs &#43; GraphQL 表现层应用开发<i class="fas fa-angle-right fa-fw"></i></a></div>
+    <script src="/client.js"></script>
+    <div style="clear: both;margin-top:20px;"></div>
+    <div id="waline"></div>
+<script>
+Waline({
+  el: '#waline',
+  serverURL: 'https://comment-weld.vercel.app',
+  visitor: true, 
+});
+</script>
 </div>
-<div id="comments"><div id="disqus_thread" class="comment"></div><noscript>
-                Please enable JavaScript to view the comments powered by <a href="https://disqus.com/?ref_noscript">Disqus</a>.
-            </noscript></div></article></div>
+</article></div>
         </main><footer class="footer">
         <div class="footer-container"><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2021 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank" rel="noopener noreferrer"></a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
                     <span class="icp"><a href='https://beian.miit.gov.cn/'>浙ICP备12047043号-10</a></span></div>
-        </div></footer><script src="//res.wx.qq.com/open/js/jweixin-1.6.0.js" ></script>
-<script>
-    wx.config({
-        appId: 'wx79db0b4a70c6ae63', 
-        timestamp: new Date().getTime(), 
-        nonceStr: 'ddd', 
-        signature: 'fdsfsdf',
-        jsApiList: ['updateAppMessageShareData','updateTimelineShareData'] 
-        });
-        wx.ready(function () {   
-  wx.updateAppMessageShareData({ 
-    title: document.title, 
-    desc: 'JavaScript,Nodejs,GIS,Arduino,数据可视化,数码发烧友,HiFi玩家', 
-    link: window.location.href, 
-    imgUrl: 'http://yootou.com/logo.png', 
-    success: function () {
-      
-    }
-  })
-  wx.updateTimelineShareData({ 
-    title: document.title, 
-    link: window.location.href, 
-    imgUrl: 'http://yootou.com/logo.png', 
-    success: function () {
-      
-    }
-  })
-}); 
-
-
-</script>
+        </div></footer>
 </div>
 
     <div id="fixed-buttons"><a href="#back-to-top" id="back-to-top-button" class="fixed-button" title="回到顶部">
@@ -408,7 +395,7 @@
         </a>
     </div><div class="assets"><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/topbar/topbar.min.js"></script><script type="text/javascript" src="/lib/pjax/pjax.min.js"></script><script type="text/javascript" src="/js/theme.min.js"></script></div>
 
-<div class="pjax-assets"><script type="text/javascript" src="https://yu-tou-luan-tun.disqus.com/embed.js" defer></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/typeit/typeit.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":100},"comment":{},"data":{"desktop-header-typeit":"芋头乱炖","mobile-header-typeit":"芋头乱炖"},"sharerjs":true,"typeit":{"cursorChar":null,"cursorSpeed":null,"data":{"desktop-header-typeit":["desktop-header-typeit"],"mobile-header-typeit":["mobile-header-typeit"]},"duration":null,"speed":null}};</script></div>
+<div class="pjax-assets"><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/typeit/typeit.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":100},"comment":{},"data":{"desktop-header-typeit":"芋头乱炖","mobile-header-typeit":"芋头乱炖"},"sharerjs":true,"typeit":{"cursorChar":null,"cursorSpeed":null,"data":{"desktop-header-typeit":["desktop-header-typeit"],"mobile-header-typeit":["mobile-header-typeit"]},"duration":null,"speed":null}};</script></div>
 </body>
 
 </html>

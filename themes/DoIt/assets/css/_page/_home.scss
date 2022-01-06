@@ -90,9 +90,23 @@
     width: 49%;
     color: $global-font-color;
     border: 1px solid #f0f8ff;
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0px;
+      right: 10px;
+      bottom: 0;
+      left: 10px;
+      z-index: -1;
+      border-radius: 10px;
+      box-shadow: rgba(0, 0, 0, 0.08) 0px 10px 10px 0px,
+        rgba(0, 0, 0, 0) 0px 0px 0px 0px;
+      transition: all 0.25s cubic-bezier(0.02, 0.01, 0.47, 1);
+    }
     border-radius: 12px;
     position: relative;
     background: #fff;
+
     [theme="dark"] & {
       color: $global-font-color-dark;
       border-bottom: 3px dashed $global-border-color-dark;
@@ -108,19 +122,7 @@
       }
     }
     transition: all 0.25s cubic-bezier(0.02, 0.01, 0.47, 1);
-    &::before {
-      content: "";
-      position: absolute;
-      top: 0px;
-      right: 10px;
-      bottom: 0;
-      left: 10px;
-      z-index: -1;
-      border-radius: 10px;
-      box-shadow: rgba(0, 0, 0, 0.08) 0px 10px 10px 0px,
-        rgba(0, 0, 0, 0) 0px 0px 0px 0px;
-      transition: all 0.25s cubic-bezier(0.02, 0.01, 0.47, 1);
-    }
+    
 
     &:hover {
       // transform: translateY(-0.3rem);

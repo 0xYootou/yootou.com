@@ -1,8 +1,8 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
-        <title>分享 - 分类 - 芋头乱炖，大龄码农的自留地</title>
+        <title>分享 - 分类 - 芋头乱炖，一只普通程序员的自留地</title>
         <link>http://example.org/categories/%E5%88%86%E4%BA%AB/</link>
-        <description>分享 - 分类 - 芋头乱炖，大龄码农的自留地</description>
+        <description>分享 - 分类 - 芋头乱炖，一只普通程序员的自留地</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Thu, 15 Jul 2021 15:14:00 &#43;0000</lastBuildDate><atom:link href="http://example.org/categories/%E5%88%86%E4%BA%AB/" rel="self" type="application/rss+xml" /><item>
     <title>分享：地理可视化，不止于炫酷</title>
     <link>http://example.org/posts/dilikeshihua/</link>

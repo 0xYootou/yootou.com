@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noodp" />
-    <title class="pjax-title">JS 装饰器（Decorator）场景实战 - 芋头乱炖，大龄码农的自留地</title><meta name="Description" content=""><meta property="og:title" content="JS 装饰器（Decorator）场景实战" />
+    <title class="pjax-title">JS 装饰器（Decorator）场景实战 - 芋头乱炖，一只普通程序员的自留地</title><meta name="Description" content=""><meta property="og:title" content="JS 装饰器（Decorator）场景实战" />
 <meta property="og:description" content="本文不会大篇幅介绍装饰器（Decorator）的概念和基础用法，核心介绍我们团队如何将装饰器应用于实际开发，和一些高级用法的实现。 装饰器简介 Decorator 是 ES7 的一个新语法，正如其“装饰器”的叫法所表达的，他可以对一些对象进行装饰包装然后返回一个被包装过的对象，可以装饰的对象包括：类，属性，方法等。Decorator 的写法与 Java 里的注解（Annotation）非常类似，但是一定不要把 JS 中的装饰器叫做是“注解”，因为这两者的原理和实现的功能还是有所区别的，在 Java 中，注解主要是对某个对象进行标注，然后在运行时或者编译时，可以通过例如反射这样的机制拿到被标注的对象，对其进行一些逻辑包装。而 Decorator 的原理和作用则更为简单，就是包装对象，然后返回一个新的对象描述（descriptor），其作用也非常单一简单，基本上就是获取包装对象的宿主、键值几个有限的信息。 关于 Decorator 的详细介绍参见文章： zhuanlan.zhihu.com/F" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://example.org/posts/js-decorator-code/" /><meta property="article:section" content="posts" />
@@ -15,8 +15,8 @@
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="JS 装饰器（Decorator）场景实战"/>
 <meta name="twitter:description" content="本文不会大篇幅介绍装饰器（Decorator）的概念和基础用法，核心介绍我们团队如何将装饰器应用于实际开发，和一些高级用法的实现。 装饰器简介 Decorator 是 ES7 的一个新语法，正如其“装饰器”的叫法所表达的，他可以对一些对象进行装饰包装然后返回一个被包装过的对象，可以装饰的对象包括：类，属性，方法等。Decorator 的写法与 Java 里的注解（Annotation）非常类似，但是一定不要把 JS 中的装饰器叫做是“注解”，因为这两者的原理和实现的功能还是有所区别的，在 Java 中，注解主要是对某个对象进行标注，然后在运行时或者编译时，可以通过例如反射这样的机制拿到被标注的对象，对其进行一些逻辑包装。而 Decorator 的原理和作用则更为简单，就是包装对象，然后返回一个新的对象描述（descriptor），其作用也非常单一简单，基本上就是获取包装对象的宿主、键值几个有限的信息。 关于 Decorator 的详细介绍参见文章： zhuanlan.zhihu.com/F"/>
-<meta name="application-name" content="芋头乱炖，大龄码农的自留地">
-<meta name="apple-mobile-web-app-title" content="芋头乱炖，大龄码农的自留地">
+<meta name="application-name" content="芋头乱炖，一只普通程序员的自留地">
+<meta name="apple-mobile-web-app-title" content="芋头乱炖，一只普通程序员的自留地">
 
 <meta name="theme-color" content="#f8f8f8"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -54,7 +54,7 @@
 <header class="desktop" id="header-desktop">
     <div class="header-wrapper">
         <div class="header-title">
-            <a href="/" title="芋头乱炖，大龄码农的自留地"><img
+            <a href="/" title="芋头乱炖，一只普通程序员的自留地"><img
         class="lazyload logo"
         data-src="/logo.png"
         data-srcset="/logo.png, /logo.png 1.5x, /logo.png 2x"
@@ -74,7 +74,7 @@
     <div class="header-container">
         <div class="header-wrapper">
             <div class="header-title">
-                <a href="/" title="芋头乱炖，大龄码农的自留地"><img
+                <a href="/" title="芋头乱炖，一只普通程序员的自留地"><img
         class="lazyload logo"
         data-src="/logo.png"
         data-srcset="/logo.png, /logo.png 1.5x, /logo.png 2x"
@@ -111,7 +111,14 @@
     text:window.location.href
         } );
         </script>
-    </div><script>document.getElementsByTagName("main")[0].setAttribute("pageStyle", "normal")</script><article class="page single"><h1 class="single-title animate__animated animate__flipInX">JS 装饰器（Decorator）场景实战</h1><div class="post-meta">
+    </div><script>document.getElementsByTagName("main")[0].setAttribute("pageStyle", "normal")</script><article class="page single"><div class="featured-image-preview-post  animate__animated animate__flipInX"><img
+        class="lazyload"
+        data-src="js-decorator-code/cover.jpeg"
+        data-srcset="js-decorator-code/cover.jpeg, js-decorator-code/cover.jpeg 1.5x, js-decorator-code/cover.jpeg 2x"
+        data-sizes="auto"
+        alt="js-decorator-code/cover.jpeg"
+        title="js-decorator-code/cover.jpeg" height="auto" width="auto"
+    /></div><h1 class="single-title animate__animated animate__flipInX">JS 装饰器（Decorator）场景实战</h1><div class="post-meta">
             <div class="post-meta-line">
                 
                 
@@ -120,6 +127,8 @@
                 
             </div>
             <div class="post-meta-line"><span style="padding-right:10px;"><time datetime="2017-10-26">2017-10-26</time> </span>
+                <span style="padding-right:10px;">阅读: <span id="/posts/js-decorator-code/" class="waline-visitor-count" ></span></span>
+                <span style="padding-right:10px;">评论: <span id="/posts/js-decorator-code/" class="waline-comment-count" ></span></span>
                 <span style="padding-right:10px;">约 4001 字</span>
                 <span style="padding-right:10px;">预计阅读 8 分钟</span></div>
         </div><div class="details toc open" id="toc-static"  kept="">
@@ -605,44 +614,22 @@
 
     <div class="post-nav"><a href="/posts/self-develper-1/" class="prev" rel="prev" title="开发笔记：个人开发者的困境与突破"><i class="fas fa-angle-left fa-fw"></i>开发笔记：个人开发者的困境与突破</a>
             <a href="/posts/2017-year/" class="next" rel="next" title="2017年年度总结">2017年年度总结<i class="fas fa-angle-right fa-fw"></i></a></div>
+    <script src="/client.js"></script>
+    <div style="clear: both;margin-top:20px;"></div>
+    <div id="waline"></div>
+<script>
+Waline({
+  el: '#waline',
+  serverURL: 'https://comment-weld.vercel.app',
+  visitor: true, 
+});
+</script>
 </div>
-<div id="comments"><div id="disqus_thread" class="comment"></div><noscript>
-                Please enable JavaScript to view the comments powered by <a href="https://disqus.com/?ref_noscript">Disqus</a>.
-            </noscript></div></article></div>
+</article></div>
         </main><footer class="footer">
         <div class="footer-container"><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2021 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank" rel="noopener noreferrer"></a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
                     <span class="icp"><a href='https://beian.miit.gov.cn/'>浙ICP备12047043号-10</a></span></div>
-        </div></footer><script src="//res.wx.qq.com/open/js/jweixin-1.6.0.js" ></script>
-<script>
-    wx.config({
-        appId: 'wx79db0b4a70c6ae63', 
-        timestamp: new Date().getTime(), 
-        nonceStr: 'ddd', 
-        signature: 'fdsfsdf',
-        jsApiList: ['updateAppMessageShareData','updateTimelineShareData'] 
-        });
-        wx.ready(function () {   
-  wx.updateAppMessageShareData({ 
-    title: document.title, 
-    desc: 'JavaScript,Nodejs,GIS,Arduino,数据可视化,数码发烧友,HiFi玩家', 
-    link: window.location.href, 
-    imgUrl: 'http://yootou.com/logo.png', 
-    success: function () {
-      
-    }
-  })
-  wx.updateTimelineShareData({ 
-    title: document.title, 
-    link: window.location.href, 
-    imgUrl: 'http://yootou.com/logo.png', 
-    success: function () {
-      
-    }
-  })
-}); 
-
-
-</script>
+        </div></footer>
 </div>
 
     <div id="fixed-buttons"><a href="#back-to-top" id="back-to-top-button" class="fixed-button" title="回到顶部">
@@ -652,7 +639,7 @@
         </a>
     </div><div class="assets"><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/topbar/topbar.min.js"></script><script type="text/javascript" src="/lib/pjax/pjax.min.js"></script><script type="text/javascript" src="/js/theme.min.js"></script></div>
 
-<div class="pjax-assets"><script type="text/javascript" src="https://yu-tou-luan-tun.disqus.com/embed.js" defer></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/typeit/typeit.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":100},"comment":{},"data":{"desktop-header-typeit":"芋头乱炖","mobile-header-typeit":"芋头乱炖"},"sharerjs":true,"typeit":{"cursorChar":null,"cursorSpeed":null,"data":{"desktop-header-typeit":["desktop-header-typeit"],"mobile-header-typeit":["mobile-header-typeit"]},"duration":null,"speed":null}};</script></div>
+<div class="pjax-assets"><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/typeit/typeit.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":100},"comment":{},"data":{"desktop-header-typeit":"芋头乱炖","mobile-header-typeit":"芋头乱炖"},"sharerjs":true,"typeit":{"cursorChar":null,"cursorSpeed":null,"data":{"desktop-header-typeit":["desktop-header-typeit"],"mobile-header-typeit":["mobile-header-typeit"]},"duration":null,"speed":null}};</script></div>
 </body>
 
 </html>

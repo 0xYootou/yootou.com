@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noodp" />
+    <title class="pjax-title">以太坊小示例和基本概念 - 芋头乱炖，一只普通程序员的自留地</title><meta name="Description" content=""><meta property="og:title" content="以太坊小示例和基本概念" />
+<meta property="og:description" content="声明：市场有风险，投资需谨慎，币圈骗子多，一定要小心，违法的事不要做，违法的人不结识，仅供学习，致力于用区块链技术打造和谐社会。 本文所涉及的项目代码： https://github.com/yu-tou/eth-self-token-example 在以太坊发布自己的 token 代码示例 1 2 3 yarn install # 启动本地网络 yarn chain token 代码在 ./contracts，其中 YuTou.sol 是 token 合约，YuTouMintable 是发币合约 编辑合约后，部署脚本在 deploy/00_deploy_your_contract.js，如合约名有变化则修改 1 2 3 # 部署到本地网络 yarn deploy 执行成功后终端，有合约地址，将地址导入钱包，即可看到 token 钱包使用测试网络连接合约后可以获取自己的一个地址，接下去向地址发 token 修改合约地址和账户地址，在 scripts/mint.js 中 1 2 # 发币到自己的账户 yarn mint 以太坊概念教程 1. 以太坊基础概念 1.1 比特币 BTC &amp; 以太坊 Ethereum 比特币：价值工具。 以太坊：分布式应用平台。 1.2 智能合约 contract 智能合约（Smart contract ）是一种旨在以信息化方式传播、验证或执行合同的计算机协议。智能合约允许" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://example.org/posts/eth_simple_example/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-12-25T00:00:00+00:00" />
+<meta property="article:modified_time" content="2021-12-25T00:00:00+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="以太坊小示例和基本概念"/>
+<meta name="twitter:description" content="声明：市场有风险，投资需谨慎，币圈骗子多，一定要小心，违法的事不要做，违法的人不结识，仅供学习，致力于用区块链技术打造和谐社会。 本文所涉及的项目代码： https://github.com/yu-tou/eth-self-token-example 在以太坊发布自己的 token 代码示例 1 2 3 yarn install # 启动本地网络 yarn chain token 代码在 ./contracts，其中 YuTou.sol 是 token 合约，YuTouMintable 是发币合约 编辑合约后，部署脚本在 deploy/00_deploy_your_contract.js，如合约名有变化则修改 1 2 3 # 部署到本地网络 yarn deploy 执行成功后终端，有合约地址，将地址导入钱包，即可看到 token 钱包使用测试网络连接合约后可以获取自己的一个地址，接下去向地址发 token 修改合约地址和账户地址，在 scripts/mint.js 中 1 2 # 发币到自己的账户 yarn mint 以太坊概念教程 1. 以太坊基础概念 1.1 比特币 BTC &amp; 以太坊 Ethereum 比特币：价值工具。 以太坊：分布式应用平台。 1.2 智能合约 contract 智能合约（Smart contract ）是一种旨在以信息化方式传播、验证或执行合同的计算机协议。智能合约允许"/>
+<meta name="application-name" content="芋头乱炖，一只普通程序员的自留地">
+<meta name="apple-mobile-web-app-title" content="芋头乱炖，一只普通程序员的自留地">
+
+<meta name="theme-color" content="#f8f8f8"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="canonical" href="http://example.org/posts/eth_simple_example/" /><link rel="prev" href="http://example.org/posts/prisma-nestjs-graphql/" /><link rel="next" href="http://example.org/posts/2021-year-report/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/fontawesome-free/all.min.css">
+    <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/animate/animate.min.css">
+    <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "以太坊小示例和基本概念",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/example.org\/posts\/eth_simple_example\/"
+        },"genre": "posts","wordcount":  3239 ,
+        "url": "http:\/\/example.org\/posts\/eth_simple_example\/","datePublished": "2021-12-25T00:00:00+00:00","dateModified": "2021-12-25T00:00:00+00:00","publisher": {
+            "@type": "Organization",
+            "name": "作者"},"author": {
+                "@type": "Person",
+                "name": "作者"
+            },"description": ""
+    }
+    </script></head>
+
+<body header-desktop="" header-mobile=""><script type="text/javascript">
+        function setTheme(theme) {document.body.setAttribute('theme', theme);}
+        function saveTheme(theme) {window.localStorage && localStorage.setItem('theme', theme);}
+        function getMeta(metaName) {const metas = document.getElementsByTagName('meta'); for (let i = 0; i < metas.length; i++) if (metas[i].getAttribute('name') === metaName) return metas[i]; return '';}
+        if (window.localStorage && localStorage.getItem('theme')) {let theme = localStorage.getItem('theme');theme === 'light' || theme === 'dark' || theme === 'black' ? setTheme(theme) : (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? setTheme('dark') : setTheme('light')); } else { if ('' === 'light' || '' === 'dark' || '' === 'black') setTheme(''), saveTheme(''); else saveTheme('auto'), window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? setTheme('dark') : setTheme('light');}
+        let metaColors = {'light': '#f8f8f8','dark': '#252627','black': '#000000'}
+        getMeta('theme-color').content = metaColors[document.body.getAttribute('theme')];
+    </script>
+    <div id="back-to-top"></div>
+    <div id="mask"></div><div class="wrapper"><div style="display: none"><img src="/android-chrome-512x512.png" width="320" height="320"/></div>
+<header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="芋头乱炖，一只普通程序员的自留地"><img
+        class="lazyload logo"
+        data-src="/logo.png"
+        data-srcset="/logo.png, /logo.png 1.5x, /logo.png 2x"
+        data-sizes="auto"
+        alt="/logo.png"
+        title="/logo.png"
+    /><span id="desktop-header-typeit" class="typeit"></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><a href="#" onclick="return false;" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a></div>
+        </div>
+    </div>
+</header><div style="display: none"><img src="/android-chrome-512x512.png" width="320" height="320"/></div>
+<header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="芋头乱炖，一只普通程序员的自留地"><img
+        class="lazyload logo"
+        data-src="/logo.png"
+        data-srcset="/logo.png, /logo.png 1.5x, /logo.png 2x"
+        data-sizes="auto"
+        alt="/logo.png"
+        title="/logo.png"
+    /><span id="mobile-header-typeit" class="typeit"></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a href="#" onclick="return false;" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+            <div class="container"><script src="/qrcode.js"></script><div class="toc" id="toc-auto">
+        <h2 class="toc-title">目录</h2>
+        <div class="toc-content" id="toc-content-auto"></div>
+        <h2 class="toc-title">分享此文章</h2>
+        <div id="qrcode" style="width:200px;"></div>
+        <script type="text/javascript">
+        new QRCode(document.getElementById("qrcode"),{
+            width: 128,
+	height: 128,
+    text:window.location.href
+        } );
+        </script>
+    </div><script>document.getElementsByTagName("main")[0].setAttribute("pageStyle", "normal")</script><article class="page single"><div class="featured-image-preview-post  animate__animated animate__flipInX"><img
+        class="lazyload"
+        data-src="/eth/cover.png"
+        data-srcset="/eth/cover.png, /eth/cover.png 1.5x, /eth/cover.png 2x"
+        data-sizes="auto"
+        alt="/eth/cover.png"
+        title="/eth/cover.png" height="auto" width="auto"
+    /></div><h1 class="single-title animate__animated animate__flipInX">以太坊小示例和基本概念</h1><div class="post-meta">
+            <div class="post-meta-line">
+                
+                
+                
+
+                
+            </div>
+            <div class="post-meta-line"><span style="padding-right:10px;"><time datetime="2021-12-25">2021-12-25</time> </span>
+                <span style="padding-right:10px;">阅读: <span id="/posts/eth_simple_example/" class="waline-visitor-count" ></span></span>
+                <span style="padding-right:10px;">评论: <span id="/posts/eth_simple_example/" class="waline-comment-count" ></span></span>
+                <span style="padding-right:10px;">约 3239 字</span>
+                <span style="padding-right:10px;">预计阅读 7 分钟</span></div>
+        </div><div class="details toc open" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-以太坊基础概念">1. 以太坊基础概念</a>
+      <ul>
+        <li><a href="#11-比特币-btc--以太坊-ethereum">1.1 比特币 BTC &amp; 以太坊 Ethereum</a></li>
+        <li><a href="#12-智能合约-contract">1.2 智能合约 contract</a></li>
+        <li><a href="#13-web3js">1.3 web3.js</a></li>
+        <li><a href="#14-以太币-eth">1.4 以太币 eth</a></li>
+        <li><a href="#15-油费-gas">1.5 油费 gas</a></li>
+        <li><a href="#16-虚拟机-evm">1.6 虚拟机 EVM</a></li>
+        <li><a href="#17-分布式应用-dapp">1.7 分布式应用 DAPP</a></li>
+        <li><a href="#18-账号地址accounts">1.8 账号(地址）accounts</a></li>
+        <li><a href="#19-虚拟机架构">1.9 虚拟机架构</a></li>
+        <li><a href="#110-网络节点">1.10 网络节点</a></li>
+        <li><a href="#111-挖矿">1.11 挖矿</a></li>
+      </ul>
+    </li>
+    <li><a href="#2-交易">2. 交易</a>
+      <ul>
+        <li><a href="#21-钱包">2.1 钱包</a></li>
+        <li><a href="#22-稳定币">2.2 稳定币</a></li>
+        <li><a href="#23-交易方式">2.3 交易方式</a></li>
+        <li><a href="#24-中心化交易所">2.4 中心化交易所</a></li>
+        <li><a href="#25-去中心化交易所">2.5 去中心化交易所</a></li>
+      </ul>
+    </li>
+    <li><a href="#3-代币">3. 代币</a>
+      <ul>
+        <li><a href="#31-erc20-协议">3.1 ERC20 协议</a></li>
+        <li><a href="#32-代币价值">3.2 代币价值</a></li>
+        <li><a href="#33-代币流通">3.3 代币流通</a></li>
+      </ul>
+    </li>
+    <li><a href="#4-智能合约开发">4. 智能合约开发</a>
+      <ul>
+        <li><a href="#41-本地虚拟机">4.1 本地虚拟机</a></li>
+        <li><a href="#42-编写合约代码">4.2 编写合约代码</a></li>
+        <li><a href="#43-部署合约代码">4.3 部署合约代码</a></li>
+        <li><a href="#44-发币">4.4 发币</a></li>
+        <li><a href="#45-回币">4.5 回币</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><blockquote>
+<p>声明：市场有风险，投资需谨慎，币圈骗子多，一定要小心，违法的事不要做，违法的人不结识，仅供学习，致力于用区块链技术打造和谐社会。</p>
+</blockquote>
+<p>本文所涉及的项目代码：</p>
+<p><a href="https://github.com/yu-tou/eth-self-token-example" target="_blank" rel="noopener noreffer">https://github.com/yu-tou/eth-self-token-example</a></p>
+<h1 id="在以太坊发布自己的-token-代码示例">在以太坊发布自己的 token 代码示例</h1>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">yarn install
+<span class="c1"># 启动本地网络</span>
+yarn chain
+</code></pre></td></tr></table>
+</div>
+</div><p>token 代码在 <code>./contracts</code>，其中 <code>YuTou.sol</code> 是 token 合约，<code>YuTouMintable</code> 是发币合约</p>
+<p>编辑合约后，部署脚本在 <code>deploy/00_deploy_your_contract.js</code>，如合约名有变化则修改</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 部署到本地网络</span>
+yarn deploy
+
+</code></pre></td></tr></table>
+</div>
+</div><p>执行成功后终端，有合约地址，将地址导入钱包，即可看到 token</p>
+<p>钱包使用测试网络连接合约后可以获取自己的一个地址，接下去向地址发 token</p>
+<p>修改合约地址和账户地址，在 <code>scripts/mint.js</code> 中</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 发币到自己的账户</span>
+yarn mint
+</code></pre></td></tr></table>
+</div>
+</div><h1 id="以太坊概念教程">以太坊概念教程</h1>
+<h2 id="1-以太坊基础概念">1. 以太坊基础概念</h2>
+<h3 id="11-比特币-btc--以太坊-ethereum">1.1 比特币 BTC &amp; 以太坊 Ethereum</h3>
+<ul>
+<li>比特币：价值工具。</li>
+<li>以太坊：分布式应用平台。</li>
+</ul>
+<h3 id="12-智能合约-contract">1.2 智能合约 contract</h3>
+<p>智能合约（Smart contract ）是一种旨在以信息化方式传播、验证或执行合同的计算机协议。智能合约允许在没有第三方的情况下进行可信交易，这些交易可追踪且不可逆转</p>
+<p>智能合约是用诸如 Solidity, Serpent 或 LLL 之类的高级脚本语言编写的，部署于分布式网络的虚拟机中，可以认为是传统应用的服务端</p>
+<h3 id="13-web3js">1.3 web3.js</h3>
+<p>开发以太坊区块链应用程序，涉及到以下部分:</p>
+<ul>
+<li>智能合约开发 – 使用 solidity 语言编写代码，部署到区块链。</li>
+<li>网站或客户端开发 – 与区块链中的智能合约进行交互，读写数据。</li>
+</ul>
+<p>在进行网站或客户端开发时，就需要用到 web3.js。web3.js 库是一个 javascript 库，可以让你执行很多与区块链进行交互的任务，例如：</p>
+<ul>
+<li>以太币转账（信息交换）</li>
+<li>读写智能合约中的数据</li>
+<li>创建智能合约</li>
+</ul>
+<p>web3.js 使用 JSON RPC 与 Ethereum 区块链通信(JSON RPC 即 JSON 远程调用)，对区块链网络进行数据读写</p>
+<p>web3 连接使用合约地址连接，具体连接到的是分布式网络中的节点。</p>
+<h3 id="14-以太币-eth">1.4 以太币 eth</h3>
+<ul>
+<li>应用程序执行任何操作都需要支付以太币，防范以太坊网络被滥用。</li>
+<li>与比特币类似，用于激励矿工。</li>
+</ul>
+<h3 id="15-油费-gas">1.5 油费 gas</h3>
+<p>以太坊(Ethereum)区块链网络上，每一次操作的执行都需要消耗“汽油/gas”，用户需要支付“油费”，“油费”用以太币计算，价格由矿工决定，矿工可以拒绝执行油费出价过低的智能合约。</p>
+<p>每个智能合约都有一个设置的 Gas 最大消耗量，被称为 Gas 上限 / Gas Limit，如果有人试图执行一段死循环的合约代码，合约将一直运行，最终超过 gas 上限，调用合约的交易将回滚到以前状态</p>
+<h3 id="16-虚拟机-evm">1.6 虚拟机 EVM</h3>
+<p>虚拟机是执行智能合约代码的引擎，可以被看做是一个大型的分布式计算机网络，执行的代码是编译后的智能合约代码。</p>
+<h3 id="17-分布式应用-dapp">1.7 分布式应用 DAPP</h3>
+<p>分布式应用(DApp)是运行在区块链之上的应用程序，支持区块链网络中用户之间的交互。</p>
+<h3 id="18-账号地址accounts">1.8 账号(地址）accounts</h3>
+<p>以太坊(Ethereum)网络中，有 2 种账号：</p>
+<ul>
+<li>外部账号 – 用户使用的账号</li>
+<li>合约账号 – 智能合约使用的账号，每个智能合约都有一个账号</li>
+</ul>
+<p>这些账号，都被称为状态对象/state object，构成了以太坊网络的状态。外部账号的状态是账户余额，合约账号的状态是内存与账户余额</p>
+<p>通常，钱包里的账号，就是外部账号，一个智能合约部署后，会默认有一个 deployer 账号和一个合约地址，合约地址是合约账号，可以使用这个地址导入 token 到钱包。</p>
+<h3 id="19-虚拟机架构">1.9 虚拟机架构</h3>
+<ul>
+<li>开发人员使用 Solidity 等开发语言开发智能合约</li>
+<li>源程序被编译成以太坊虚拟机支持的字节码可执行程序</li>
+<li>可执行程序被部署到网络中，即写入区块，并被分配一个账号(地址)</li>
+<li>外部账号或其他合约账号，可以通过该智能合约的账号访问它</li>
+</ul>
+<h3 id="110-网络节点">1.10 网络节点</h3>
+<p>以太坊(Ethereum)网络是一个公共的区块链网络，网络中包含 2 种网络节点：</p>
+<ul>
+<li>全节点</li>
+<li>轻节点</li>
+</ul>
+<p>全节点 包含了从初始区块开始的全部区块，这些区块中包含了所有的交易历史记录，这些信息是区块链完整性的证据，可用于区块和交易的校验。通常矿工节点应该是全节点。</p>
+<p>轻节点 只包含区块头形成的链，为节省空间，去除了区块体。这些类型的节点主要用于电子钱包，电子钱包必须是轻量级的，因此不能存储整个区块链。轻节点不会用来校验区块或交易，但区块链是一个网络，如有必要轻节点可以向全节点请求区块数据。</p>
+<h3 id="111-挖矿">1.11 挖矿</h3>
+<p>以太坊(Ethereum)与其他公共区块链一样，使用工作量证明机制确保区块链网络正常运行。矿工进行工作量证明计算，即挖矿，来选择区块，写入区块链，确认交易。</p>
+<p>以太坊使用的工作量证明算法称为 Ethash，这是一种哈希算法，灵感来自 Dagger-Hashimoto 算法</p>
+<h2 id="2-交易">2. 交易</h2>
+<h3 id="21-钱包">2.1 钱包</h3>
+<p>MetaMask、walletConnect 等，可以管理自己的地址，适配标准代币协议，可以快速与 dapp 建立链接，进行账号授权，快速交易等。</p>
+<p>MetaMask 核心功能</p>
+<ul>
+<li>选择不同主链网络</li>
+<li>导入账户，使用私钥或者助记词导入</li>
+<li>导入代币，import token，使用代理合约的部署地址导入。</li>
+<li>转账、收款。</li>
+<li>连接 dapp。</li>
+</ul>
+<h3 id="22-稳定币">2.2 稳定币</h3>
+<p>最常用的是 usdt，所有币币之间的交易，通常都是通过 usdt 中转，另外以 usdt 作为余额使用、计价单位。</p>
+<p>USDT 又名 Tether，通过 Tether 提供 1：1 美元兑换服务，为法币与数字货币提供兑换服务，网站宣称严格遵守 1：1 的准备金保证，即每发行 1 枚 USDT 代币，其银行帐户都会有 1 美元的资金保障。理论上 usdt 有泡沫风险，如果挤兑可能会爆盘，但是目前的确是最通用的稳定币</p>
+<h3 id="23-交易方式">2.3 交易方式</h3>
+<ul>
+<li>c2c：通过线下 c 对 c 交易，将法币兑换成虚拟币，或者将虚拟币兑换成法币。</li>
+<li>币币：虚拟币和虚拟币之间的兑换。</li>
+<li>杠杆交易：杠杆交易也是一种现货交易，需要持有一定量的币或者 USDT，通过抵押借贷来进行访大交易，盈亏风险同比访大。通常操作：做空或者做多。</li>
+<li>合约交易：一种自动杠杆交易，需提供动态保证金，上涨到一定价格可 100 倍收益，但是下跌强平会损失所有保证金。</li>
+<li>期权：用来对冲风险，</li>
+</ul>
+<h3 id="24-中心化交易所">2.4 中心化交易所</h3>
+<p>火币（国内）、okex（国内）、币安（新加坡），目前国内的交易所都已经清退国内用户，美国也是禁止提供交易服务的国家，币安在新加坡，还可以交易，但是 c2c 交易比较困难。</p>
+<p>交易方式：将币从自己的地址转入交易所提供的地址，然后快速进行币币交易（兑换）或杠杆/期权等交易，交易过程不会上链，没有链上记录，所以是中心化交易所，有跑路风险，容易被攻击。</p>
+<h3 id="25-去中心化交易所">2.5 去中心化交易所</h3>
+<p>如 uniswap，通过标准的区块链方式来进行币币交易，交易需要矿工挖矿，速度比较慢，比较安全，过程公开。</p>
+<h2 id="3-代币">3. 代币</h2>
+<h3 id="31-erc20-协议">3.1 ERC20 协议</h3>
+<p>ERC-20 是以太坊区块链上的一种智能合约协议标准，规定了合约代币需实现的核心方法，只要实现了这些方法，并且部署到链上，即可发行代币，将合约地址导入钱包，即可自动识别 token 名和其他信息。</p>
+<h3 id="32-代币价值">3.2 代币价值</h3>
+<p>还没搞懂</p>
+<h3 id="33-代币流通">3.3 代币流通</h3>
+<p>还没搞懂</p>
+<h2 id="4-智能合约开发">4. 智能合约开发</h2>
+<h3 id="41-本地虚拟机">4.1 本地虚拟机</h3>
+<p>可以使用 hardhat 进行智能合约开发，首先需要运行一个本地的虚拟机，用以运行所有的合约及提供对合约的访问。</p>
+<p>对于本项目，运行以下命令，运行之后不要退出，保持进程持续运行，每次重启都会丢失测试数据。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">npm run chain
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="42-编写合约代码">4.2 编写合约代码</h3>
+<p>合约代码的开发语言通常是 <code>Solidity</code> ，文件后缀 <code>.sol</code>，开发工具建议 vscode + Solidity 插件。</p>
+<p>Solidity 语法有点类似 js 或者 java 等，面向对象编程。</p>
+<p>合约可以运行任何逻辑，可以是一段计算逻辑，或者是数据存储，也可以是代币协议等。</p>
+<p>本项目的合约是一个代币合约，代码见 ./contracts/</p>
+<p>其中 YuTou.sol 是代币合约，YuTouMintable 是一个扩展类，使代币具备分配能力。</p>
+<h3 id="43-部署合约代码">4.3 部署合约代码</h3>
+<p>编写合约后，通过 npm run deploy 命令部署，本项目的部署脚本在 deploy/00_deploy_your_contract.js 中，指定了部署的合约名等。</p>
+<p>合约部署其实很简单，部署后会分配一个合约地址和 deployer 账号地址，需记住这两个地址，导入 token 到钱包需要合约地址，deployer 地址则持有了初始发行的所有 token</p>
+<h3 id="44-发币">4.4 发币</h3>
+<p>代码和注释见 scripts/mint.js</p>
+<p>只有 deployer 才有权限向其他账号发布初始 token。
+核心逻辑：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="c1">// 调用mint方法向 0x437431... 账户发行代币;
+</span><span class="c1"></span><span class="nx">contract</span><span class="p">.</span><span class="nx">methods</span>
+  <span class="p">.</span><span class="nx">mint</span><span class="p">(</span><span class="s2">&#34;0x4374311B5d68E9eC496B70a55b8dD9469c804D1C&#34;</span><span class="p">,</span> <span class="mi">512</span> <span class="o">*</span> <span class="mi">10</span> <span class="o">**</span> <span class="mi">8</span><span class="p">)</span>
+  <span class="c1">// from需要是所有者，因为发布的时候没有选择用户，默认是创世用户第一个，才可以向想合约申请给用户发币
+</span><span class="c1"></span>  <span class="p">.</span><span class="nx">send</span><span class="p">({</span>
+    <span class="nx">from</span><span class="o">:</span> <span class="s2">&#34;0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266&#34;</span><span class="p">,</span>
+  <span class="p">});</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="45-回币">4.5 回币</h3>
+<p>在合约中有一段代码</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="c1">//接收以太坊可以使用回退函数，在回退函数里给调用者地址发相同数量的代币
+</span><span class="c1"></span><span class="nx">receive</span><span class="p">()</span> <span class="nx">external</span> <span class="nx">payable</span> <span class="p">{</span>
+    <span class="nx">require</span><span class="p">(</span><span class="nx">msg</span><span class="p">.</span><span class="nx">value</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">);</span>
+    <span class="mi">_</span><span class="nx">mint</span><span class="p">(</span><span class="nx">msg</span><span class="p">.</span><span class="nx">sender</span><span class="p">,</span> <span class="nx">msg</span><span class="p">.</span><span class="nx">value</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="nx">constructor</span><span class="p">()</span> <span class="kr">public</span> <span class="nx">payable</span> <span class="p">{</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>此段代码是监听 eth 主链上的转账通知，当 当前合约部署的合约地址收到 eth 转账的时候，会进入此逻辑，可以给转账发起方回复 token，可以以此实现 eth 到 代币的自动兑换（不过这好像不合法）</p>
+</div>
+
+        <div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2021-12-25</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="#" onclick="return false;" title="分享到 微博" data-sharer="weibo" data-url="http://example.org/posts/eth_simple_example/" data-title="以太坊小示例和基本概念" data-image="/eth/cover.png"><i class="fab fa-weibo fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/prisma-nestjs-graphql/" class="prev" rel="prev" title="Prisma &#43; NestJs &#43; GraphQL 表现层应用开发"><i class="fas fa-angle-left fa-fw"></i>Prisma &#43; NestJs &#43; GraphQL 表现层应用开发</a>
+            <a href="/posts/2021-year-report/" class="next" rel="next" title="GOODBYE 2021, HELLO 2022">GOODBYE 2021, HELLO 2022<i class="fas fa-angle-right fa-fw"></i></a></div>
+    <script src="/client.js"></script>
+    <div style="clear: both;margin-top:20px;"></div>
+    <div id="waline"></div>
+<script>
+Waline({
+  el: '#waline',
+  serverURL: 'https://comment-weld.vercel.app',
+  visitor: true, 
+});
+</script>
+</div>
+</article></div>
+        </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2021 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank" rel="noopener noreferrer"></a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+                    <span class="icp"><a href='https://beian.miit.gov.cn/'>浙ICP备12047043号-10</a></span></div>
+        </div></footer>
+</div>
+
+    <div id="fixed-buttons"><a href="#back-to-top" id="back-to-top-button" class="fixed-button" title="回到顶部">
+            <i class="fas fa-arrow-up fa-fw"></i>
+        </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+            <i class="fas fa-comment fa-fw"></i>
+        </a>
+    </div><div class="assets"><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/topbar/topbar.min.js"></script><script type="text/javascript" src="/lib/pjax/pjax.min.js"></script><script type="text/javascript" src="/js/theme.min.js"></script></div>
+
+<div class="pjax-assets"><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/typeit/typeit.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":100},"comment":{},"data":{"desktop-header-typeit":"芋头乱炖","mobile-header-typeit":"芋头乱炖"},"sharerjs":true,"typeit":{"cursorChar":null,"cursorSpeed":null,"data":{"desktop-header-typeit":["desktop-header-typeit"],"mobile-header-typeit":["mobile-header-typeit"]},"duration":null,"speed":null}};</script></div>
+</body>
+
+</html>

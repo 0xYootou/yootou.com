@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noodp" />
+    <title class="pjax-title">Arduino LED 频谱仪 #2 音频传感器选择 - 芋头乱炖，一只普通程序员的自留地</title><meta name="Description" content=""><meta property="og:title" content="Arduino LED 频谱仪 #2 音频传感器选择" />
+<meta property="og:description" content="特别注意 今天跟大家分享下关于音频采集和频域分析的过程，也比较简单，不过相比于网上很多示例来说，至少是真的 run 起来了，之前我在网上看到很多文章和示例代码，实际上都非常浅，也基本上很难跑起来，所以也趟了不少坑。 另外我在这个环节趟过的最大的坑是电气隔离的坑，因为麦克风采集的电信号非常微弱，所以它很容易被电路干扰，实际上玩 hifi 的同学应该对相关的经验比较了解，按理说我也是个 hifi 玩家，应该比较早想到这个问题的，但是我的确忽略了，因为调了很久电路，一直达不到自己想要的结果，而且差异很大，后来突然想起来这回事，把电路做了隔离才ok的。 另外就是关于元器件的运行电压，例如今天要讲的麦克风传感器，官方规格描述是要低于3.3v电压，否则容易损坏，所以不能直接接入usb的5v电压。 音频采集 说到音频采集，最重要的当然是麦克风，新接触的同学可能会直接买mic头，这就麻烦了，mic 只是最末端的传感器，他只能产生模拟信号，你需要" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://example.org/posts/fft-2/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-01-06T00:00:00+00:00" />
+<meta property="article:modified_time" content="2022-01-06T00:00:00+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Arduino LED 频谱仪 #2 音频传感器选择"/>
+<meta name="twitter:description" content="特别注意 今天跟大家分享下关于音频采集和频域分析的过程，也比较简单，不过相比于网上很多示例来说，至少是真的 run 起来了，之前我在网上看到很多文章和示例代码，实际上都非常浅，也基本上很难跑起来，所以也趟了不少坑。 另外我在这个环节趟过的最大的坑是电气隔离的坑，因为麦克风采集的电信号非常微弱，所以它很容易被电路干扰，实际上玩 hifi 的同学应该对相关的经验比较了解，按理说我也是个 hifi 玩家，应该比较早想到这个问题的，但是我的确忽略了，因为调了很久电路，一直达不到自己想要的结果，而且差异很大，后来突然想起来这回事，把电路做了隔离才ok的。 另外就是关于元器件的运行电压，例如今天要讲的麦克风传感器，官方规格描述是要低于3.3v电压，否则容易损坏，所以不能直接接入usb的5v电压。 音频采集 说到音频采集，最重要的当然是麦克风，新接触的同学可能会直接买mic头，这就麻烦了，mic 只是最末端的传感器，他只能产生模拟信号，你需要"/>
+<meta name="application-name" content="芋头乱炖，一只普通程序员的自留地">
+<meta name="apple-mobile-web-app-title" content="芋头乱炖，一只普通程序员的自留地">
+
+<meta name="theme-color" content="#f8f8f8"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="canonical" href="http://example.org/posts/fft-2/" /><link rel="prev" href="http://example.org/posts/arduino-fft-fastled/" /><link rel="next" href="http://example.org/posts/about-me/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/fontawesome-free/all.min.css">
+    <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/animate/animate.min.css">
+    <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Arduino LED 频谱仪 #2 音频传感器选择",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/example.org\/posts\/fft-2\/"
+        },"genre": "posts","wordcount":  2262 ,
+        "url": "http:\/\/example.org\/posts\/fft-2\/","datePublished": "2022-01-06T00:00:00+00:00","dateModified": "2022-01-06T00:00:00+00:00","publisher": {
+            "@type": "Organization",
+            "name": "作者"},"author": {
+                "@type": "Person",
+                "name": "作者"
+            },"description": ""
+    }
+    </script></head>
+
+<body header-desktop="" header-mobile=""><script type="text/javascript">
+        function setTheme(theme) {document.body.setAttribute('theme', theme);}
+        function saveTheme(theme) {window.localStorage && localStorage.setItem('theme', theme);}
+        function getMeta(metaName) {const metas = document.getElementsByTagName('meta'); for (let i = 0; i < metas.length; i++) if (metas[i].getAttribute('name') === metaName) return metas[i]; return '';}
+        if (window.localStorage && localStorage.getItem('theme')) {let theme = localStorage.getItem('theme');theme === 'light' || theme === 'dark' || theme === 'black' ? setTheme(theme) : (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? setTheme('dark') : setTheme('light')); } else { if ('' === 'light' || '' === 'dark' || '' === 'black') setTheme(''), saveTheme(''); else saveTheme('auto'), window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? setTheme('dark') : setTheme('light');}
+        let metaColors = {'light': '#f8f8f8','dark': '#252627','black': '#000000'}
+        getMeta('theme-color').content = metaColors[document.body.getAttribute('theme')];
+    </script>
+    <div id="back-to-top"></div>
+    <div id="mask"></div><div class="wrapper"><div style="display: none"><img src="/android-chrome-512x512.png" width="320" height="320"/></div>
+<header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="芋头乱炖，一只普通程序员的自留地"><img
+        class="lazyload logo"
+        data-src="/logo.png"
+        data-srcset="/logo.png, /logo.png 1.5x, /logo.png 2x"
+        data-sizes="auto"
+        alt="/logo.png"
+        title="/logo.png"
+    /><span id="desktop-header-typeit" class="typeit"></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><a href="#" onclick="return false;" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a></div>
+        </div>
+    </div>
+</header><div style="display: none"><img src="/android-chrome-512x512.png" width="320" height="320"/></div>
+<header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="芋头乱炖，一只普通程序员的自留地"><img
+        class="lazyload logo"
+        data-src="/logo.png"
+        data-srcset="/logo.png, /logo.png 1.5x, /logo.png 2x"
+        data-sizes="auto"
+        alt="/logo.png"
+        title="/logo.png"
+    /><span id="mobile-header-typeit" class="typeit"></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a href="#" onclick="return false;" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+            <div class="container"><script src="/qrcode.js"></script><div class="toc" id="toc-auto">
+        <h2 class="toc-title">目录</h2>
+        <div class="toc-content" id="toc-content-auto"></div>
+        <h2 class="toc-title">分享此文章</h2>
+        <div id="qrcode" style="width:200px;"></div>
+        <script type="text/javascript">
+        new QRCode(document.getElementById("qrcode"),{
+            width: 128,
+	height: 128,
+    text:window.location.href
+        } );
+        </script>
+    </div><script>document.getElementsByTagName("main")[0].setAttribute("pageStyle", "normal")</script><article class="page single"><div class="featured-image-preview-post  animate__animated animate__flipInX"><img
+        class="lazyload"
+        data-src="/fft-2/IMG_6475.JPG"
+        data-srcset="/fft-2/IMG_6475.JPG, /fft-2/IMG_6475.JPG 1.5x, /fft-2/IMG_6475.JPG 2x"
+        data-sizes="auto"
+        alt="/fft-2/IMG_6475.JPG"
+        title="/fft-2/IMG_6475.JPG" height="auto" width="auto"
+    /></div><h1 class="single-title animate__animated animate__flipInX">Arduino LED 频谱仪 #2 音频传感器选择</h1><div class="post-meta">
+            <div class="post-meta-line">
+                
+                
+                
+
+                
+            </div>
+            <div class="post-meta-line"><span style="padding-right:10px;"><time datetime="2022-01-06">2022-01-06</time> </span>
+                <span style="padding-right:10px;">阅读: <span id="/posts/fft-2/" class="waline-visitor-count" ></span></span>
+                <span style="padding-right:10px;">评论: <span id="/posts/fft-2/" class="waline-comment-count" ></span></span>
+                <span style="padding-right:10px;">约 2262 字</span>
+                <span style="padding-right:10px;">预计阅读 5 分钟</span></div>
+        </div><div class="details toc open" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#特别注意">特别注意</a></li>
+    <li><a href="#音频采集">音频采集</a>
+      <ul>
+        <li><a href="#第一种声音传感器">第一种：声音传感器</a></li>
+        <li><a href="#第二种麦克风放大传感器">第二种：麦克风放大传感器</a></li>
+        <li><a href="#第三种-mems-全向麦克风">第三种： MEMS 全向麦克风</a></li>
+      </ul>
+    </li>
+    <li><a href="#接线">接线</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="特别注意">特别注意</h2>
+<p>今天跟大家分享下关于音频采集和频域分析的过程，也比较简单，不过相比于网上很多示例来说，至少是真的 run 起来了，之前我在网上看到很多文章和示例代码，实际上都非常浅，也基本上很难跑起来，所以也趟了不少坑。</p>
+<p>另外我在这个环节趟过的最大的坑是电气隔离的坑，因为麦克风采集的电信号非常微弱，所以它很容易被电路干扰，实际上玩 hifi 的同学应该对相关的经验比较了解，按理说我也是个 hifi 玩家，应该比较早想到这个问题的，但是我的确忽略了，因为调了很久电路，一直达不到自己想要的结果，而且差异很大，后来突然想起来这回事，把电路做了隔离才ok的。</p>
+<p>另外就是关于元器件的运行电压，例如今天要讲的麦克风传感器，官方规格描述是要低于3.3v电压，否则容易损坏，所以不能直接接入usb的5v电压。</p>
+<h2 id="音频采集">音频采集</h2>
+<p>说到音频采集，最重要的当然是麦克风，新接触的同学可能会直接买mic头，这就麻烦了，mic 只是最末端的传感器，他只能产生模拟信号，你需要自己搭建周边电路和放大电路、编码电路，才能真正获得数字音频信号，而且需要把信号编码传给 MCU，过于复杂了，实际上我们要的是集成的传感器，直接输出数字信号。</p>
+<p>去淘宝搜索了一圈，发现了这些玩意：</p>
+<p><img
+        class="lazyload"
+        data-src="/fft-2/IMG_6487.jpeg"
+        data-srcset="/fft-2/IMG_6487.jpeg, /fft-2/IMG_6487.jpeg 1.5x, /fft-2/IMG_6487.jpeg 2x"
+        data-sizes="auto"
+        alt="/fft-2/IMG_6487.jpeg"
+        title="/fft-2/IMG_6487.jpeg"
+    /></p>
+<p>注意下，先别急着买，实际上我们使用的不是这里的任意一款传感器。</p>
+<h3 id="第一种声音传感器">第一种：声音传感器</h3>
+<p>首先，第一和第二种，叫声音传感器，而不是麦克风放大器，这些模块不是用来录音的，而是用来探测分贝的，也就是他们可以设置一个阈值，当声音的分贝大于阈值的时候就会输出高电平，否则会输出低电平，所以它的输出只有两个状态，所以他们的使用场景是类似于楼道里的声控开关。</p>
+<h3 id="第二种麦克风放大传感器">第二种：麦克风放大传感器</h3>
+<p>继续看其他的模块，这些模块是可以探测声音的，其实可以用于今天的小作品，不过这些传感器的端口都是普通的 io 口，他们的输出信号非常直白，就是电压值，然后通过 arduino 的 adc 口去探测值，分辨率很低，采样率也很低。</p>
+<p>这种传感器的接口通常只有3个或4个，除去 VCC 和 GND ，就是一根普通的采集输出。</p>
+<p>Arduino uno 的 A0-A5 可以做 adc 采样，采样分辨率1024，也就是采样一次，值的范围可以有 1024 级。代码非常简单：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">void setup() {
+   Serial.begin(9600);         //使用9600速率进行串口通讯
+}
+ 
+void loop() {
+  int n = analogRead(A0);    //读取A0口的电压值
+  double vol = n * (5 / 1024.0*100);   //使用双精度浮点数存储数据，数据由电压值换算得到
+  delay(2000);                           //等待2秒，控制刷新速度
+}
+
+</code></pre></td></tr></table>
+</div>
+</div><p>途中还有一个 MAX9814，也是一个非常流行的传感器，提供了一些高级功能，另外性能也比较好，可以控制增益调节，低功耗待机等。</p>
+<p>官方参数：</p>
+<blockquote>
+<p>MAX9814 IC包含低噪声放大器、输出放大器、麦克风偏置电压发生器和自动增益控制(AGC)等内部电路。麦克风放大器的总增益可选择40dB、50dB或60dB而无压缩。MAX9814利用压缩/限幅电路将麦克风输出限制为设定电压。</p>
+</blockquote>
+<ul>
+<li>MAX9814评估板工作于2.7V至5.5V电源范围</li>
+<li>7V至5.5V单电源工作</li>
+<li>20dB动态增益压缩</li>
+<li>可选的增益控制</li>
+<li>可编程动作时间</li>
+<li>可选择动作/释放比</li>
+<li>低功耗关断模式</li>
+</ul>
+<p><img
+        class="lazyload"
+        data-src="/fft-2/max1.jpg"
+        data-srcset="/fft-2/max1.jpg, /fft-2/max1.jpg 1.5x, /fft-2/max1.jpg 2x"
+        data-sizes="auto"
+        alt="/fft-2/max1.jpg"
+        title="/fft-2/max1.jpg"
+    /></p>
+<h3 id="第三种-mems-全向麦克风">第三种： MEMS 全向麦克风</h3>
+<p>我最终选用的是高性能全向麦克风，具体型号是 INMP 441，体积非常小巧。由一个 MEMS传感器，信号组成调节，模数转换器，抗混叠滤波器，电源管理和行业标准的24位I²S接口。I²S接口允许INMP441直接连接到数字处理器，如DSP和微控制器，无需使用用于系统中的音频编解码器。INMP441具有高信噪比，是款选择近场应用。 INMP441具有扁平宽带频率响应，导致自然声音高清晰度。</p>
+<ul>
+<li>具有高精度24位數據的數字I²S接口</li>
+<li>高信噪比為61 dBA</li>
+<li>高靈敏度-26 dBFS</li>
+<li>從60 Hz到15 kHz的穩定頻率響應</li>
+</ul>
+<p>我们为啥选 INMP 441 呢，最主要的原因其实是他的 i2s 接口，另外他的分辨率是很强的，而且信号是内部处理好的，同时还具备一定的 buffer ，因为我们的 arduino 芯片还需要处理傅里叶变换，控制，时间显示，联网等，所以使用 i2s 接口的传感器，mcu 基本不需要付出成本去接入麦克风传感器，而只需要定期从 i2s 接口的缓冲区获取结果数据即可。</p>
+<p>不过，上篇文章我们提到过，不是所有的 arduino 芯片都有 i2s 接口，而且大部分 arduino 其实都没有这个接口，所以一定要配套，我们这里使用的是 esp32 芯片来配套，esp32 内部有两套 i2s 通信 io。</p>
+<p>通过 esp32 和 INMP441 ，做频谱显示其实是大材小用，其实完全可以用来做录音笔，保存成 wav 文件，然后存储到 sd 卡，甚至是通过 websocket 传输到服务器，这些用 esp32 芯片都完全可以搞定。</p>
+<p>下图里的这两个圆形的芯片就是 INMP441，虽然体积很小，但是功能很强大。</p>
+<p><img
+        class="lazyload"
+        data-src="/fft-2/IMG_6475.JPG"
+        data-srcset="/fft-2/IMG_6475.JPG, /fft-2/IMG_6475.JPG 1.5x, /fft-2/IMG_6475.JPG 2x"
+        data-sizes="auto"
+        alt="/fft-2/IMG_6475.JPG"
+        title="/fft-2/IMG_6475.JPG"
+    /></p>
+<p>一枚 INMP441 淘宝的价格在9块钱左右，不贵，多买几个，另外焊接的时候要小心，不要搞反了，像我图中，方形凸起的主体要对着外部，焊脚在另一面，我最开始焊的一个就搞错了。。另外建议买焊接好的成品，自己焊接容易搞坏掉，外围的信号条被破坏了应该会有问题，很考验焊接技术，关键是在你调通电路之前，你自己也不知道坏没坏，不太好检测。</p>
+<p>另外注意电压问题，不要给此芯片接入 5v 电源，具体其他限制可以看芯片的官方参数文档。</p>
+<h2 id="接线">接线</h2>
+<p><img
+        class="lazyload"
+        data-src="/fft-2/IMG_6488.jpg"
+        data-srcset="/fft-2/IMG_6488.jpg, /fft-2/IMG_6488.jpg 1.5x, /fft-2/IMG_6488.jpg 2x"
+        data-sizes="auto"
+        alt="/fft-2/IMG_6488.jpg"
+        title="/fft-2/IMG_6488.jpg"
+    /></p>
+<p>INMP 441 共有六个 io 口：</p>
+<ul>
+<li>其中 VCC 和 GND 是电源引脚，VCC 电压 1.8至3.3 V</li>
+<li>SCK 是 i2s 接口的串行数据时钟引脚。</li>
+<li>SD 是 i2s 接口的串行数据输出引脚。该引脚在未有效驱动相应的输出通道时处于三态。 SD走线应与一个100 kΩ下拉电阻相连，以便在总线上的所有麦克风的输出处于 三态期间，对通道进行放电。</li>
+<li>WS 是 i2s 数据串行数据字选择引脚</li>
+<li>L/R 是左/右通道选择引脚。置于低电平状态时，麦克风通过I 2 S接口左通道输出信号；置 于高电平状态时，麦克风通过右通道输出信号</li>
+</ul>
+<p>今天这篇文章就到这里把，关于具体的接线，以及收音的代码，和频谱分析，内容比较多，放在下篇文章展开。</p>
+<p>有关麦克风芯片的问题，欢迎探讨。</p>
+</div>
+
+        <div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-01-06</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="#" onclick="return false;" title="分享到 微博" data-sharer="weibo" data-url="http://example.org/posts/fft-2/" data-title="Arduino LED 频谱仪 #2 音频传感器选择" data-image="/fft-2/IMG_6475.JPG"><i class="fab fa-weibo fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/arduino-fft-fastled/" class="prev" rel="prev" title="Arduino LED 频谱仪 #1 arduino 芯片选择"><i class="fas fa-angle-left fa-fw"></i>Arduino LED 频谱仪 #1 arduino 芯片选择</a>
+            <a href="/posts/about-me/" class="next" rel="next" title="ABOUT ME 关于我">ABOUT ME 关于我<i class="fas fa-angle-right fa-fw"></i></a></div>
+    <script src="/client.js"></script>
+    <div style="clear: both;margin-top:20px;"></div>
+    <div id="waline"></div>
+<script>
+Waline({
+  el: '#waline',
+  serverURL: 'https://comment-weld.vercel.app',
+  visitor: true, 
+});
+</script>
+</div>
+</article></div>
+        </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2021 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank" rel="noopener noreferrer"></a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+                    <span class="icp"><a href='https://beian.miit.gov.cn/'>浙ICP备12047043号-10</a></span></div>
+        </div></footer>
+</div>
+
+    <div id="fixed-buttons"><a href="#back-to-top" id="back-to-top-button" class="fixed-button" title="回到顶部">
+            <i class="fas fa-arrow-up fa-fw"></i>
+        </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+            <i class="fas fa-comment fa-fw"></i>
+        </a>
+    </div><div class="assets"><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/topbar/topbar.min.js"></script><script type="text/javascript" src="/lib/pjax/pjax.min.js"></script><script type="text/javascript" src="/js/theme.min.js"></script></div>
+
+<div class="pjax-assets"><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/typeit/typeit.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":100},"comment":{},"data":{"desktop-header-typeit":"芋头乱炖","mobile-header-typeit":"芋头乱炖"},"sharerjs":true,"typeit":{"cursorChar":null,"cursorSpeed":null,"data":{"desktop-header-typeit":["desktop-header-typeit"],"mobile-header-typeit":["mobile-header-typeit"]},"duration":null,"speed":null}};</script></div>
+</body>
+
+</html>

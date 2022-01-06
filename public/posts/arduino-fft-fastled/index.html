@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noodp" />
+    <title class="pjax-title">Arduino LED 频谱仪 #1 arduino 芯片选择 - 芋头乱炖，一只普通程序员的自留地</title><meta name="Description" content=""><meta property="og:title" content="Arduino LED 频谱仪 #1 arduino 芯片选择" />
+<meta property="og:description" content="本系列文章将带着大家一起简单了解如何制作一个音频频谱显示的 arduino 小板子。 最终效果： 此小产品涉及到以下功能： 音频采集 音频傅立叶变化 fastled 驱动 led 板 时间显示及其他动效 亮度和灵敏度调节 亚克力盒子制作 主要涉及以下芯片： arduino 芯片，我们选择 esp32。 音频传感器， WS2812B 8*32 芯片 2 位数码管 INMP441 全向麦克风 旋转编码器和旋钮盖 面包板和杜邦线、插线柱等等若干 电烙铁和焊锡 亚克力板 3mm 以上厚度若干，立柱若干、半透亚克力板 1mm 若干 稍后我会一一介绍为什么选择这些元件以及如何购买比较划算。 以下是半成品 第一部分 arduino 芯片选择 Arduino 芯片有很多类型，一般入门用的都是 uno，功能简单，但是便宜，不过我一般不使用 arduino uno，主要是 uno 主频很低，处理稍微复杂一些的场景就性能不足，另外就是也没有联网之类的功能，另外也缺少一些端口，我之前做物联网应用的时候，用的是 esp8266 芯片，其技术参数见： https://www.espressif.com/sites/default/files/documentation/esp8266-technical_reference_cn.pdf 单核处理器，运行频率为 80MHz 802.11 b/g/n Wi-Fi Direct (P2P)、soft-AP 内置 TCP/IP 协议栈 内置 TR 开关、ba" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://example.org/posts/arduino-fft-fastled/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-01-05T00:00:00+00:00" />
+<meta property="article:modified_time" content="2022-01-05T00:00:00+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Arduino LED 频谱仪 #1 arduino 芯片选择"/>
+<meta name="twitter:description" content="本系列文章将带着大家一起简单了解如何制作一个音频频谱显示的 arduino 小板子。 最终效果： 此小产品涉及到以下功能： 音频采集 音频傅立叶变化 fastled 驱动 led 板 时间显示及其他动效 亮度和灵敏度调节 亚克力盒子制作 主要涉及以下芯片： arduino 芯片，我们选择 esp32。 音频传感器， WS2812B 8*32 芯片 2 位数码管 INMP441 全向麦克风 旋转编码器和旋钮盖 面包板和杜邦线、插线柱等等若干 电烙铁和焊锡 亚克力板 3mm 以上厚度若干，立柱若干、半透亚克力板 1mm 若干 稍后我会一一介绍为什么选择这些元件以及如何购买比较划算。 以下是半成品 第一部分 arduino 芯片选择 Arduino 芯片有很多类型，一般入门用的都是 uno，功能简单，但是便宜，不过我一般不使用 arduino uno，主要是 uno 主频很低，处理稍微复杂一些的场景就性能不足，另外就是也没有联网之类的功能，另外也缺少一些端口，我之前做物联网应用的时候，用的是 esp8266 芯片，其技术参数见： https://www.espressif.com/sites/default/files/documentation/esp8266-technical_reference_cn.pdf 单核处理器，运行频率为 80MHz 802.11 b/g/n Wi-Fi Direct (P2P)、soft-AP 内置 TCP/IP 协议栈 内置 TR 开关、ba"/>
+<meta name="application-name" content="芋头乱炖，一只普通程序员的自留地">
+<meta name="apple-mobile-web-app-title" content="芋头乱炖，一只普通程序员的自留地">
+
+<meta name="theme-color" content="#f8f8f8"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="canonical" href="http://example.org/posts/arduino-fft-fastled/" /><link rel="prev" href="http://example.org/posts/typescript_type_tip/" /><link rel="next" href="http://example.org/posts/fft-2/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/fontawesome-free/all.min.css">
+    <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/animate/animate.min.css">
+    <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Arduino LED 频谱仪 #1 arduino 芯片选择",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/example.org\/posts\/arduino-fft-fastled\/"
+        },"genre": "posts","wordcount":  1242 ,
+        "url": "http:\/\/example.org\/posts\/arduino-fft-fastled\/","datePublished": "2022-01-05T00:00:00+00:00","dateModified": "2022-01-05T00:00:00+00:00","publisher": {
+            "@type": "Organization",
+            "name": "作者"},"author": {
+                "@type": "Person",
+                "name": "作者"
+            },"description": ""
+    }
+    </script></head>
+
+<body header-desktop="" header-mobile=""><script type="text/javascript">
+        function setTheme(theme) {document.body.setAttribute('theme', theme);}
+        function saveTheme(theme) {window.localStorage && localStorage.setItem('theme', theme);}
+        function getMeta(metaName) {const metas = document.getElementsByTagName('meta'); for (let i = 0; i < metas.length; i++) if (metas[i].getAttribute('name') === metaName) return metas[i]; return '';}
+        if (window.localStorage && localStorage.getItem('theme')) {let theme = localStorage.getItem('theme');theme === 'light' || theme === 'dark' || theme === 'black' ? setTheme(theme) : (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? setTheme('dark') : setTheme('light')); } else { if ('' === 'light' || '' === 'dark' || '' === 'black') setTheme(''), saveTheme(''); else saveTheme('auto'), window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? setTheme('dark') : setTheme('light');}
+        let metaColors = {'light': '#f8f8f8','dark': '#252627','black': '#000000'}
+        getMeta('theme-color').content = metaColors[document.body.getAttribute('theme')];
+    </script>
+    <div id="back-to-top"></div>
+    <div id="mask"></div><div class="wrapper"><div style="display: none"><img src="/android-chrome-512x512.png" width="320" height="320"/></div>
+<header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="芋头乱炖，一只普通程序员的自留地"><img
+        class="lazyload logo"
+        data-src="/logo.png"
+        data-srcset="/logo.png, /logo.png 1.5x, /logo.png 2x"
+        data-sizes="auto"
+        alt="/logo.png"
+        title="/logo.png"
+    /><span id="desktop-header-typeit" class="typeit"></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><a href="#" onclick="return false;" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a></div>
+        </div>
+    </div>
+</header><div style="display: none"><img src="/android-chrome-512x512.png" width="320" height="320"/></div>
+<header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="芋头乱炖，一只普通程序员的自留地"><img
+        class="lazyload logo"
+        data-src="/logo.png"
+        data-srcset="/logo.png, /logo.png 1.5x, /logo.png 2x"
+        data-sizes="auto"
+        alt="/logo.png"
+        title="/logo.png"
+    /><span id="mobile-header-typeit" class="typeit"></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a href="#" onclick="return false;" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+            <div class="container"><script src="/qrcode.js"></script><div class="toc" id="toc-auto">
+        <h2 class="toc-title">目录</h2>
+        <div class="toc-content" id="toc-content-auto"></div>
+        <h2 class="toc-title">分享此文章</h2>
+        <div id="qrcode" style="width:200px;"></div>
+        <script type="text/javascript">
+        new QRCode(document.getElementById("qrcode"),{
+            width: 128,
+	height: 128,
+    text:window.location.href
+        } );
+        </script>
+    </div><script>document.getElementsByTagName("main")[0].setAttribute("pageStyle", "normal")</script><article class="page single"><div class="featured-image-preview-post  animate__animated animate__flipInX"><img
+        class="lazyload"
+        data-src="/Arduino%20%E9%9F%B3%E9%A2%91%E7%9B%92%E5%AD%90%E5%88%B6%E4%BD%9C%20%231%20arduino%20%E8%8A%AF%E7%89%87%E9%80%89%E6%8B%A9/IMG_6479.JPG"
+        data-srcset="/Arduino%20%E9%9F%B3%E9%A2%91%E7%9B%92%E5%AD%90%E5%88%B6%E4%BD%9C%20%231%20arduino%20%E8%8A%AF%E7%89%87%E9%80%89%E6%8B%A9/IMG_6479.JPG, /Arduino%20%E9%9F%B3%E9%A2%91%E7%9B%92%E5%AD%90%E5%88%B6%E4%BD%9C%20%231%20arduino%20%E8%8A%AF%E7%89%87%E9%80%89%E6%8B%A9/IMG_6479.JPG 1.5x, /Arduino%20%E9%9F%B3%E9%A2%91%E7%9B%92%E5%AD%90%E5%88%B6%E4%BD%9C%20%231%20arduino%20%E8%8A%AF%E7%89%87%E9%80%89%E6%8B%A9/IMG_6479.JPG 2x"
+        data-sizes="auto"
+        alt="/Arduino%20%E9%9F%B3%E9%A2%91%E7%9B%92%E5%AD%90%E5%88%B6%E4%BD%9C%20%231%20arduino%20%E8%8A%AF%E7%89%87%E9%80%89%E6%8B%A9/IMG_6479.JPG"
+        title="/Arduino%20%E9%9F%B3%E9%A2%91%E7%9B%92%E5%AD%90%E5%88%B6%E4%BD%9C%20%231%20arduino%20%E8%8A%AF%E7%89%87%E9%80%89%E6%8B%A9/IMG_6479.JPG" height="auto" width="auto"
+    /></div><h1 class="single-title animate__animated animate__flipInX">Arduino LED 频谱仪 #1 arduino 芯片选择</h1><div class="post-meta">
+            <div class="post-meta-line">
+                
+                
+                
+
+                
+            </div>
+            <div class="post-meta-line"><span style="padding-right:10px;"><time datetime="2022-01-05">2022-01-05</time> </span>
+                <span style="padding-right:10px;">阅读: <span id="/posts/arduino-fft-fastled/" class="waline-visitor-count" ></span></span>
+                <span style="padding-right:10px;">评论: <span id="/posts/arduino-fft-fastled/" class="waline-comment-count" ></span></span>
+                <span style="padding-right:10px;">约 1242 字</span>
+                <span style="padding-right:10px;">预计阅读 3 分钟</span></div>
+        </div><div class="details toc open" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#第一部分-arduino-芯片选择">第一部分 arduino 芯片选择</a></li>
+    <li><a href="#交流">交流</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>本系列文章将带着大家一起简单了解如何制作一个音频频谱显示的 arduino 小板子。</p>
+<p>最终效果：
+<div class="bilibili"><iframe src="//player.bilibili.com/player.html?bvid=BV1CY411a7aP&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div>
+</p>
+<p>此小产品涉及到以下功能：</p>
+<ol>
+<li>音频采集</li>
+<li>音频傅立叶变化</li>
+<li>fastled 驱动 led 板</li>
+<li>时间显示及其他动效</li>
+<li>亮度和灵敏度调节</li>
+<li>亚克力盒子制作</li>
+</ol>
+<p>主要涉及以下芯片：</p>
+<ol>
+<li>arduino 芯片，我们选择 esp32。</li>
+<li>音频传感器，</li>
+<li>WS2812B 8*32 芯片</li>
+<li>2 位数码管</li>
+<li>INMP441 全向麦克风</li>
+<li>旋转编码器和旋钮盖</li>
+<li>面包板和杜邦线、插线柱等等若干</li>
+<li>电烙铁和焊锡</li>
+<li>亚克力板 3mm 以上厚度若干，立柱若干、半透亚克力板 1mm 若干</li>
+</ol>
+<p>稍后我会一一介绍为什么选择这些元件以及如何购买比较划算。</p>
+<p>以下是半成品</p>
+<p><img
+        class="lazyload"
+        data-src="/Arduino%20%E9%9F%B3%E9%A2%91%E7%9B%92%E5%AD%90%E5%88%B6%E4%BD%9C%20%231%20arduino%20%E8%8A%AF%E7%89%87%E9%80%89%E6%8B%A9/IMG_6473.JPG"
+        data-srcset="/Arduino%20%E9%9F%B3%E9%A2%91%E7%9B%92%E5%AD%90%E5%88%B6%E4%BD%9C%20%231%20arduino%20%E8%8A%AF%E7%89%87%E9%80%89%E6%8B%A9/IMG_6473.JPG, /Arduino%20%E9%9F%B3%E9%A2%91%E7%9B%92%E5%AD%90%E5%88%B6%E4%BD%9C%20%231%20arduino%20%E8%8A%AF%E7%89%87%E9%80%89%E6%8B%A9/IMG_6473.JPG 1.5x, /Arduino%20%E9%9F%B3%E9%A2%91%E7%9B%92%E5%AD%90%E5%88%B6%E4%BD%9C%20%231%20arduino%20%E8%8A%AF%E7%89%87%E9%80%89%E6%8B%A9/IMG_6473.JPG 2x"
+        data-sizes="auto"
+        alt="/Arduino%20%E9%9F%B3%E9%A2%91%E7%9B%92%E5%AD%90%E5%88%B6%E4%BD%9C%20%231%20arduino%20%E8%8A%AF%E7%89%87%E9%80%89%E6%8B%A9/IMG_6473.JPG"
+        title="/Arduino%20%E9%9F%B3%E9%A2%91%E7%9B%92%E5%AD%90%E5%88%B6%E4%BD%9C%20%231%20arduino%20%E8%8A%AF%E7%89%87%E9%80%89%E6%8B%A9/IMG_6473.JPG"
+    />
+<img
+        class="lazyload"
+        data-src="/Arduino%20%E9%9F%B3%E9%A2%91%E7%9B%92%E5%AD%90%E5%88%B6%E4%BD%9C%20%231%20arduino%20%E8%8A%AF%E7%89%87%E9%80%89%E6%8B%A9/IMG_6474.JPG"
+        data-srcset="/Arduino%20%E9%9F%B3%E9%A2%91%E7%9B%92%E5%AD%90%E5%88%B6%E4%BD%9C%20%231%20arduino%20%E8%8A%AF%E7%89%87%E9%80%89%E6%8B%A9/IMG_6474.JPG, /Arduino%20%E9%9F%B3%E9%A2%91%E7%9B%92%E5%AD%90%E5%88%B6%E4%BD%9C%20%231%20arduino%20%E8%8A%AF%E7%89%87%E9%80%89%E6%8B%A9/IMG_6474.JPG 1.5x, /Arduino%20%E9%9F%B3%E9%A2%91%E7%9B%92%E5%AD%90%E5%88%B6%E4%BD%9C%20%231%20arduino%20%E8%8A%AF%E7%89%87%E9%80%89%E6%8B%A9/IMG_6474.JPG 2x"
+        data-sizes="auto"
+        alt="/Arduino%20%E9%9F%B3%E9%A2%91%E7%9B%92%E5%AD%90%E5%88%B6%E4%BD%9C%20%231%20arduino%20%E8%8A%AF%E7%89%87%E9%80%89%E6%8B%A9/IMG_6474.JPG"
+        title="/Arduino%20%E9%9F%B3%E9%A2%91%E7%9B%92%E5%AD%90%E5%88%B6%E4%BD%9C%20%231%20arduino%20%E8%8A%AF%E7%89%87%E9%80%89%E6%8B%A9/IMG_6474.JPG"
+    />
+<img
+        class="lazyload"
+        data-src="/Arduino%20%E9%9F%B3%E9%A2%91%E7%9B%92%E5%AD%90%E5%88%B6%E4%BD%9C%20%231%20arduino%20%E8%8A%AF%E7%89%87%E9%80%89%E6%8B%A9/IMG_6475.JPG"
+        data-srcset="/Arduino%20%E9%9F%B3%E9%A2%91%E7%9B%92%E5%AD%90%E5%88%B6%E4%BD%9C%20%231%20arduino%20%E8%8A%AF%E7%89%87%E9%80%89%E6%8B%A9/IMG_6475.JPG, /Arduino%20%E9%9F%B3%E9%A2%91%E7%9B%92%E5%AD%90%E5%88%B6%E4%BD%9C%20%231%20arduino%20%E8%8A%AF%E7%89%87%E9%80%89%E6%8B%A9/IMG_6475.JPG 1.5x, /Arduino%20%E9%9F%B3%E9%A2%91%E7%9B%92%E5%AD%90%E5%88%B6%E4%BD%9C%20%231%20arduino%20%E8%8A%AF%E7%89%87%E9%80%89%E6%8B%A9/IMG_6475.JPG 2x"
+        data-sizes="auto"
+        alt="/Arduino%20%E9%9F%B3%E9%A2%91%E7%9B%92%E5%AD%90%E5%88%B6%E4%BD%9C%20%231%20arduino%20%E8%8A%AF%E7%89%87%E9%80%89%E6%8B%A9/IMG_6475.JPG"
+        title="/Arduino%20%E9%9F%B3%E9%A2%91%E7%9B%92%E5%AD%90%E5%88%B6%E4%BD%9C%20%231%20arduino%20%E8%8A%AF%E7%89%87%E9%80%89%E6%8B%A9/IMG_6475.JPG"
+    />
+<img
+        class="lazyload"
+        data-src="/Arduino%20%E9%9F%B3%E9%A2%91%E7%9B%92%E5%AD%90%E5%88%B6%E4%BD%9C%20%231%20arduino%20%E8%8A%AF%E7%89%87%E9%80%89%E6%8B%A9/IMG_6476.JPG"
+        data-srcset="/Arduino%20%E9%9F%B3%E9%A2%91%E7%9B%92%E5%AD%90%E5%88%B6%E4%BD%9C%20%231%20arduino%20%E8%8A%AF%E7%89%87%E9%80%89%E6%8B%A9/IMG_6476.JPG, /Arduino%20%E9%9F%B3%E9%A2%91%E7%9B%92%E5%AD%90%E5%88%B6%E4%BD%9C%20%231%20arduino%20%E8%8A%AF%E7%89%87%E9%80%89%E6%8B%A9/IMG_6476.JPG 1.5x, /Arduino%20%E9%9F%B3%E9%A2%91%E7%9B%92%E5%AD%90%E5%88%B6%E4%BD%9C%20%231%20arduino%20%E8%8A%AF%E7%89%87%E9%80%89%E6%8B%A9/IMG_6476.JPG 2x"
+        data-sizes="auto"
+        alt="/Arduino%20%E9%9F%B3%E9%A2%91%E7%9B%92%E5%AD%90%E5%88%B6%E4%BD%9C%20%231%20arduino%20%E8%8A%AF%E7%89%87%E9%80%89%E6%8B%A9/IMG_6476.JPG"
+        title="/Arduino%20%E9%9F%B3%E9%A2%91%E7%9B%92%E5%AD%90%E5%88%B6%E4%BD%9C%20%231%20arduino%20%E8%8A%AF%E7%89%87%E9%80%89%E6%8B%A9/IMG_6476.JPG"
+    />
+<img
+        class="lazyload"
+        data-src="/Arduino%20%E9%9F%B3%E9%A2%91%E7%9B%92%E5%AD%90%E5%88%B6%E4%BD%9C%20%231%20arduino%20%E8%8A%AF%E7%89%87%E9%80%89%E6%8B%A9/IMG_6477.JPG"
+        data-srcset="/Arduino%20%E9%9F%B3%E9%A2%91%E7%9B%92%E5%AD%90%E5%88%B6%E4%BD%9C%20%231%20arduino%20%E8%8A%AF%E7%89%87%E9%80%89%E6%8B%A9/IMG_6477.JPG, /Arduino%20%E9%9F%B3%E9%A2%91%E7%9B%92%E5%AD%90%E5%88%B6%E4%BD%9C%20%231%20arduino%20%E8%8A%AF%E7%89%87%E9%80%89%E6%8B%A9/IMG_6477.JPG 1.5x, /Arduino%20%E9%9F%B3%E9%A2%91%E7%9B%92%E5%AD%90%E5%88%B6%E4%BD%9C%20%231%20arduino%20%E8%8A%AF%E7%89%87%E9%80%89%E6%8B%A9/IMG_6477.JPG 2x"
+        data-sizes="auto"
+        alt="/Arduino%20%E9%9F%B3%E9%A2%91%E7%9B%92%E5%AD%90%E5%88%B6%E4%BD%9C%20%231%20arduino%20%E8%8A%AF%E7%89%87%E9%80%89%E6%8B%A9/IMG_6477.JPG"
+        title="/Arduino%20%E9%9F%B3%E9%A2%91%E7%9B%92%E5%AD%90%E5%88%B6%E4%BD%9C%20%231%20arduino%20%E8%8A%AF%E7%89%87%E9%80%89%E6%8B%A9/IMG_6477.JPG"
+    />
+<img
+        class="lazyload"
+        data-src="/Arduino%20%E9%9F%B3%E9%A2%91%E7%9B%92%E5%AD%90%E5%88%B6%E4%BD%9C%20%231%20arduino%20%E8%8A%AF%E7%89%87%E9%80%89%E6%8B%A9/IMG_6478.JPG"
+        data-srcset="/Arduino%20%E9%9F%B3%E9%A2%91%E7%9B%92%E5%AD%90%E5%88%B6%E4%BD%9C%20%231%20arduino%20%E8%8A%AF%E7%89%87%E9%80%89%E6%8B%A9/IMG_6478.JPG, /Arduino%20%E9%9F%B3%E9%A2%91%E7%9B%92%E5%AD%90%E5%88%B6%E4%BD%9C%20%231%20arduino%20%E8%8A%AF%E7%89%87%E9%80%89%E6%8B%A9/IMG_6478.JPG 1.5x, /Arduino%20%E9%9F%B3%E9%A2%91%E7%9B%92%E5%AD%90%E5%88%B6%E4%BD%9C%20%231%20arduino%20%E8%8A%AF%E7%89%87%E9%80%89%E6%8B%A9/IMG_6478.JPG 2x"
+        data-sizes="auto"
+        alt="/Arduino%20%E9%9F%B3%E9%A2%91%E7%9B%92%E5%AD%90%E5%88%B6%E4%BD%9C%20%231%20arduino%20%E8%8A%AF%E7%89%87%E9%80%89%E6%8B%A9/IMG_6478.JPG"
+        title="/Arduino%20%E9%9F%B3%E9%A2%91%E7%9B%92%E5%AD%90%E5%88%B6%E4%BD%9C%20%231%20arduino%20%E8%8A%AF%E7%89%87%E9%80%89%E6%8B%A9/IMG_6478.JPG"
+    />
+<img
+        class="lazyload"
+        data-src="/Arduino%20%E9%9F%B3%E9%A2%91%E7%9B%92%E5%AD%90%E5%88%B6%E4%BD%9C%20%231%20arduino%20%E8%8A%AF%E7%89%87%E9%80%89%E6%8B%A9/IMG_6479.JPG"
+        data-srcset="/Arduino%20%E9%9F%B3%E9%A2%91%E7%9B%92%E5%AD%90%E5%88%B6%E4%BD%9C%20%231%20arduino%20%E8%8A%AF%E7%89%87%E9%80%89%E6%8B%A9/IMG_6479.JPG, /Arduino%20%E9%9F%B3%E9%A2%91%E7%9B%92%E5%AD%90%E5%88%B6%E4%BD%9C%20%231%20arduino%20%E8%8A%AF%E7%89%87%E9%80%89%E6%8B%A9/IMG_6479.JPG 1.5x, /Arduino%20%E9%9F%B3%E9%A2%91%E7%9B%92%E5%AD%90%E5%88%B6%E4%BD%9C%20%231%20arduino%20%E8%8A%AF%E7%89%87%E9%80%89%E6%8B%A9/IMG_6479.JPG 2x"
+        data-sizes="auto"
+        alt="/Arduino%20%E9%9F%B3%E9%A2%91%E7%9B%92%E5%AD%90%E5%88%B6%E4%BD%9C%20%231%20arduino%20%E8%8A%AF%E7%89%87%E9%80%89%E6%8B%A9/IMG_6479.JPG"
+        title="/Arduino%20%E9%9F%B3%E9%A2%91%E7%9B%92%E5%AD%90%E5%88%B6%E4%BD%9C%20%231%20arduino%20%E8%8A%AF%E7%89%87%E9%80%89%E6%8B%A9/IMG_6479.JPG"
+    /></p>
+<h2 id="第一部分-arduino-芯片选择">第一部分 arduino 芯片选择</h2>
+<p>Arduino 芯片有很多类型，一般入门用的都是 uno，功能简单，但是便宜，不过我一般不使用 arduino uno，主要是 uno 主频很低，处理稍微复杂一些的场景就性能不足，另外就是也没有联网之类的功能，另外也缺少一些端口，我之前做物联网应用的时候，用的是 esp8266 芯片，其技术参数见：</p>
+<p><a href="https://www.espressif.com/sites/default/files/documentation/esp8266-technical_reference_cn.pdf" target="_blank" rel="noopener noreffer">https://www.espressif.com/sites/default/files/documentation/esp8266-technical_reference_cn.pdf</a></p>
+<ul>
+<li>单核处理器，运行频率为 80MHz</li>
+<li>802.11 b/g/n</li>
+<li>Wi-Fi Direct (P2P)、soft-AP</li>
+<li>内置 TCP/IP 协议栈</li>
+<li>内置 TR 开关、balun、LNA、功率放大器和匹配网络</li>
+<li>内置 PLL、稳压器和电源管理组件</li>
+<li>802.11b 模式下+19.5dBm 的输出功率</li>
+<li>内置温度传感器</li>
+<li>支持天线分集</li>
+<li>断电泄露电流小于 10uA</li>
+<li>内置低功率 32 位 CPU</li>
+<li>SDIO 2.0、 SPI、UART</li>
+<li>STBC、1x1 MIMO、2x1 MIMO</li>
+<li>A-MPDU 、A-MSDU 的聚合和 0.4s 的保护间隔</li>
+<li>2ms 之内唤醒、连接并传递数据包</li>
+<li>待机状态消耗功率小于 1.0mW (DTIM3)</li>
+</ul>
+<p>主要是因为 esp8266 兼容 arduino，然后 cpu 频率比较高，另外就是特别便宜，同时还支持 wifi。</p>
+<p>在购物网站上只需要七八块钱就能买到一个可以直接用的板子，的确是非常划算了。</p>
+<p>不过本次实验用的不是 8266，而是他的升级版 esp 32，其实这也是一个应用非常多的芯片，他的优势主要是 cpu 主频高，接口方面更丰富。</p>
+<p>本次实验涉及到音频采样，如果要做 44100 hz 的采样的话，需要输入的频率是 =2× 采样频率 × 采样位数 = 2 * 44100 *32 = 2.8 mhz，这个是这个实验对 arduino
+板子的最低要求，而且我们这里还会涉及到一个非常复杂的操作，也就是快速傅里叶变换，一般的 arduino cpu 频率很难支撑，而且我担心 esp 8266 也心有力而余不足。</p>
+<p>另外，从麦克风传感器中获取数据，有两种方式，adc 方式，和 i2s 方式，adc 是利用 arduino io 口的输入能力定时采样，io 口的采样频率非常有限，很难完整完整的采样，所以我们需要 i2s 接口，他的采样是异步的，带缓冲，而且和 io 口是独立的，不会影响 io 口的其他用途。</p>
+<p>具备 i2s 的 arduino 芯片是比较少的，如 arduino due，官方价格 300 多一片，而且仿品很少。不过 esp32 这个芯片就厉害了，他支持 i2s 通信协议，同时频率也非常高，主频可达 240Mhz，而且部分型号是双核 MCU。</p>
+<p><img
+        class="lazyload"
+        data-src="/Arduino%20%E9%9F%B3%E9%A2%91%E7%9B%92%E5%AD%90%E5%88%B6%E4%BD%9C%20%231%20arduino%20%E8%8A%AF%E7%89%87%E9%80%89%E6%8B%A9/esp32.png"
+        data-srcset="/Arduino%20%E9%9F%B3%E9%A2%91%E7%9B%92%E5%AD%90%E5%88%B6%E4%BD%9C%20%231%20arduino%20%E8%8A%AF%E7%89%87%E9%80%89%E6%8B%A9/esp32.png, /Arduino%20%E9%9F%B3%E9%A2%91%E7%9B%92%E5%AD%90%E5%88%B6%E4%BD%9C%20%231%20arduino%20%E8%8A%AF%E7%89%87%E9%80%89%E6%8B%A9/esp32.png 1.5x, /Arduino%20%E9%9F%B3%E9%A2%91%E7%9B%92%E5%AD%90%E5%88%B6%E4%BD%9C%20%231%20arduino%20%E8%8A%AF%E7%89%87%E9%80%89%E6%8B%A9/esp32.png 2x"
+        data-sizes="auto"
+        alt="/Arduino%20%E9%9F%B3%E9%A2%91%E7%9B%92%E5%AD%90%E5%88%B6%E4%BD%9C%20%231%20arduino%20%E8%8A%AF%E7%89%87%E9%80%89%E6%8B%A9/esp32.png"
+        title="/Arduino%20%E9%9F%B3%E9%A2%91%E7%9B%92%E5%AD%90%E5%88%B6%E4%BD%9C%20%231%20arduino%20%E8%8A%AF%E7%89%87%E9%80%89%E6%8B%A9/esp32.png"
+    /></p>
+<p>esp32 官方中文文档：</p>
+<p><a href="https://www.espressif.com/sites/default/files/documentation/esp32_datasheet_cn.pdf" target="_blank" rel="noopener noreffer">https://www.espressif.com/sites/default/files/documentation/esp32_datasheet_cn.pdf</a></p>
+<p>esp32 开发板的价格通常在 20 元左右，可以多买几片，因为这种成本低的芯片，有一定概率是坏片，不过通常概率也不会很高。</p>
+<p><img
+        class="lazyload"
+        data-src="/Arduino%20%E9%9F%B3%E9%A2%91%E7%9B%92%E5%AD%90%E5%88%B6%E4%BD%9C%20%231%20arduino%20%E8%8A%AF%E7%89%87%E9%80%89%E6%8B%A9/IMG_6482.JPG"
+        data-srcset="/Arduino%20%E9%9F%B3%E9%A2%91%E7%9B%92%E5%AD%90%E5%88%B6%E4%BD%9C%20%231%20arduino%20%E8%8A%AF%E7%89%87%E9%80%89%E6%8B%A9/IMG_6482.JPG, /Arduino%20%E9%9F%B3%E9%A2%91%E7%9B%92%E5%AD%90%E5%88%B6%E4%BD%9C%20%231%20arduino%20%E8%8A%AF%E7%89%87%E9%80%89%E6%8B%A9/IMG_6482.JPG 1.5x, /Arduino%20%E9%9F%B3%E9%A2%91%E7%9B%92%E5%AD%90%E5%88%B6%E4%BD%9C%20%231%20arduino%20%E8%8A%AF%E7%89%87%E9%80%89%E6%8B%A9/IMG_6482.JPG 2x"
+        data-sizes="auto"
+        alt="/Arduino%20%E9%9F%B3%E9%A2%91%E7%9B%92%E5%AD%90%E5%88%B6%E4%BD%9C%20%231%20arduino%20%E8%8A%AF%E7%89%87%E9%80%89%E6%8B%A9/IMG_6482.JPG"
+        title="/Arduino%20%E9%9F%B3%E9%A2%91%E7%9B%92%E5%AD%90%E5%88%B6%E4%BD%9C%20%231%20arduino%20%E8%8A%AF%E7%89%87%E9%80%89%E6%8B%A9/IMG_6482.JPG"
+    /></p>
+<p>这是我用过的一些 arduino 芯片，带 wifi 的基本都是 esp8266，然后还有 arduino uno 入门款。</p>
+<p>另外在闲鱼上淘了一篇 due ，贵的东西做工就是不一样，金光闪闪的，不过这个芯片还从来没用上过。</p>
+<p><img
+        class="lazyload"
+        data-src="/Arduino%20%E9%9F%B3%E9%A2%91%E7%9B%92%E5%AD%90%E5%88%B6%E4%BD%9C%20%231%20arduino%20%E8%8A%AF%E7%89%87%E9%80%89%E6%8B%A9/IMG_6484.JPG"
+        data-srcset="/Arduino%20%E9%9F%B3%E9%A2%91%E7%9B%92%E5%AD%90%E5%88%B6%E4%BD%9C%20%231%20arduino%20%E8%8A%AF%E7%89%87%E9%80%89%E6%8B%A9/IMG_6484.JPG, /Arduino%20%E9%9F%B3%E9%A2%91%E7%9B%92%E5%AD%90%E5%88%B6%E4%BD%9C%20%231%20arduino%20%E8%8A%AF%E7%89%87%E9%80%89%E6%8B%A9/IMG_6484.JPG 1.5x, /Arduino%20%E9%9F%B3%E9%A2%91%E7%9B%92%E5%AD%90%E5%88%B6%E4%BD%9C%20%231%20arduino%20%E8%8A%AF%E7%89%87%E9%80%89%E6%8B%A9/IMG_6484.JPG 2x"
+        data-sizes="auto"
+        alt="/Arduino%20%E9%9F%B3%E9%A2%91%E7%9B%92%E5%AD%90%E5%88%B6%E4%BD%9C%20%231%20arduino%20%E8%8A%AF%E7%89%87%E9%80%89%E6%8B%A9/IMG_6484.JPG"
+        title="/Arduino%20%E9%9F%B3%E9%A2%91%E7%9B%92%E5%AD%90%E5%88%B6%E4%BD%9C%20%231%20arduino%20%E8%8A%AF%E7%89%87%E9%80%89%E6%8B%A9/IMG_6484.JPG"
+    /></p>
+<h2 id="交流">交流</h2>
+<p>关于 arduino 各种型号的芯片选择，大家有场景可以留言，我可以给出自己的意见，因为 arduino 型号太多了，没法一篇文章说清楚。</p>
+</div>
+
+        <div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-01-05</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="#" onclick="return false;" title="分享到 微博" data-sharer="weibo" data-url="http://example.org/posts/arduino-fft-fastled/" data-title="Arduino LED 频谱仪 #1 arduino 芯片选择" data-image="/Arduino%20%E9%9F%B3%E9%A2%91%E7%9B%92%E5%AD%90%E5%88%B6%E4%BD%9C%20%231%20arduino%20%E8%8A%AF%E7%89%87%E9%80%89%E6%8B%A9/IMG_6479.JPG"><i class="fab fa-weibo fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/typescript_type_tip/" class="prev" rel="prev" title="TypeScript 类型小甜点"><i class="fas fa-angle-left fa-fw"></i>TypeScript 类型小甜点</a>
+            <a href="/posts/fft-2/" class="next" rel="next" title="Arduino LED 频谱仪 #2 音频传感器选择">Arduino LED 频谱仪 #2 音频传感器选择<i class="fas fa-angle-right fa-fw"></i></a></div>
+    <script src="/client.js"></script>
+    <div style="clear: both;margin-top:20px;"></div>
+    <div id="waline"></div>
+<script>
+Waline({
+  el: '#waline',
+  serverURL: 'https://comment-weld.vercel.app',
+  visitor: true, 
+});
+</script>
+</div>
+</article></div>
+        </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2021 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank" rel="noopener noreferrer"></a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+                    <span class="icp"><a href='https://beian.miit.gov.cn/'>浙ICP备12047043号-10</a></span></div>
+        </div></footer>
+</div>
+
+    <div id="fixed-buttons"><a href="#back-to-top" id="back-to-top-button" class="fixed-button" title="回到顶部">
+            <i class="fas fa-arrow-up fa-fw"></i>
+        </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+            <i class="fas fa-comment fa-fw"></i>
+        </a>
+    </div><div class="assets"><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/topbar/topbar.min.js"></script><script type="text/javascript" src="/lib/pjax/pjax.min.js"></script><script type="text/javascript" src="/js/theme.min.js"></script></div>
+
+<div class="pjax-assets"><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/typeit/typeit.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":100},"comment":{},"data":{"desktop-header-typeit":"芋头乱炖","mobile-header-typeit":"芋头乱炖"},"sharerjs":true,"typeit":{"cursorChar":null,"cursorSpeed":null,"data":{"desktop-header-typeit":["desktop-header-typeit"],"mobile-header-typeit":["mobile-header-typeit"]},"duration":null,"speed":null}};</script></div>
+</body>
+
+</html>

@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noodp" />
-    <title class="pjax-title">Mysql 8.0 中存储 gis 数据的正确姿势 - 芋头乱炖，大龄码农的自留地</title><meta name="Description" content=""><meta property="og:title" content="Mysql 8.0 中存储 gis 数据的正确姿势" />
+    <title class="pjax-title">Mysql 8.0 中存储 gis 数据的正确姿势 - 芋头乱炖，一只普通程序员的自留地</title><meta name="Description" content=""><meta property="og:title" content="Mysql 8.0 中存储 gis 数据的正确姿势" />
 <meta property="og:description" content="请为列指定 SRID 如果你想要在使用一些 spatial function 的时候获得尽可能精确的值，请务必为您的数据库中的 geometry 列指定 SRID，如 st_area st_distance 等。否则您将获得直角坐标上的距离，而不是真实的值，另外在 mysql 老版本中，不指定 SRID（默认为 0），可以使用某些计算函数，但是在 mysql 中，某些函数必须指定 SRID，也要求被计算的列必须指定 SRID。 什么是 SRID？ SRID 指定的是 spatial 数据的坐标系，地理数据中一个最重要的指标就是坐标系，没有坐标系，就不存在经纬度，不存在投影，不存在地心，不存在真实距离，一切将会变为平面坐标，与真实地理信息天差地别。 SRID 坐标系定义了什么？ 简单来说，这里不展开，坐标系定义了，大地水准面 -&gt; 椭球体 -&gt; 大地基准面，他们分别是海平面、地球形状和球心、球心偏移等，在每个尺度和地区，这些值都在发生变化，所以会定义不同的坐标系，以尽量消除误差。 最常用的 SRID 是什么？ 在服务端，通常存储数据都是使用 4326 的 SRID，在前端，地图渲染使用 3857 坐标系（代表" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://example.org/posts/mysql8-gis-srid/" /><meta property="article:section" content="posts" />
@@ -15,8 +15,8 @@
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Mysql 8.0 中存储 gis 数据的正确姿势"/>
 <meta name="twitter:description" content="请为列指定 SRID 如果你想要在使用一些 spatial function 的时候获得尽可能精确的值，请务必为您的数据库中的 geometry 列指定 SRID，如 st_area st_distance 等。否则您将获得直角坐标上的距离，而不是真实的值，另外在 mysql 老版本中，不指定 SRID（默认为 0），可以使用某些计算函数，但是在 mysql 中，某些函数必须指定 SRID，也要求被计算的列必须指定 SRID。 什么是 SRID？ SRID 指定的是 spatial 数据的坐标系，地理数据中一个最重要的指标就是坐标系，没有坐标系，就不存在经纬度，不存在投影，不存在地心，不存在真实距离，一切将会变为平面坐标，与真实地理信息天差地别。 SRID 坐标系定义了什么？ 简单来说，这里不展开，坐标系定义了，大地水准面 -&gt; 椭球体 -&gt; 大地基准面，他们分别是海平面、地球形状和球心、球心偏移等，在每个尺度和地区，这些值都在发生变化，所以会定义不同的坐标系，以尽量消除误差。 最常用的 SRID 是什么？ 在服务端，通常存储数据都是使用 4326 的 SRID，在前端，地图渲染使用 3857 坐标系（代表"/>
-<meta name="application-name" content="芋头乱炖，大龄码农的自留地">
-<meta name="apple-mobile-web-app-title" content="芋头乱炖，大龄码农的自留地">
+<meta name="application-name" content="芋头乱炖，一只普通程序员的自留地">
+<meta name="apple-mobile-web-app-title" content="芋头乱炖，一只普通程序员的自留地">
 
 <meta name="theme-color" content="#f8f8f8"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -54,7 +54,7 @@
 <header class="desktop" id="header-desktop">
     <div class="header-wrapper">
         <div class="header-title">
-            <a href="/" title="芋头乱炖，大龄码农的自留地"><img
+            <a href="/" title="芋头乱炖，一只普通程序员的自留地"><img
         class="lazyload logo"
         data-src="/logo.png"
         data-srcset="/logo.png, /logo.png 1.5x, /logo.png 2x"
@@ -74,7 +74,7 @@
     <div class="header-container">
         <div class="header-wrapper">
             <div class="header-title">
-                <a href="/" title="芋头乱炖，大龄码农的自留地"><img
+                <a href="/" title="芋头乱炖，一只普通程序员的自留地"><img
         class="lazyload logo"
         data-src="/logo.png"
         data-srcset="/logo.png, /logo.png 1.5x, /logo.png 2x"
@@ -111,7 +111,14 @@
     text:window.location.href
         } );
         </script>
-    </div><script>document.getElementsByTagName("main")[0].setAttribute("pageStyle", "normal")</script><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Mysql 8.0 中存储 gis 数据的正确姿势</h1><div class="post-meta">
+    </div><script>document.getElementsByTagName("main")[0].setAttribute("pageStyle", "normal")</script><article class="page single"><div class="featured-image-preview-post  animate__animated animate__flipInX"><img
+        class="lazyload"
+        data-src="/mysql8-gis-srid/cover.jpg"
+        data-srcset="/mysql8-gis-srid/cover.jpg, /mysql8-gis-srid/cover.jpg 1.5x, /mysql8-gis-srid/cover.jpg 2x"
+        data-sizes="auto"
+        alt="/mysql8-gis-srid/cover.jpg"
+        title="/mysql8-gis-srid/cover.jpg" height="auto" width="auto"
+    /></div><h1 class="single-title animate__animated animate__flipInX">Mysql 8.0 中存储 gis 数据的正确姿势</h1><div class="post-meta">
             <div class="post-meta-line">
                 
                 
@@ -120,6 +127,8 @@
                 
             </div>
             <div class="post-meta-line"><span style="padding-right:10px;"><time datetime="2021-08-01">2021-08-01</time> </span>
+                <span style="padding-right:10px;">阅读: <span id="/posts/mysql8-gis-srid/" class="waline-visitor-count" ></span></span>
+                <span style="padding-right:10px;">评论: <span id="/posts/mysql8-gis-srid/" class="waline-comment-count" ></span></span>
                 <span style="padding-right:10px;">约 1979 字</span>
                 <span style="padding-right:10px;">预计阅读 4 分钟</span></div>
         </div><div class="details toc open" id="toc-static"  kept="">
@@ -297,44 +306,22 @@
 
     <div class="post-nav"><a href="/posts/dilikeshihua/" class="prev" rel="prev" title="分享：地理可视化，不止于炫酷"><i class="fas fa-angle-left fa-fw"></i>分享：地理可视化，不止于炫酷</a>
             <a href="/posts/display-video-in-console/" class="next" rel="next" title="如何在浏览器 console 控制台中播放视频？">如何在浏览器 console 控制台中播放视频？<i class="fas fa-angle-right fa-fw"></i></a></div>
+    <script src="/client.js"></script>
+    <div style="clear: both;margin-top:20px;"></div>
+    <div id="waline"></div>
+<script>
+Waline({
+  el: '#waline',
+  serverURL: 'https://comment-weld.vercel.app',
+  visitor: true, 
+});
+</script>
 </div>
-<div id="comments"><div id="disqus_thread" class="comment"></div><noscript>
-                Please enable JavaScript to view the comments powered by <a href="https://disqus.com/?ref_noscript">Disqus</a>.
-            </noscript></div></article></div>
+</article></div>
         </main><footer class="footer">
         <div class="footer-container"><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2021 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank" rel="noopener noreferrer"></a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
                     <span class="icp"><a href='https://beian.miit.gov.cn/'>浙ICP备12047043号-10</a></span></div>
-        </div></footer><script src="//res.wx.qq.com/open/js/jweixin-1.6.0.js" ></script>
-<script>
-    wx.config({
-        appId: 'wx79db0b4a70c6ae63', 
-        timestamp: new Date().getTime(), 
-        nonceStr: 'ddd', 
-        signature: 'fdsfsdf',
-        jsApiList: ['updateAppMessageShareData','updateTimelineShareData'] 
-        });
-        wx.ready(function () {   
-  wx.updateAppMessageShareData({ 
-    title: document.title, 
-    desc: 'JavaScript,Nodejs,GIS,Arduino,数据可视化,数码发烧友,HiFi玩家', 
-    link: window.location.href, 
-    imgUrl: 'http://yootou.com/logo.png', 
-    success: function () {
-      
-    }
-  })
-  wx.updateTimelineShareData({ 
-    title: document.title, 
-    link: window.location.href, 
-    imgUrl: 'http://yootou.com/logo.png', 
-    success: function () {
-      
-    }
-  })
-}); 
-
-
-</script>
+        </div></footer>
 </div>
 
     <div id="fixed-buttons"><a href="#back-to-top" id="back-to-top-button" class="fixed-button" title="回到顶部">
@@ -344,7 +331,7 @@
         </a>
     </div><div class="assets"><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/topbar/topbar.min.js"></script><script type="text/javascript" src="/lib/pjax/pjax.min.js"></script><script type="text/javascript" src="/js/theme.min.js"></script></div>
 
-<div class="pjax-assets"><script type="text/javascript" src="https://yu-tou-luan-tun.disqus.com/embed.js" defer></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/typeit/typeit.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":100},"comment":{},"data":{"desktop-header-typeit":"芋头乱炖","mobile-header-typeit":"芋头乱炖"},"sharerjs":true,"typeit":{"cursorChar":null,"cursorSpeed":null,"data":{"desktop-header-typeit":["desktop-header-typeit"],"mobile-header-typeit":["mobile-header-typeit"]},"duration":null,"speed":null}};</script></div>
+<div class="pjax-assets"><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/typeit/typeit.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":100},"comment":{},"data":{"desktop-header-typeit":"芋头乱炖","mobile-header-typeit":"芋头乱炖"},"sharerjs":true,"typeit":{"cursorChar":null,"cursorSpeed":null,"data":{"desktop-header-typeit":["desktop-header-typeit"],"mobile-header-typeit":["mobile-header-typeit"]},"duration":null,"speed":null}};</script></div>
 </body>
 
 </html>

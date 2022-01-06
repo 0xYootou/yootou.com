@@ -1,7 +1,7 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
-        <title>所有文章 - 芋头乱炖，大龄码农的自留地</title>
+        <title>所有文章 - 芋头乱炖，一只普通程序员的自留地</title>
         <link>http://example.org/posts/</link>
-        <description>所有文章 | 芋头乱炖，大龄码农的自留地</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Fri, 31 Dec 2021 23:59:59 &#43;0000</lastBuildDate><atom:link href="http://example.org/posts/" rel="self" type="application/rss+xml" /></channel>
+        <description>所有文章 | 芋头乱炖，一只普通程序员的自留地</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Thu, 06 Jan 2022 00:00:00 &#43;0000</lastBuildDate><atom:link href="http://example.org/posts/" rel="self" type="application/rss+xml" /></channel>
 </rss>

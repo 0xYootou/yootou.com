@@ -2,7 +2,7 @@ baseURL = "http://example.org/"
 defaultContentLanguage = "zh-cn"
 languageCode = "zh-CN"
 hasCJKLanguage = true
-title = "芋头乱炖，大龄码农的自留地"
+title = "芋头乱炖，一只普通程序员的自留地"
 theme = "DoIt"
 summaryLength = 400
 [params]
@@ -20,7 +20,7 @@ summaryLength = 400
   pre = ""
   # you can add extra information after the name (HTML format is supported), such as icons
   # 你可以在名称 (允许 HTML 格式) 之后添加其他信息, 例如图标
-  post = ""
+  post = "" 
   # whether to use typeit animation for title name
   # 是否为标题显示打字机动画
   typeit = true
@@ -31,7 +31,7 @@ summaryLength = 400
   # title shown in home page (HTML format is supported)
   title = "芋头"
   # subtitle shown in home page
-  subtitle = "码农，主要兴趣：JavaScript,Nodejs,GIS,Arduino,数据可视化,数码发烧友,HiFi玩家"
+  subtitle = "Full Stack Developer: JS,Nodejs,iOS,GIS,Arduino,Web3..."
   # whether to use typeit animation for subtitle
   typeit = true
   # whether to show social links
@@ -163,11 +163,11 @@ summaryLength = 400
 # Comment config
 # 评论系统设置
 [params.page.comment]
-  enable = true
+  enable = false
   # Disqus comment config (https://disqus.com/)
   # Disqus 评论系统设置 (https://disqus.com/)
   [params.page.comment.disqus]
-    enable = true
+    enable = false
     # Disqus shortname to use Disqus in posts
     # Disqus 的 shortname，用来在文章中启用 Disqus 评论系统
     shortname = "yu-tou-luan-tun"
