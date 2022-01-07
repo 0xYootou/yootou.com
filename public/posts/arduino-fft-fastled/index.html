@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noodp" />
     <title class="pjax-title">Arduino LED 频谱仪 #1 arduino 芯片选择 - 芋头乱炖，一只普通程序员的自留地</title><meta name="Description" content=""><meta property="og:title" content="Arduino LED 频谱仪 #1 arduino 芯片选择" />
-<meta property="og:description" content="本系列文章将带着大家一起简单了解如何制作一个音频频谱显示的 arduino 小板子。 最终效果： 此小产品涉及到以下功能： 音频采集 音频傅立叶变化 fastled 驱动 led 板 时间显示及其他动效 亮度和灵敏度调节 亚克力盒子制作 主要涉及以下芯片： arduino 芯片，我们选择 esp32。 音频传感器， WS2812B 8*32 芯片 2 位数码管 INMP441 全向麦克风 旋转编码器和旋钮盖 面包板和杜邦线、插线柱等等若干 电烙铁和焊锡 亚克力板 3mm 以上厚度若干，立柱若干、半透亚克力板 1mm 若干 稍后我会一一介绍为什么选择这些元件以及如何购买比较划算。 以下是半成品 第一部分 arduino 芯片选择 Arduino 芯片有很多类型，一般入门用的都是 uno，功能简单，但是便宜，不过我一般不使用 arduino uno，主要是 uno 主频很低，处理稍微复杂一些的场景就性能不足，另外就是也没有联网之类的功能，另外也缺少一些端口，我之前做物联网应用的时候，用的是 esp8266 芯片，其技术参数见： https://www.espressif.com/sites/default/files/documentation/esp8266-technical_reference_cn.pdf 单核处理器，运行频率为 80MHz 802.11 b/g/n Wi-Fi Direct (P2P)、soft-AP 内置 TCP/IP 协议栈 内置 TR 开关、ba" />
+<meta property="og:description" content="本系列文章将带着大家一起简单了解如何制作一个音频频谱显示的 arduino 小作品。 最终效果： 此小产品涉及到以下功能： 音频采集 音频傅立叶变化 fastled 驱动 led 板 时间显示及其他动效 亮度和灵敏度调节 亚克力盒子制作 主要涉及以下芯片： arduino 芯片，我们选择 esp32。 音频传感器， WS2812B 8*32 芯片 2 位数码管 INMP441 全向麦克风 旋转编码器和旋钮盖 面包板和杜邦线、插线柱等等若干 电烙铁和焊锡 亚克力板 3mm 以上厚度若干，立柱若干、半透亚克力板 1mm 若干 稍后我会一一介绍为什么选择这些元件以及如何购买比较划算。 以下是半成品 第一部分 arduino 芯片选择 Arduino 芯片有很多类型，一般入门用的都是 uno，功能简单，但是便宜，不过我一般不使用 arduino uno，主要是 uno 主频很低，处理稍微复杂一些的场景就性能不足，另外就是也没有联网之类的功能，另外也缺少一些端口，我之前做物联网应用的时候，用的是 esp8266 芯片，其技术参数见： https://www.espressif.com/sites/default/files/documentation/esp8266-technical_reference_cn.pdf 单核处理器，运行频率为 80MHz 802.11 b/g/n Wi-Fi Direct (P2P)、soft-AP 内置 TCP/IP 协议栈 内置 TR 开关、ba" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://example.org/posts/arduino-fft-fastled/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2022-01-05T00:00:00+00:00" />
@@ -14,7 +14,7 @@
 
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Arduino LED 频谱仪 #1 arduino 芯片选择"/>
-<meta name="twitter:description" content="本系列文章将带着大家一起简单了解如何制作一个音频频谱显示的 arduino 小板子。 最终效果： 此小产品涉及到以下功能： 音频采集 音频傅立叶变化 fastled 驱动 led 板 时间显示及其他动效 亮度和灵敏度调节 亚克力盒子制作 主要涉及以下芯片： arduino 芯片，我们选择 esp32。 音频传感器， WS2812B 8*32 芯片 2 位数码管 INMP441 全向麦克风 旋转编码器和旋钮盖 面包板和杜邦线、插线柱等等若干 电烙铁和焊锡 亚克力板 3mm 以上厚度若干，立柱若干、半透亚克力板 1mm 若干 稍后我会一一介绍为什么选择这些元件以及如何购买比较划算。 以下是半成品 第一部分 arduino 芯片选择 Arduino 芯片有很多类型，一般入门用的都是 uno，功能简单，但是便宜，不过我一般不使用 arduino uno，主要是 uno 主频很低，处理稍微复杂一些的场景就性能不足，另外就是也没有联网之类的功能，另外也缺少一些端口，我之前做物联网应用的时候，用的是 esp8266 芯片，其技术参数见： https://www.espressif.com/sites/default/files/documentation/esp8266-technical_reference_cn.pdf 单核处理器，运行频率为 80MHz 802.11 b/g/n Wi-Fi Direct (P2P)、soft-AP 内置 TCP/IP 协议栈 内置 TR 开关、ba"/>
+<meta name="twitter:description" content="本系列文章将带着大家一起简单了解如何制作一个音频频谱显示的 arduino 小作品。 最终效果： 此小产品涉及到以下功能： 音频采集 音频傅立叶变化 fastled 驱动 led 板 时间显示及其他动效 亮度和灵敏度调节 亚克力盒子制作 主要涉及以下芯片： arduino 芯片，我们选择 esp32。 音频传感器， WS2812B 8*32 芯片 2 位数码管 INMP441 全向麦克风 旋转编码器和旋钮盖 面包板和杜邦线、插线柱等等若干 电烙铁和焊锡 亚克力板 3mm 以上厚度若干，立柱若干、半透亚克力板 1mm 若干 稍后我会一一介绍为什么选择这些元件以及如何购买比较划算。 以下是半成品 第一部分 arduino 芯片选择 Arduino 芯片有很多类型，一般入门用的都是 uno，功能简单，但是便宜，不过我一般不使用 arduino uno，主要是 uno 主频很低，处理稍微复杂一些的场景就性能不足，另外就是也没有联网之类的功能，另外也缺少一些端口，我之前做物联网应用的时候，用的是 esp8266 芯片，其技术参数见： https://www.espressif.com/sites/default/files/documentation/esp8266-technical_reference_cn.pdf 单核处理器，运行频率为 80MHz 802.11 b/g/n Wi-Fi Direct (P2P)、soft-AP 内置 TCP/IP 协议栈 内置 TR 开关、ba"/>
 <meta name="application-name" content="芋头乱炖，一只普通程序员的自留地">
 <meta name="apple-mobile-web-app-title" content="芋头乱炖，一只普通程序员的自留地">
 
@@ -142,7 +142,7 @@
     <li><a href="#交流">交流</a></li>
   </ul>
 </nav></div>
-            </div><div class="content" id="content"><p>本系列文章将带着大家一起简单了解如何制作一个音频频谱显示的 arduino 小板子。</p>
+            </div><div class="content" id="content"><p>本系列文章将带着大家一起简单了解如何制作一个音频频谱显示的 arduino 小作品。</p>
 <p>最终效果：
 <div class="bilibili"><iframe src="//player.bilibili.com/player.html?bvid=BV1CY411a7aP&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div>
 </p>

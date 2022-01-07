@@ -7,6 +7,12 @@ pubdate = "2022-01-06"
 featuredImage = "/fft-2/IMG_6475.JPG"
 +++
 
+本系列文章将带着大家一起简单了解如何制作一个音频频谱显示的 arduino 小作品。
+
+最终效果：
+{{< bilibili BV1CY411a7aP >}}
+
+前一篇：[#1 arduino 芯片选择](../arduino-fft-fastled/)
 
 ## 特别注意
 
