@@ -3,13 +3,13 @@ title: Prisma + NestJs + GraphQL 表现层应用开发
 date: 2021-12-20 23:59:59
 author: 芋头
 categories: ["技术"]
-featuredImage: /Nodejs/cover.jpg
+featuredImage: /Nodejs/cover.jpeg
 ---
 
 ## 介绍
 
 本文 github 项目地址：https://github.com/yu-tou/nestjs-prisma-example
-
+ 
 这是一个 prisma + nestjs + graphql 的集成示例
 
 对于开发者来说，特别是使用 graphql 的时候，只需要写非常少量的代码即可完成数据的各种操作，同时也支持接口透传。

@@ -83,8 +83,8 @@ $search-background-color-black: #363636 !default;
 
 // ========== Single Content ========== //
 // Font size of the TOC
-$toc-title-font-size: 1.2rem !default;
-$toc-content-font-size: 1rem !default;
+$toc-title-font-size: 1rem !default;
+$toc-content-font-size: 0.8rem !default;
 
 // Color of the single link
 $single-link-color: #2d96bd !default;
@@ -107,9 +107,9 @@ $table-thead-color-dark: #20252b !default;
 $table-thead-color-black: #20252b !default;
 
 // Color of the blockquote
-$blockquote-color: #6bd6fd !default;
-$blockquote-color-dark: #59c5ec !default;
-$blockquote-color-black: #59c5ec !default;
+$blockquote-color: #ccc !default;
+$blockquote-color-dark: #aaa !default;
+$blockquote-color-black: #aaa !default;
 // ========== Single Content ========== //
 
 // ========== Pagination ========== //

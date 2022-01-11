@@ -128,7 +128,8 @@
 #toc-static {
   display: none;
   margin: 1rem 0;
-
+  z-index: 2;
+  position: relative;
   &[kept="true"] {
     display: block;
   }

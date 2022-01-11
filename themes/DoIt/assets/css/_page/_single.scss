@@ -1,36 +1,69 @@
 @import "../_partial/_single/series";
 @import "../_partial/_single/toc";
+@keyframes bottomup {
+  from {
+    margin-bottom: 26rem;
+  }
 
+  to {
+    margin-bottom: 6rem;
+  }
+}
+.featured-image-preview-post {
+  // border-radius: 10px;
+  width:100%;
+  overflow: hidden;
+  height: 190px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  // animation-name: flipInX;
+  // animation-fill-mode: both;
+  
+  background-repeat: no-repeat;
+  background-position: center bottom;
+  background-attachment: fixed;
+  background-size: 100% 100%;
+  overflow: hidden;
+  border-radius: 8px;
+  
+  @media screen and (max-width: 768px) {
+    height: 130px;
+    background-repeat: no-repeat;
+  background-position: center center;
+  background-attachment:   inherit;
+  background-size: 100% auto;
+  }
+  img {
+    width: 100%;
+    vertical-align: middle;
+  }
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: rgba(0, 0, 0, 0.08) 0px 10px 10px 0px,
+    rgba(0, 0, 0, 0) 0px 0px 0px 0px;
+
+}
+ 
 .single {
+  font-family: "Open Sans", sans-serif;
   .single-title {
-    margin: 1rem 0 1rem;
-    font-weight: 400;
-    line-height: 160%;
-    font-size: 1.8rem;
+    margin: 7rem 0 1rem;
+    font-weight: 500;
+    line-height: 140%;
+    font-size: 2.3rem;
+    text-align: center;
+    text-transform: uppercase;
     font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
-  }
-  .featured-image-preview-post {
-    margin: 1rem 0 1rem;
-    border-radius: 10px;
-    overflow: hidden;
-    height: calc(15vw);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    animation-name: flipInX;
-    animation-fill-mode: both;
-    @media screen and (max-width: 768px) {
-      height: calc(35vw);
+    // color:#fff;
+    font-weight: 500;
+    // text-shadow: 3px 3px 0px rgba(0, 0, 0, 0.3);
+    @media screen and (max-width: 1000px) {
+      font-size: 1.8rem;
+      margin-top:4rem;
+      margin-bottom:0.5rem;
     }
-    img {
-      width: 100%;
-      vertical-align: middle;
-    }
-    position: relative;
-    border: 1px solid rgba(0, 0, 0, 0.05);
-    box-shadow: rgba(0, 0, 0, 0.08) 0px 10px 10px 0px,
-      rgba(0, 0, 0, 0) 0px 0px 0px 0px;
   }
+  
   .single-subtitle {
     margin: 0.4rem 0;
     font-size: 1.2rem;
@@ -38,12 +71,19 @@
     font-style: italic;
     line-height: 100%;
   }
-
+  
   .post-meta {
+    text-align: center;
     font-size: 0.875rem;
+    font-weight: normal;
     color: #bababa;
-    margin-bottom: 1rem;
-
+    // color: #fff;
+    margin-bottom: 26rem;
+    animation: bottomup 1s  forwards;
+    @media screen and (max-width: 1000px) {
+      margin-bottom: 3rem;
+      animation: none;
+    }
     span {
       display: inline-block;
     }
@@ -88,17 +128,23 @@
   }
 
   .content {
+    font-weight: 300;
+    
+    font-size: 16px;
+    line-height: 28px;
+    font-weight: 350;
+    color: #555;
     > h2 {
-      font-size: 1.3rem;
-
+      font-size: 1.5rem;
+      font-weight: 800;
       & code {
         font-size: 1.25rem;
       }
     }
 
     > h3 {
-      font-size: 1.2rem;
-
+      font-size: 1.3rem;
+      font-weight: 800;
       & code {
         font-size: 1.125rem;
       }
@@ -106,7 +152,7 @@
 
     > h4 {
       font-size: 1.1rem;
-
+      font-weight: 800;
       & code {
         font-size: 1rem;
       }
@@ -114,6 +160,7 @@
 
     > h5 {
       font-size: 1.125rem;
+      font-weight: 800;
     }
 
     > h6 {
@@ -125,13 +172,14 @@
     h4,
     h5,
     h6 {
-      font-weight: 400;
+      font-weight: 450;
       margin: 1.5rem 0;
+      color:#404040;
     }
 
     p {
       margin: 1.2rem 0;
-    }
+    } 
 
     b,
     strong {
@@ -260,9 +308,8 @@
     img {
       max-width: 100%;
       min-height: 1em;
-      border-radius: 8px;
       position: relative;
-      box-shadow: rgba(0, 0, 0, 0.2) 0px 10px 10px 0px,
+      box-shadow: rgba(0, 0, 0, 0.2) 0px 5px 5px 0px,
         rgba(0, 0, 0, 0) 0px 0px 0px 0px;
       margin-bottom: 1rem;
     }
@@ -302,6 +349,8 @@
       background-color: rgba($blockquote-color, 0.2);
       padding: 0.25rem 0.75rem;
       margin: 1rem 0;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+      color: #666;
 
       [theme="dark"] & {
         border-left-color: $blockquote-color-dark;

@@ -85,6 +85,27 @@
     justify-content: space-between;
   }
   .summary {
+    .post-meta{
+      margin-bottom:0;
+      animation: none;text-align: left;
+
+    }
+    .single-title{
+      text-align: left;
+
+      a{
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        justify-content: flex-start;
+        .title-content{
+          display: block;
+          text-overflow: ellipsis;
+          height:30px;white-space:nowrap;
+          overflow:hidden;
+        }
+      }
+    }
     margin-bottom: 2rem;
     padding-bottom: 0rem;
     width: 49%;
@@ -169,7 +190,10 @@
       border-radius: 5px;
       font-family: kefa;
       transform: scale(0.55);
+      width:2rem;
+      height:2rem;
       vertical-align: -5px;
+      margin-top:-6px;
       .year {
         font-size: 0.8rem;
         display: block;
@@ -185,18 +209,21 @@
       }
     }
     .single-title {
-      font-size: 1.3rem;
+      font-size: 1.2rem;
       line-height: 140%;
-      margin: 0rem 0rem 0.5rem 0rem;
+      margin: 0rem 0rem 0rem 0rem;
       font-weight: 350;
       font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
       .title-content {
-        margin-left: -7px;
+        margin-left: -3px;
       }
     }
     .post-meta {
       margin-top: 0rem;
-      margin: 0rem 0rem 0.5rem 0rem;
+      margin: 0rem 0rem 0rem 0rem;
+    }
+    .post-footer{
+      display: none;
     }
     .content {
       @include box(vertical);

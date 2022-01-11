@@ -16,15 +16,15 @@
     <div class="toc" id="toc-auto">
         <h2 class="toc-title">{{ T "contents" }}</h2>
         <div class="toc-content{{ if eq $toc.auto false }} always-active{{ end }}" id="toc-content-auto"></div>
-        <h2 class="toc-title">分享此文章</h2>
-        <div id="qrcode" style="width:200px;"></div>
+        <!-- <h2 class="toc-title">分享此文章</h2> -->
+        <!-- <div id="qrcode" style="width:200px;"></div>
         <script type="text/javascript">
         new QRCode(document.getElementById("qrcode"),{
             width: 128,
 	height: 128,
     text:window.location.href
         } );
-        </script>
+        </script> -->
     </div>
     {{- end -}}
     
@@ -40,37 +40,14 @@
         {{- if eq $toc.keepStatic true -}}
             <script>document.getElementsByTagName("main")[0].setAttribute("autoTOC", "false")</script>
         {{- else -}}
-            <script>document.getElementsByTagName("main")[0].setAttribute("autoTOC", "true")</script>
+            <script>document.getElementsByTagName("main")[0].setAttribute("autoTOC", "false")</script>
         {{- end -}}
     {{- else if eq $toc.enable false -}}
         <script>document.getElementsByTagName("main")[0].setAttribute("autoTOC", "false")</script>
     {{- end -}}
-
+    
     <article class="page single">
-        {{- /* Featured image */ -}}
-    {{- $image := $params.featuredImagePreview | default $params.featuredImage -}}
-    {{- $height := "auto" -}}
-    {{- $width := "auto" -}}
-    {{- with .Resources.GetMatch (printf "%s" ($image)) -}}
-        {{- $image = .RelPermalink -}}
-        {{- $height = .Height -}}
-        {{- $width = .Width -}}
-    {{- end -}}
-    {{- with .Resources.GetMatch "featured-image" -}}
-        {{- $image = .RelPermalink -}}
-        {{- $height = .Height -}}
-        {{- $width = .Width -}}
-    {{- end -}}
-    {{- with .Resources.GetMatch "featured-image-preview" -}}
-        {{- $image = .RelPermalink -}}
-        {{- $height = .Height -}}
-        {{- $width = .Width -}}
-    {{- end -}}
-        {{- with $image -}}
-        <div class="featured-image-preview-post  animate__animated animate__flipInX">
-                {{- dict "Src" . "Title" $.Description "Resources" $.Resources "Height" $height "Width" $width | partial "plugin/image.html" -}}
-        </div>
-    {{- end -}}
+        
         {{- /* Title */ -}}
         <h1 class="single-title animate__animated animate__flipInX">{{ .Title }}</h1>
 
@@ -169,7 +146,36 @@
             </div>
         </div>
 
-          
+        {{- /* Featured image */ -}}
+        {{- $image := $params.featuredImagePreview | default $params.featuredImage -}}
+        {{- $height := "auto" -}}
+        {{- $width := "auto" -}}
+        {{- $src := "" -}}
+        {{- with .Resources.GetMatch (printf "%s" ($image)) -}}
+            {{- $image = .RelPermalink -}}
+            {{- $height = .Height -}}
+            {{- $width = .Width -}}
+            {{- $src = .Src -}}
+        {{- end -}}
+        {{- with .Resources.GetMatch "featured-image" -}}
+            {{- $image = .RelPermalink -}}
+            {{- $height = .Height -}}
+            {{- $width = .Width -}}
+            {{- $src = .Src -}}
+        {{- end -}}
+        {{- with .Resources.GetMatch "featured-image-preview" -}}
+            {{- $image = .RelPermalink -}}
+            {{- $height = .Height -}}
+            {{- $width = .Width -}}
+            {{- $src = .Src -}}
+        {{- end -}}
+        
+        {{- with $image -}}
+            <div class="featured-image-preview-post " style="background-image: url({{ . }});">
+                <!-- {{- dict "Src" . "Title" $.Description "Resources" $.Resources "Height" $height "Width" $width | partial "plugin/image.html" -}} -->
+            </div>
+        {{- end -}}
+         
         {{- /* Series list */ -}}
         {{- if $params.series | and $params.seriesNavigation -}}
                 {{ range $key, $value := .Site.Taxonomies.series }}

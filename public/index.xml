@@ -3,17 +3,44 @@
         <title>芋头乱炖，一只普通程序员的自留地</title>
         <link>http://example.org/</link>
         <description>芋头乱炖，一只普通程序员的自留地</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Thu, 06 Jan 2022 00:00:00 &#43;0000</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Tue, 11 Jan 2022 00:00:00 &#43;0000</lastBuildDate>
             <atom:link href="http://example.org/index.xml" rel="self" type="application/rss+xml" />
         <item>
-    <title>ABOUT ME 关于我</title>
+    <title>我是谁？</title>
     <link>http://example.org/posts/about-me/</link>
     <pubDate>Sat, 27 Nov 2021 22:07:07 &#43;0800</pubDate><author>
         <name>芋头</name>
     </author><guid>http://example.org/posts/about-me/</guid>
     <description><![CDATA[<div class="featured-image">
                 <img src="/aboutme/cover2.jpeg" referrerpolicy="no-referrer">
-            </div>]]></description>
+            </div>MY BLOG Languages Skill Framework Social Media My Side Product Vistor counts 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 const me = new Coder(); // who am i? me.nick(&#39;芋头&#39;); me.name(&#39;孙信宇&#39;); me.sex(&#39;boy&#39;); // contact me me.city(&#39;杭州&#39;); me.email(&#39;xinyu198736@gmail.com&#39;); me.wechat(&#39;yutou-963&#39;); // my social media me.github(&#39;http://github.com/yu-tou&#39;); me.blog(&#39;https://yootou.com&#39;); me.zhihu(&#39;https://zhihu.com/people/li-shou-xin&#39;) // my skill me.language(&#39;JS/NodeJS/OC/Java/Dart/c++等&#39;); me.skill(&#39;可视化/跨端/GIS/工程化/全栈/区块链/arduino/团队管理等&#39;); // my company me.company({ 2020: &#39;预策科技 技术总监&#39;, 2013: &#39;大搜车 资深技术专家&#39;, 2009: &#39;淘宝 前端开发&#39;, }); // my school me.school(&#39;南京理工大学&#39;); me.major(&#39;电子科学与技术&#39;); // others me.isMarry = true;]]></description>
+</item><item>
+    <title>Arduino LED 频谱仪 #3 LED选择和FastLED</title>
+    <link>http://example.org/posts/arduino-fft-fastled-3/</link>
+    <pubDate>Tue, 11 Jan 2022 00:00:00 &#43;0000</pubDate><author>
+        <name>作者</name>
+    </author><guid>http://example.org/posts/arduino-fft-fastled-3/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="/fft-3/2.png" referrerpolicy="no-referrer">
+            </div>关于本系列 本系列文章将带着大家一起简单了解如何制作一个音频频谱显示的 arduino 小作品。 本节将介绍 LED 的选择及其驱动和注意事项。 前续文章： #1 arduino 芯片选择 #2 音频传感器选择 视频 元旦跨年家庭小 Party 的时候，这个小玩意发挥了很大的作用，一群朋友听着音乐跳舞跨年，我则打开 LED 频谱仪，给大家来了一个现场 DJ。 以下是成品视频，这系列文章会比较长，感兴趣的小朋友可以收藏我的博客，然后慢慢追更。 LED 序列的选择 在 LED 选择这块，我也趟过坑，例如想要自己用最原始的 LED 小灯泡自己组线，但是这样的话，会有三个问题： 涉及到模拟电路，这块需要一些电路知识，基本忘光了，例如需要搭配电阻和电容。 彩色 LED 涉及到编码驱动，特别是 LED 多了之后，太麻烦了。 LED 阵列的灯泡数量很多，例如一个 8*32 的阵列，需要 256 个灯泡，每个灯泡需要正负极，串联或者并联，连线会非常复杂。 所以，一般做电路搭建实验，不会使用原始器件，例如麦克风也一样，不会直接使用 咪头，因为他们需要搭配周边电路，]]></description>
+</item><item>
+    <title>以太坊DAPP前端开发要点【连载】</title>
+    <link>http://example.org/posts/web3_important_point/</link>
+    <pubDate>Sun, 09 Jan 2022 00:00:00 &#43;0000</pubDate><author>
+        <name>作者</name>
+    </author><guid>http://example.org/posts/web3_important_point/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="/eth_important/cover.jpeg" referrerpolicy="no-referrer">
+            </div>概述 如何开发一个以太坊（或类似网络）的 dapp？本文不会从头讲解，基础知识大家可以从官方文档或者书籍资料中获取，本文主要是介绍当你第一次开发 DAPP 的时候需要注意些什么才能上线一个比较基本的 dapp 应用。 本文会不定时更新，有想了解的问题可以在此博文下留言，我会加入到文章内容中。 声明：本人也接触此领域不久，不保证以下所有做法都是最佳实践。 大概以下几个方面： 如何选择连接智能合约的js库？ 如何连接钱包以及获取钱包基本信息？ 如何实例化合约？ 如何在ts中编写强类型合约调用代码？ 如何发起交易？ 如何处理大数单位？ 何时需要 approve？ 发起交易时如何费用估算？ 如何获取交易结果？ 如何拉取交易记录？ 一、如何选择js库？ [编辑于 2022年01月11日00:49:23] 连接智能合约，比较基本的可以使用 web3.js，中文文档：https://web3.tryblockchain.org/ 不过按照我的了解，web3.js 比较]]></description>
+</item><item>
+    <title>pkg 打包 Nodejs native addons 的 bug</title>
+    <link>http://example.org/posts/pkg_package_node_bind_centos/</link>
+    <pubDate>Fri, 07 Jan 2022 00:00:00 &#43;0000</pubDate><author>
+        <name>作者</name>
+    </author><guid>http://example.org/posts/pkg_package_node_bind_centos/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="/pkg/cover.jpeg" referrerpolicy="no-referrer">
+            </div>问题 先说结论：pkg@5.5.1 和 pkg@5.4.1 打包出来的可执行文件，如果包含 native addons，可能会在某些版本的 centos 中报错。 原因是 pkg 本身的bug，和系统有一定关系，但是关系不大，而且此问题出现概率较高，等待官方修复。 什么是 pkg 最近在公司的产品里尝试使用了 prisma + nestjs + graphql 的选型，涉及到将这个应用部署到用户环境的问题，我们公司的产品比较特殊，虽然不需要给客户定制，但是部署环境经常需要部署到客户的内网，所以应用的部署环境标准化是非常迫切的需求。 在用户私网环境内部署，最重要要解决的问题有几个： 环境的复杂性，可能需要兼容各种系统，因为可能需要和客户其他服务共享机器。 机器可能和外网不通，不能方便地安装比较复杂的环境。 所以保持部署的一致性和简单化非常重要，我们现在通常都是将应用、nginx、系统软件等打包成一个标准的 rpm 安装包，客户处的运维一键安装和升级。 而之前在公司里使用 Nodejs，通常都是在机器上安装 Nodejs 运行环境，然后再运]]></description>
 </item><item>
     <title>Arduino LED 频谱仪 #2 音频传感器选择</title>
     <link>http://example.org/posts/fft-2/</link>
@@ -66,34 +93,7 @@
         <name>芋头</name>
     </author><guid>http://example.org/posts/prisma-nestjs-graphql/</guid>
     <description><![CDATA[<div class="featured-image">
-                <img src="/Nodejs/cover.jpg" referrerpolicy="no-referrer">
+                <img src="/Nodejs/cover.jpeg" referrerpolicy="no-referrer">
             </div>介绍 本文 github 项目地址：https://github.com/yu-tou/nestjs-prisma-example 这是一个 prisma + nestjs + graphql 的集成示例 对于开发者来说，特别是使用 graphql 的时候，只需要写非常少量的代码即可完成数据的各种操作，同时也支持接口透传。 开发&amp;部署 本地开发 npm run start:dev swagger 地址：http://localhost:3001/swagger graphql playground：http://localhost:3001/index.html 核心能力 1. prisma 集成 prisma 接管数据模型定义 prisma 提供 orm 数据操作 prisma 提供数据订正和管理 2. graphql 集成 prisma-nestjs-graphql 提供 prisma 数据模型到 graphql 类型的转换 使用 nestjs 内置的代码优先模式，使用生成的类型提供 graphql 模型 使用 graphql 模型 + orm，自动通过 resolver 提供给前端访问接口 此方案中，普通和高级的增删改查基本不需要自己增加代码 3. restful api proxy 通过 swagger-to-graphql 将 openapi 接口通过 oas 文档直接转换为 graphql 定义 通过 graphqlHTTP 将请求代理到 restful 接口 此方案中，swagger 的描述无缝转换到]]></description>
-</item><item>
-    <title>如何在浏览器 console 控制台中播放视频？</title>
-    <link>http://example.org/posts/display-video-in-console/</link>
-    <pubDate>Thu, 30 Sep 2021 23:17:00 &#43;0000</pubDate><author>
-        <name>芋头</name>
-    </author><guid>http://example.org/posts/display-video-in-console/</guid>
-    <description><![CDATA[<div class="featured-image">
-                <img src="/display-video-in-console/cover.jpeg" referrerpolicy="no-referrer">
-            </div>如何在浏览器 console 控制台中播放视频？ 要实现这个目标，主要涉及到这几个点： 如何获取和解析视频流？ 如何在 console 里播放动态内容？ 如何在 console 里播放彩色内容？ 如何连接视频流和 console？ 事实上最后的代码极其简单，我们就一步一步简单讲一下 效果 测试地址：https://yu-tou.github.io/colors-web/dist/camera.html 如何获取和解析视频流？ 这里我们用电脑摄像头捕获视频流，然后获取视频流每一帧的图像数据，作为下一步的输入。 1 2 3 4 5 6 7 8 9 10 11 12 13 14 // 捕捉电脑摄像头的视频流 const mediaStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true, }); // 创建一个 video 标签 const video = document.createElement(&#34;video&#34;); document.body.appendChild(video); video.onloadedmetadata = function (e) { video.play(); // 等摄像头数据加载完成后，开始播放 }; // video 标签播放视频流 video.srcObject = mediaStream; 如何获取每一帧图像的数据？创建一个 canvas 画布，可以将 video 当前的内容绘制到画布上，然后通过 canvas 的方法即可拿到图像的像素数据。 1 2 3 4 5 6 7 8 const ctx = canvas.getContext(&#34;2d&#34;); canvas.width = width; canvas.height = height; ctx.drawImage(video, 0, 0, width, height); const imageData = ctx.getImageData(0, 0, width, height); const data = imageData.data; // imageData 的]]></description>
-</item><item>
-    <title>Mysql 8.0 中存储 gis 数据的正确姿势</title>
-    <link>http://example.org/posts/mysql8-gis-srid/</link>
-    <pubDate>Sun, 01 Aug 2021 23:17:00 &#43;0000</pubDate><author>
-        <name>芋头</name>
-    </author><guid>http://example.org/posts/mysql8-gis-srid/</guid>
-    <description><![CDATA[<div class="featured-image">
-                <img src="/mysql8-gis-srid/cover.jpg" referrerpolicy="no-referrer">
-            </div>请为列指定 SRID 如果你想要在使用一些 spatial function 的时候获得尽可能精确的值，请务必为您的数据库中的 geometry 列指定 SRID，如 st_area st_distance 等。否则您将获得直角坐标上的距离，而不是真实的值，另外在 mysql 老版本中，不指定 SRID（默认为 0），可以使用某些计算函数，但是在 mysql 中，某些函数必须指定 SRID，也要求被计算的列必须指定 SRID。 什么是 SRID？ SRID 指定的是 spatial 数据的坐标系，地理数据中一个最重要的指标就是坐标系，没有坐标系，就不存在经纬度，不存在投影，不存在地心，不存在真实距离，一切将会变为平面坐标，与真实地理信息天差地别。 SRID 坐标系定义了什么？ 简单来说，这里不展开，坐标系定义了，大地水准面 -&gt; 椭球体 -&gt; 大地基准面，他们分别是海平面、地球形状和球心、球心偏移等，在每个尺度和地区，这些值都在发生变化，所以会定义不同的坐标系，以尽量消除误差。 最常用的 SRID 是什么？ 在服务端，通常存储数据都是使用 4326 的 SRID，在前端，地图渲染使用 3857 坐标系（代表]]></description>
-</item><item>
-    <title>分享：地理可视化，不止于炫酷</title>
-    <link>http://example.org/posts/dilikeshihua/</link>
-    <pubDate>Thu, 15 Jul 2021 15:14:00 &#43;0000</pubDate><author>
-        <name>芋头</name>
-    </author><guid>http://example.org/posts/dilikeshihua/</guid>
-    <description><![CDATA[<div class="featured-image">
-                <img src="/%e5%9c%b0%e7%90%86%e5%8f%af%e8%a7%86%e5%8c%96,%e4%b8%8d%e6%ad%a2%e4%ba%8e%e7%82%ab%e9%85%b7/cover.jpeg" referrerpolicy="no-referrer">
-            </div>本博文内容来自于七月份的一个分享，主要内容是介绍地理可视化中的坐标参考系相关的概念。]]></description>
 </item></channel>
 </rss>
