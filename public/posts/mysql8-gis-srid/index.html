@@ -18,7 +18,8 @@
 <meta name="application-name" content="芋头乱炖，一只普通程序员的自留地">
 <meta name="apple-mobile-web-app-title" content="芋头乱炖，一只普通程序员的自留地">
 
-<meta name="theme-color" content="#f8f8f8"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+<meta name="theme-color" content="#f8f8f8">
+<link rel="stylesheet" href="//unpkg.com/heti/umd/heti.min.css"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="canonical" href="http://example.org/posts/mysql8-gis-srid/" /><link rel="prev" href="http://example.org/posts/dilikeshihua/" /><link rel="next" href="http://example.org/posts/display-video-in-console/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/fontawesome-free/all.min.css">
     <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/animate/animate.min.css">
@@ -134,7 +135,7 @@
     <li><a href="#联系我">联系我</a></li>
   </ul>
 </nav></div>
-            </div><div class="content" id="content"><h2 id="请为列指定-srid">请为列指定 SRID</h2>
+            </div><div class="content heti" id="content"><h2 id="请为列指定-srid">请为列指定 SRID</h2>
 <p>如果你想要在使用一些 spatial function 的时候获得尽可能精确的值，请务必为您的数据库中的 geometry 列指定 SRID，如 st_area st_distance 等。否则您将获得直角坐标上的距离，而不是真实的值，另外在 mysql 老版本中，不指定 SRID（默认为 0），可以使用某些计算函数，但是在 mysql 中，某些函数必须指定 SRID，也要求被计算的列必须指定 SRID。</p>
 <h2 id="什么是-srid">什么是 SRID？</h2>
 <p>SRID 指定的是 spatial 数据的坐标系，地理数据中一个最重要的指标就是坐标系，没有坐标系，就不存在经纬度，不存在投影，不存在地心，不存在真实距离，一切将会变为平面坐标，与真实地理信息天差地别。</p>

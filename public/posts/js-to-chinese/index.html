@@ -18,7 +18,8 @@
 <meta name="application-name" content="芋头乱炖，一只普通程序员的自留地">
 <meta name="apple-mobile-web-app-title" content="芋头乱炖，一只普通程序员的自留地">
 
-<meta name="theme-color" content="#f8f8f8"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+<meta name="theme-color" content="#f8f8f8">
+<link rel="stylesheet" href="//unpkg.com/heti/umd/heti.min.css"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="canonical" href="http://example.org/posts/js-to-chinese/" /><link rel="prev" href="http://example.org/posts/2015-year/" /><link rel="next" href="http://example.org/posts/pinyin-input-develop/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/fontawesome-free/all.min.css">
     <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/animate/animate.min.css">
@@ -128,7 +129,7 @@
     <li><a href="#结语">结语</a></li>
   </ul>
 </nav></div>
-            </div><div class="content" id="content"><p>不少人应该知道JS里可以用部分unicode字符来命名变量和方法。想想挺好玩的，不但可以用中文来编程，还可以用颜文字和emoji来编程，想想也是醉了。</p>
+            </div><div class="content heti" id="content"><p>不少人应该知道JS里可以用部分unicode字符来命名变量和方法。想想挺好玩的，不但可以用中文来编程，还可以用颜文字和emoji来编程，想想也是醉了。</p>
 <p>不过还是不建议在真实项目中这样做，但是这并不代表不可以用嘛，不过本文纯搞笑，大家别太较真，看看就行。</p>
 <p>今天，跟大家介绍一下我写的一个《英文代码翻译器》可以用一句命令，把你的js代码翻译成中文变量命名并且还可以运行的js代码！</p>
 <p>虽然这个项目只是开个玩笑，单其中涉及到的几个技术要点，还是值得一说的。本文主要分以下几节：</p>

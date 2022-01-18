@@ -6,7 +6,7 @@
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Tue, 11 Jan 2022 00:00:00 &#43;0000</lastBuildDate>
             <atom:link href="http://example.org/index.xml" rel="self" type="application/rss+xml" />
         <item>
-    <title>我是谁？我从哪里来?我到哪里去？</title>
+    <title>关于我</title>
     <link>http://example.org/posts/about-me/</link>
     <pubDate>Sat, 27 Nov 2021 22:07:07 &#43;0800</pubDate><author>
         <name>芋头</name>
@@ -24,14 +24,14 @@
                 <img src="/fft-3/2.png" referrerpolicy="no-referrer">
             </div>关于本系列 本系列文章将带着大家一起简单了解如何制作一个音频频谱显示的 arduino 小作品。 本节将介绍 LED 的选择及其驱动和注意事项。 前续文章： #1 arduino 芯片选择 #2 音频传感器选择 视频 元旦跨年家庭小 Party 的时候，这个小玩意发挥了很大的作用，一群朋友听着音乐跳舞跨年，我则打开 LED 频谱仪，给大家来了一个现场 DJ。 以下是成品视频，这系列文章会比较长，感兴趣的小朋友可以收藏我的博客，然后慢慢追更。 LED 序列的选择 在 LED 选择这块，我也趟过坑，例如想要自己用最原始的 LED 小灯泡自己组线，但是这样的话，会有三个问题： 涉及到模拟电路，这块需要一些电路知识，基本忘光了，例如需要搭配电阻和电容。 彩色 LED 涉及到编码驱动，特别是 LED 多了之后，太麻烦了。 LED 阵列的灯泡数量很多，例如一个 8*32 的阵列，需要 256 个灯泡，每个灯泡需要正负极，串联或者并联，连线会非常复杂。 所以，一般做电路搭建实验，不会使用原始器件，例如麦克风也一样，不会直接使用 咪头，因为他们需要搭配周边电路，]]></description>
 </item><item>
-    <title>以太坊DAPP前端开发要点【连载】</title>
+    <title>以太坊DAPP前端开发要点#1 js库选择对比</title>
     <link>http://example.org/posts/web3_important_point/</link>
     <pubDate>Sun, 09 Jan 2022 00:00:00 &#43;0000</pubDate><author>
         <name>作者</name>
     </author><guid>http://example.org/posts/web3_important_point/</guid>
     <description><![CDATA[<div class="featured-image">
                 <img src="/eth_important/cover.jpeg" referrerpolicy="no-referrer">
-            </div>概述 如何开发一个以太坊（或类似网络）的 dapp？本文不会从头讲解，基础知识大家可以从官方文档或者书籍资料中获取，本文主要是介绍当你第一次开发 DAPP 的时候需要注意些什么才能上线一个比较基本的 dapp 应用。 本文会不定时更新，有想了解的问题可以在此博文下留言，我会加入到文章内容中。 声明：本人也接触此领域不久，不保证以下所有做法都是最佳实践。 大概以下几个方面： 如何选择连接智能合约的js库？ 如何连接钱包以及获取钱包基本信息？ 如何实例化合约？ 如何在ts中编写强类型合约调用代码？ 如何发起交易？ 如何处理大数单位？ 何时需要 approve？ 发起交易时如何费用估算？ 如何获取交易结果？ 如何拉取交易记录？ 一、如何选择js库？ [编辑于 2022年01月11日00:49:23] 连接智能合约，比较基本的可以使用 web3.js，中文文档：https://web3.tryblockchain.org/ 不过按照我的了解，web3.js 比较]]></description>
+            </div>概述 如何开发一个以太坊（或类似网络）的 dapp？本文不会从头讲解，基础知识大家可以从官方文档或者书籍资料中获取，本文主要是介绍当你第一次开发 DAPP 的时候需要注意些什么才能上线一个比较基本的 dapp 应用。 本文会不定时更新，有想了解的问题可以在此博文下留言，我会加入到文章内容中。 声明：本人也接触此领域不久，不保证以下所有做法都是最佳实践。 大概以下几个方面： 如何选择连接智能合约的js库？ 如何连接钱包以及获取钱包基本信息？ 如何实例化合约？ 如何在ts中编写强类型合约调用代码？ 如何发起交易？ 如何处理大数单位？ 何时需要 approve？ 发起交易时如何费用估算？ 如何获取交易结果？ 如何拉取交易记录？ 如何选择js库？ 连接智能合约，比较基本的可以使用 web3.js，中文文档：https://web3.tryblockchain.org/ 这个库不止是在前端可以使用，在 nodejs 脚本中也可以使用，所以一些工具会使用 web3.js 来部署合约等，它的]]></description>
 </item><item>
     <title>pkg 打包 Nodejs native addons 的 bug</title>
     <link>http://example.org/posts/pkg_package_node_bind_centos/</link>

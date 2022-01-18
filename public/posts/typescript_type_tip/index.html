@@ -18,7 +18,8 @@
 <meta name="application-name" content="芋头乱炖，一只普通程序员的自留地">
 <meta name="apple-mobile-web-app-title" content="芋头乱炖，一只普通程序员的自留地">
 
-<meta name="theme-color" content="#f8f8f8"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+<meta name="theme-color" content="#f8f8f8">
+<link rel="stylesheet" href="//unpkg.com/heti/umd/heti.min.css"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="canonical" href="http://example.org/posts/typescript_type_tip/" /><link rel="prev" href="http://example.org/posts/2021-year-report/" /><link rel="next" href="http://example.org/posts/arduino-fft-fastled/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/fontawesome-free/all.min.css">
     <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/animate/animate.min.css">
@@ -129,7 +130,7 @@
     </li>
   </ul>
 </nav></div>
-            </div><div class="content" id="content"><p>TypeScript 的类型是非常复杂的，虽然日常大家经常用到的无非是那几个简单的 type interface 之类的，但是你打开某些知名的 js lib 的源码，有时候会发现一些非常复杂的类型定义，今天简单分享个我之前写 colors-web 的时候定义的一个类型，其实很简单。</p>
+            </div><div class="content heti" id="content"><p>TypeScript 的类型是非常复杂的，虽然日常大家经常用到的无非是那几个简单的 type interface 之类的，但是你打开某些知名的 js lib 的源码，有时候会发现一些非常复杂的类型定义，今天简单分享个我之前写 colors-web 的时候定义的一个类型，其实很简单。</p>
 <p>首先，我们看下需求：</p>
 <p>现有一个 class，他的方法是运行时动态赋予的，可能会有一百多个方法</p>
 <p>如 Color 类</p>

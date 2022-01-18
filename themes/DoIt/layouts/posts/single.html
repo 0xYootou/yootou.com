@@ -218,7 +218,7 @@
         {{- end -}}
 
         {{- /* Content */ -}}
-        <div class="content" id="content">
+        <div class="content heti" id="content">
             {{- /* Outdated Article Reminder */ -}}
             {{- partial "single/outdatedArticleReminder.html" . -}}
             {{- dict "Content" .Content "Ruby" $params.ruby "Fraction" $params.fraction "Fontawesome" $params.fontawesome | partial "function/content.html" | safeHTML -}}
