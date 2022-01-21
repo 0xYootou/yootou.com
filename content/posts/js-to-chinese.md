@@ -1,6 +1,7 @@
 ---
-title: 如何自己实现一个 mobx - 原理解析
+title: 把你的JS代码翻译成中文书写的代码
 date: 2016-03-04 21:11:00
+featuredImage: /Nodejs/cover.jpeg
 author: 芋头
 categories: ["技术","产品"]
 ---

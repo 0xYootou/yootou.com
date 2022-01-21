@@ -49,11 +49,13 @@
                 <img src="/pinyin-input-develop/cover.jpeg" referrerpolicy="no-referrer">
             </div>时间不多还要陪老婆睡觉，我准备直入主题，本文会手把手教你写一个智能的全拼汉语输入法。 其实是语言无关的，我也不打算把具体的代码放出来，我之前用ios实现过一个，效果很棒，可惜ios写涉及数据结构的代码真的是蛋疼，后来放弃维护了。 好的，一步一步手把手来，不涉及什么算法，也不难理解。 第一部分 拼音分解 第一步，用户输入一串拼音，假设是这样的： woshiyimingshuaibichengxuyuan （预期结果：我是一名帅比程序员） 首先，当然是要把拼音分解开，这一步其实有一些深入优化的点，不过就普通的拼音分解来说，其实一个正则足够了。 1 [^aoeiuv]?h?[iuv]?(ai|ei|ao|ou|er|ang?|eng?|ong|a|o|e|i|u|ng|n)? 不要问我怎么知道这个正则的，这条正则的大概意思就是按照元音辅音的规则对一串拼音进行分解。 到了这一步，我们得到这样一个单音数组： 1 [‘wo’,’shi’,’yi’,’ming’,’shuai’,’bi’,’cheng’,’xu’,’yuan’] 发明拼音的人也是挺屌的，想想觉得很佩服，这里是一些关于拼音的历史介绍 汉语拼音_互动]]></description>
 </item><item>
-    <title>如何自己实现一个 mobx - 原理解析</title>
+    <title>把你的JS代码翻译成中文书写的代码</title>
     <link>http://example.org/posts/js-to-chinese/</link>
     <pubDate>Fri, 04 Mar 2016 21:11:00 &#43;0000</pubDate><author>
         <name>芋头</name>
     </author><guid>http://example.org/posts/js-to-chinese/</guid>
-    <description><![CDATA[不少人应该知道JS里可以用部分unicode字符来命名变量和方法。想想挺好玩的，不但可以用中文来编程，还可以用颜文字和emoji来编程，想想也是醉了。 不过还是不建议在真实项目中这样做，但是这并不代表不可以用嘛，不过本文纯搞笑，大家别太较真，看看就行。 今天，跟大家介绍一下我写的一个《英文代码翻译器》可以用一句命令，把你的js代码翻译成中文变量命名并且还可以运行的js代码！ 虽然这个项目只是开个玩笑，单其中涉及到的几个技术要点，还是值得一说的。本文主要分以下几节： 介绍 | 代码编译 | 翻译 | 全局变量处理 | 重复翻译结果处理 | 小结 介绍 github地址： GitHub - xinyu198736/hancode: 把你的JS代码翻译成中文书写的代码，并且可执行 使用方式： GitHub - xinyu198736/hancode: 把你的JS代码翻译成中文书写的代码，并且可执行 sudo npm install hancode -g; 定位到某个目录 hancode -s ./code.js 会在当前目录生成一个 code.汉.js code.汉.js 的代码其实就是本库的中文版，测试可以跑通，并且结果一样。 一]]></description>
+    <description><![CDATA[<div class="featured-image">
+                <img src="/Nodejs/cover.jpeg" referrerpolicy="no-referrer">
+            </div>不少人应该知道JS里可以用部分unicode字符来命名变量和方法。想想挺好玩的，不但可以用中文来编程，还可以用颜文字和emoji来编程，想想也是醉了。 不过还是不建议在真实项目中这样做，但是这并不代表不可以用嘛，不过本文纯搞笑，大家别太较真，看看就行。 今天，跟大家介绍一下我写的一个《英文代码翻译器》可以用一句命令，把你的js代码翻译成中文变量命名并且还可以运行的js代码！ 虽然这个项目只是开个玩笑，单其中涉及到的几个技术要点，还是值得一说的。本文主要分以下几节： 介绍 | 代码编译 | 翻译 | 全局变量处理 | 重复翻译结果处理 | 小结 介绍 github地址： GitHub - xinyu198736/hancode: 把你的JS代码翻译成中文书写的代码，并且可执行 使用方式： GitHub - xinyu198736/hancode: 把你的JS代码翻译成中文书写的代码，并且可执行 sudo npm install hancode -g; 定位到某个目录 hancode -s ./code.js 会在当前目录生成一个 code.汉.js code.汉.js 的代码其实就是本库的中文版，测试可以跑通，并且结果一样。 一]]></description>
 </item></channel>
 </rss>

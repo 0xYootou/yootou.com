@@ -1,7 +1,7 @@
 ---
 title: JS 装饰器（Decorator）场景实战
 date: 2017-10-26 22:36:00
-featuredImage: js-decorator-code/cover.jpeg
+featuredImage: /js-decorator-code/cover.jpeg
 author: 芋头
 categories: ["技术"]
 tags: ["Decorator", "JavaScript"]

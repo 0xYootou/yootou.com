@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noodp" />
-    <title class="pjax-title">如何自己实现一个 mobx - 原理解析 - 芋头乱炖，一只普通程序员的自留地</title><meta name="Description" content=""><meta property="og:title" content="如何自己实现一个 mobx - 原理解析" />
+    <title class="pjax-title">把你的JS代码翻译成中文书写的代码 - 芋头乱炖，一只普通程序员的自留地</title><meta name="Description" content=""><meta property="og:title" content="把你的JS代码翻译成中文书写的代码" />
 <meta property="og:description" content="不少人应该知道JS里可以用部分unicode字符来命名变量和方法。想想挺好玩的，不但可以用中文来编程，还可以用颜文字和emoji来编程，想想也是醉了。 不过还是不建议在真实项目中这样做，但是这并不代表不可以用嘛，不过本文纯搞笑，大家别太较真，看看就行。 今天，跟大家介绍一下我写的一个《英文代码翻译器》可以用一句命令，把你的js代码翻译成中文变量命名并且还可以运行的js代码！ 虽然这个项目只是开个玩笑，单其中涉及到的几个技术要点，还是值得一说的。本文主要分以下几节： 介绍 | 代码编译 | 翻译 | 全局变量处理 | 重复翻译结果处理 | 小结 介绍 github地址： GitHub - xinyu198736/hancode: 把你的JS代码翻译成中文书写的代码，并且可执行 使用方式： GitHub - xinyu198736/hancode: 把你的JS代码翻译成中文书写的代码，并且可执行 sudo npm install hancode -g; 定位到某个目录 hancode -s ./code.js 会在当前目录生成一个 code.汉.js code.汉.js 的代码其实就是本库的中文版，测试可以跑通，并且结果一样。 一" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://example.org/posts/js-to-chinese/" /><meta property="article:section" content="posts" />
@@ -13,7 +13,7 @@
 <meta property="article:modified_time" content="2016-03-04T21:11:00+00:00" />
 
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="如何自己实现一个 mobx - 原理解析"/>
+<meta name="twitter:title" content="把你的JS代码翻译成中文书写的代码"/>
 <meta name="twitter:description" content="不少人应该知道JS里可以用部分unicode字符来命名变量和方法。想想挺好玩的，不但可以用中文来编程，还可以用颜文字和emoji来编程，想想也是醉了。 不过还是不建议在真实项目中这样做，但是这并不代表不可以用嘛，不过本文纯搞笑，大家别太较真，看看就行。 今天，跟大家介绍一下我写的一个《英文代码翻译器》可以用一句命令，把你的js代码翻译成中文变量命名并且还可以运行的js代码！ 虽然这个项目只是开个玩笑，单其中涉及到的几个技术要点，还是值得一说的。本文主要分以下几节： 介绍 | 代码编译 | 翻译 | 全局变量处理 | 重复翻译结果处理 | 小结 介绍 github地址： GitHub - xinyu198736/hancode: 把你的JS代码翻译成中文书写的代码，并且可执行 使用方式： GitHub - xinyu198736/hancode: 把你的JS代码翻译成中文书写的代码，并且可执行 sudo npm install hancode -g; 定位到某个目录 hancode -s ./code.js 会在当前目录生成一个 code.汉.js code.汉.js 的代码其实就是本库的中文版，测试可以跑通，并且结果一样。 一"/>
 <meta name="application-name" content="芋头乱炖，一只普通程序员的自留地">
 <meta name="apple-mobile-web-app-title" content="芋头乱炖，一只普通程序员的自留地">
@@ -27,7 +27,7 @@
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
-        "headline": "如何自己实现一个 mobx - 原理解析",
+        "headline": "把你的JS代码翻译成中文书写的代码",
         "inLanguage": "zh-CN",
         "mainEntityOfPage": {
             "@type": "WebPage",
@@ -101,7 +101,7 @@
         <div class="toc-content" id="toc-content-auto"></div>
         
         
-    </div><script>document.getElementsByTagName("main")[0].setAttribute("pageStyle", "normal")</script><script>document.getElementsByTagName("main")[0].setAttribute("autoTOC", "false")</script><article class="page single"><h1 class="single-title animate__animated animate__flipInX">如何自己实现一个 mobx - 原理解析</h1><div class="post-meta">
+    </div><script>document.getElementsByTagName("main")[0].setAttribute("pageStyle", "normal")</script><script>document.getElementsByTagName("main")[0].setAttribute("autoTOC", "false")</script><article class="page single"><h1 class="single-title animate__animated animate__flipInX">把你的JS代码翻译成中文书写的代码</h1><div class="post-meta">
             <div class="post-meta-line">
                 
                 
@@ -114,7 +114,9 @@
                 <span style="padding-right:10px;">评论: <span id="/posts/js-to-chinese/" class="waline-comment-count" ></span></span>
                 <span style="padding-right:10px;">约 2333 字</span>
                 <span style="padding-right:10px;">预计阅读 5 分钟</span></div>
-        </div><div class="details toc open" id="toc-static"  kept="true">
+        </div><div class="featured-image-preview-post " style="background-image: url(/Nodejs/cover.jpeg);">
+                
+            </div><div class="details toc open" id="toc-static"  kept="true">
                 <div class="details-summary toc-title">
                     <span>目录</span>
                     <span><i class="details-icon fas fa-angle-right"></i></span>
@@ -413,7 +415,7 @@
         <div class="post-info-line">
             <div class="post-info-md"></div>
             <div class="post-info-share">
-                <span><a href="#" onclick="return false;" title="分享到 微博" data-sharer="weibo" data-url="http://example.org/posts/js-to-chinese/" data-title="如何自己实现一个 mobx - 原理解析"><i class="fab fa-weibo fa-fw"></i></a></span>
+                <span><a href="#" onclick="return false;" title="分享到 微博" data-sharer="weibo" data-url="http://example.org/posts/js-to-chinese/" data-title="把你的JS代码翻译成中文书写的代码" data-image="/Nodejs/cover.jpeg"><i class="fab fa-weibo fa-fw"></i></a></span>
             </div>
         </div>
     </div>

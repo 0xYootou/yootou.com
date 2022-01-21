@@ -3,7 +3,7 @@
         <title>芋头乱炖，一只普通程序员的自留地</title>
         <link>http://example.org/</link>
         <description>芋头乱炖，一只普通程序员的自留地</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Tue, 11 Jan 2022 00:00:00 &#43;0000</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Fri, 21 Jan 2022 00:00:00 &#43;0000</lastBuildDate>
             <atom:link href="http://example.org/index.xml" rel="self" type="application/rss+xml" />
         <item>
     <title>关于我</title>
@@ -14,6 +14,15 @@
     <description><![CDATA[<div class="featured-image">
                 <img src="/aboutme/cover3.jpeg" referrerpolicy="no-referrer">
             </div>MY BLOG Languages Skill Framework Social Media My Side Product Vistor counts Coder 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 const me = new Coder(); // who am i? me.nick(&#39;芋头&#39;); me.name(&#39;孙信宇&#39;); me.sex(&#39;boy&#39;); // contact me me.city(&#39;杭州&#39;); me.email(&#39;xinyu198736@gmail.com&#39;); me.wechat(&#39;yutou-963&#39;); // my social media me.github(&#39;http://github.com/yu-tou&#39;); me.blog(&#39;https://yootou.com&#39;); me.zhihu(&#39;https://zhihu.com/people/li-shou-xin&#39;) // my skill me.language(&#39;JS/NodeJS/OC/Java/Dart/c++等&#39;); me.skill(&#39;可视化/跨端/GIS/工程化/全栈/区块链/arduino/团队管理等&#39;); // my company me.company({ 2020: &#39;预策科技 技术总监&#39;, 2013: &#39;大搜车 资深技术专家&#39;, 2009: &#39;淘宝 前端开发&#39;, }); // my school me.school(&#39;南京理工大学&#39;); me.major(&#39;电子科学与技术&#39;); // others me.isMarry = true;]]></description>
+</item><item>
+    <title>Web 体验技术发展前沿速览</title>
+    <link>http://example.org/posts/frontend-modern-experience-share-slide/</link>
+    <pubDate>Fri, 21 Jan 2022 00:00:00 &#43;0000</pubDate><author>
+        <name>作者</name>
+    </author><guid>http://example.org/posts/frontend-modern-experience-share-slide/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="/modern/cover.jpeg" referrerpolicy="no-referrer">
+            </div>我最近在听的音乐推荐 小芋头君@ yootou.com 在线 Slide 地址 在线 Slide 声明 本分享内容具有一定局限性，不代表社区真实现状，仅做参考！ 部分内容面向非专业用户（偏产品向）。 感谢 本文主要内容 实时体验（Realtime experience） 在线协作（Online collaboration） 快速建站（Jamstack） 浏览器计算能力 浏览器系统能力 移动端 区块链 一 实时体验 实时体验 https://vercel.com 在 2021 年 6 月，Next.js 框架背后的开发商 Vercel 在 C 轮融资中筹集了 1.02 亿美金，使其估值达到 11 亿美元，正式成为了一家独角兽企业。11 月份，Vercel 再次宣布获得新的融资，其在 D 轮融资中筹集了 1.5 亿美元，使其估值相比之前翻了一番，达到 25 亿美元。 70 CITIES 24B+ REQUESTS PER WEEK 10PB DATA SERVED 99.99% GUARANTEED UPTIME 部署前端应用的云服务，也支持简单的服务端、存储等。 vercel 核心特色 产品定位和产品功能极简，官方定义：Develop. Preview. Ship. 部署过程极简，连接 Github 账号、导入 Github 项目、Deploy、Preview，最小步骤完成。]]></description>
 </item><item>
     <title>Arduino LED 频谱仪 #3 LED选择和FastLED</title>
     <link>http://example.org/posts/arduino-fft-fastled-3/</link>
@@ -86,14 +95,5 @@
     <description><![CDATA[<div class="featured-image">
                 <img src="/eth/cover.png" referrerpolicy="no-referrer">
             </div>声明：市场有风险，投资需谨慎，币圈骗子多，一定要小心，违法的事不要做，违法的人不结识，仅供学习，致力于用区块链技术打造和谐社会。 本文所涉及的项目代码： https://github.com/yu-tou/eth-self-token-example 在以太坊发布自己的 token 代码示例 1 2 3 yarn install # 启动本地网络 yarn chain token 代码在 ./contracts，其中 YuTou.sol 是 token 合约，YuTouMintable 是发币合约 编辑合约后，部署脚本在 deploy/00_deploy_your_contract.js，如合约名有变化则修改 1 2 3 # 部署到本地网络 yarn deploy 执行成功后终端，有合约地址，将地址导入钱包，即可看到 token 钱包使用测试网络连接合约后可以获取自己的一个地址，接下去向地址发 token 修改合约地址和账户地址，在 scripts/mint.js 中 1 2 # 发币到自己的账户 yarn mint 以太坊概念教程 1. 以太坊基础概念 1.1 比特币 BTC &amp; 以太坊 Ethereum 比特币：价值工具。 以太坊：分布式应用平台。 1.2 智能合约 contract 智能合约（Smart contract ）是一种旨在以信息化方式传播、验证或执行合同的计算机协议。智能合约允许]]></description>
-</item><item>
-    <title>Prisma &#43; NestJs &#43; GraphQL 表现层应用开发</title>
-    <link>http://example.org/posts/prisma-nestjs-graphql/</link>
-    <pubDate>Mon, 20 Dec 2021 23:59:59 &#43;0000</pubDate><author>
-        <name>芋头</name>
-    </author><guid>http://example.org/posts/prisma-nestjs-graphql/</guid>
-    <description><![CDATA[<div class="featured-image">
-                <img src="/Nodejs/cover.jpeg" referrerpolicy="no-referrer">
-            </div>介绍 本文 github 项目地址：https://github.com/yu-tou/nestjs-prisma-example 这是一个 prisma + nestjs + graphql 的集成示例 对于开发者来说，特别是使用 graphql 的时候，只需要写非常少量的代码即可完成数据的各种操作，同时也支持接口透传。 开发&amp;部署 本地开发 npm run start:dev swagger 地址：http://localhost:3001/swagger graphql playground：http://localhost:3001/index.html 核心能力 1. prisma 集成 prisma 接管数据模型定义 prisma 提供 orm 数据操作 prisma 提供数据订正和管理 2. graphql 集成 prisma-nestjs-graphql 提供 prisma 数据模型到 graphql 类型的转换 使用 nestjs 内置的代码优先模式，使用生成的类型提供 graphql 模型 使用 graphql 模型 + orm，自动通过 resolver 提供给前端访问接口 此方案中，普通和高级的增删改查基本不需要自己增加代码 3. restful api proxy 通过 swagger-to-graphql 将 openapi 接口通过 oas 文档直接转换为 graphql 定义 通过 graphqlHTTP 将请求代理到 restful 接口 此方案中，swagger 的描述无缝转换到]]></description>
 </item></channel>
 </rss>
