@@ -1,6 +1,6 @@
 
 +++
-resources = []
+resources = ["arduino"]
 title = "Arduino LED 频谱仪 #2 音频传感器选择"
 mainContent = ""
 pubdate = "2022-01-06"

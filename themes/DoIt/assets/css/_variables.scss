@@ -4,7 +4,7 @@
 
 // ========== Global ========== //
 // Font and Line Height
-$global-font-family: system-ui, -apple-system, BlinkMacSystemFont, PingFang SC,
+$global-font-family: "LXGWWenKai",system-ui, -apple-system, BlinkMacSystemFont, PingFang SC,
   Microsoft YaHei UI, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans,
   Droid Sans, Helvetica Neue, Helvetica, Arial, sans-serif !default;
 $global-font-size: 16px;
@@ -67,7 +67,7 @@ $header-background-color-dark: #252627 !default;
 $header-background-color-black: #000000 !default;
 
 // Font style of the header title
-$header-title-font-family: "隶变-简", "华文楷体";
+$header-title-font-family: "LXGWWenKai", "隶变-简", "华文楷体";
 $header-title-font-size: 1.5rem !default;
 
 // Color of the hover header item

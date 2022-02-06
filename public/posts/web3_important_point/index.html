@@ -5,21 +5,20 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noodp" />
-    <title class="pjax-title">以太坊DAPP前端开发要点#1 js库选择对比 - 芋头乱炖，一只普通程序员的自留地</title><meta name="Description" content=""><meta property="og:title" content="以太坊DAPP前端开发要点#1 js库选择对比" />
-<meta property="og:description" content="概述 如何开发一个以太坊（或类似网络）的 dapp？本文不会从头讲解，基础知识大家可以从官方文档或者书籍资料中获取，本文主要是介绍当你第一次开发 DAPP 的时候需要注意些什么才能上线一个比较基本的 dapp 应用。 本文会不定时更新，有想了解的问题可以在此博文下留言，我会加入到文章内容中。 声明：本人也接触此领域不久，不保证以下所有做法都是最佳实践。 大概以下几个方面： 如何选择连接智能合约的js库？ 如何连接钱包以及获取钱包基本信息？ 如何实例化合约？ 如何在ts中编写强类型合约调用代码？ 如何发起交易？ 如何处理大数单位？ 何时需要 approve？ 发起交易时如何费用估算？ 如何获取交易结果？ 如何拉取交易记录？ 如何选择js库？ 连接智能合约，比较基本的可以使用 web3.js，中文文档：https://web3.tryblockchain.org/ 这个库不止是在前端可以使用，在 nodejs 脚本中也可以使用，所以一些工具会使用 web3.js 来部署合约等，它的" />
+    <title class="pjax-title">以太坊(Web3)DAPP前端开发要点#1 js库选择对比 - 芋头乱炖，一只普通程序员的自留地</title><meta name="Description" content=""><meta property="og:title" content="以太坊(Web3)DAPP前端开发要点#1 js库选择对比" />
+<meta property="og:description" content="概述 如何开发一个以太坊的 dapp？本系列将尽量以比较详细的方式介绍一个 dapp 开发中需要掌握的基本概念和其核心用法。 本系列会不定时更新，有想了解的问题可以在此博文下留言，我会加入到系列文章内容中。本人也接触此领域不久，不保证以下所有做法都是最佳实践。 大概以下几个方面： 如何选择连接智能合约的js库？ 如何连接钱包以及获取钱包基本信息？ 如何实例化合约？ 如何在ts中编写强类型合约调用代码？ 如何发起交易？ 如何处理大数单位？ 何时需要 approve？ 发起交易时如何费用估算？ 如何获取交易结果？ 如何拉取交易记录？ 如何选择js库？ 连接智能合约，比较基本的可以使用 web3.js，中文文档：https://web3.tryblockchain.org/ 这个库不止是在前端可以使用，在 nodejs 脚本中也可以使用，所以一些工具会使用 web3.js 来部署合约等，它的能力还有很多，前端调用合约，发起交易只是它非常小的一部分，不过如果纯粹作为前端，实" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://example.org/posts/web3_important_point/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2022-01-09T00:00:00+00:00" />
 <meta property="article:modified_time" content="2022-01-10T16:55:06+00:00" />
 
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="以太坊DAPP前端开发要点#1 js库选择对比"/>
-<meta name="twitter:description" content="概述 如何开发一个以太坊（或类似网络）的 dapp？本文不会从头讲解，基础知识大家可以从官方文档或者书籍资料中获取，本文主要是介绍当你第一次开发 DAPP 的时候需要注意些什么才能上线一个比较基本的 dapp 应用。 本文会不定时更新，有想了解的问题可以在此博文下留言，我会加入到文章内容中。 声明：本人也接触此领域不久，不保证以下所有做法都是最佳实践。 大概以下几个方面： 如何选择连接智能合约的js库？ 如何连接钱包以及获取钱包基本信息？ 如何实例化合约？ 如何在ts中编写强类型合约调用代码？ 如何发起交易？ 如何处理大数单位？ 何时需要 approve？ 发起交易时如何费用估算？ 如何获取交易结果？ 如何拉取交易记录？ 如何选择js库？ 连接智能合约，比较基本的可以使用 web3.js，中文文档：https://web3.tryblockchain.org/ 这个库不止是在前端可以使用，在 nodejs 脚本中也可以使用，所以一些工具会使用 web3.js 来部署合约等，它的"/>
+<meta name="twitter:title" content="以太坊(Web3)DAPP前端开发要点#1 js库选择对比"/>
+<meta name="twitter:description" content="概述 如何开发一个以太坊的 dapp？本系列将尽量以比较详细的方式介绍一个 dapp 开发中需要掌握的基本概念和其核心用法。 本系列会不定时更新，有想了解的问题可以在此博文下留言，我会加入到系列文章内容中。本人也接触此领域不久，不保证以下所有做法都是最佳实践。 大概以下几个方面： 如何选择连接智能合约的js库？ 如何连接钱包以及获取钱包基本信息？ 如何实例化合约？ 如何在ts中编写强类型合约调用代码？ 如何发起交易？ 如何处理大数单位？ 何时需要 approve？ 发起交易时如何费用估算？ 如何获取交易结果？ 如何拉取交易记录？ 如何选择js库？ 连接智能合约，比较基本的可以使用 web3.js，中文文档：https://web3.tryblockchain.org/ 这个库不止是在前端可以使用，在 nodejs 脚本中也可以使用，所以一些工具会使用 web3.js 来部署合约等，它的能力还有很多，前端调用合约，发起交易只是它非常小的一部分，不过如果纯粹作为前端，实"/>
 <meta name="application-name" content="芋头乱炖，一只普通程序员的自留地">
 <meta name="apple-mobile-web-app-title" content="芋头乱炖，一只普通程序员的自留地">
 
-<meta name="theme-color" content="#f8f8f8">
-<link rel="stylesheet" href="//unpkg.com/heti/umd/heti.min.css"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+<meta name="theme-color" content="#f8f8f8"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="canonical" href="http://example.org/posts/web3_important_point/" /><link rel="prev" href="http://example.org/posts/pkg_package_node_bind_centos/" /><link rel="next" href="http://example.org/posts/arduino-fft-fastled-3/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/fontawesome-free/all.min.css">
     <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/animate/animate.min.css">
@@ -27,12 +26,12 @@
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
-        "headline": "以太坊DAPP前端开发要点#1 js库选择对比",
+        "headline": "以太坊(Web3)DAPP前端开发要点#1 js库选择对比",
         "inLanguage": "zh-CN",
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "http:\/\/example.org\/posts\/web3_important_point\/"
-        },"genre": "posts","wordcount":  2066 ,
+        },"genre": "posts","wordcount":  2013 ,
         "url": "http:\/\/example.org\/posts\/web3_important_point\/","datePublished": "2022-01-09T00:00:00+00:00","dateModified": "2022-01-10T16:55:06+00:00","publisher": {
             "@type": "Organization",
             "name": "作者"},"author": {
@@ -63,7 +62,7 @@
     /><span id="desktop-header-typeit" class="typeit"></span></a>
         </div>
         <div class="menu">
-            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><a href="#" onclick="return false;" class="menu-item theme-switch" title="切换主题">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><a href="#" onclick="return false;" class="menu-item theme-switch" title="切换主题">
                     <i class="fas fa-adjust fa-fw"></i>
                 </a></div>
         </div>
@@ -84,7 +83,7 @@
                 <span></span><span></span><span></span>
             </div>
         </div>
-        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a href="#" onclick="return false;" class="menu-item theme-switch" title="切换主题">
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/categories/" title="">分类</a><a href="#" onclick="return false;" class="menu-item theme-switch" title="切换主题">
                 <i class="fas fa-adjust fa-fw"></i>
             </a></div>
     </div>
@@ -101,7 +100,7 @@
         <div class="toc-content" id="toc-content-auto"></div>
         
         
-    </div><script>document.getElementsByTagName("main")[0].setAttribute("pageStyle", "normal")</script><script>document.getElementsByTagName("main")[0].setAttribute("autoTOC", "false")</script><article class="page single"><h1 class="single-title animate__animated animate__flipInX">以太坊DAPP前端开发要点#1 js库选择对比</h1><div class="post-meta">
+    </div><script>document.getElementsByTagName("main")[0].setAttribute("pageStyle", "normal")</script><script>document.getElementsByTagName("main")[0].setAttribute("autoTOC", "false")</script><article class="page single"><h1 class="single-title animate__animated animate__flipInX">以太坊(Web3)DAPP前端开发要点#1 js库选择对比</h1><div class="post-meta">
             <div class="post-meta-line">
                 
                 
@@ -112,7 +111,7 @@
             <div class="post-meta-line"><span style="padding-right:10px;"><time datetime="2022-01-09">2022-01-09</time> </span>
                 <span style="padding-right:10px;">阅读: <span id="/posts/web3_important_point/" class="waline-visitor-count" ></span></span>
                 <span style="padding-right:10px;">评论: <span id="/posts/web3_important_point/" class="waline-comment-count" ></span></span>
-                <span style="padding-right:10px;">约 2066 字</span>
+                <span style="padding-right:10px;">约 2013 字</span>
                 <span style="padding-right:10px;">预计阅读 5 分钟</span></div>
         </div><div class="featured-image-preview-post " style="background-image: url(/eth_important/cover.jpeg);">
                 
@@ -130,13 +129,8 @@
   </ul>
 </nav></div>
             </div><div class="content heti" id="content"><h2 id="概述">概述</h2>
-<p>如何开发一个以太坊（或类似网络）的 dapp？本文不会从头讲解，基础知识大家可以从官方文档或者书籍资料中获取，本文主要是介绍当你第一次开发 DAPP 的时候需要注意些什么才能上线一个比较基本的 dapp 应用。</p>
-<blockquote>
-<p>本文会不定时更新，有想了解的问题可以在此博文下留言，我会加入到文章内容中。</p>
-</blockquote>
-<blockquote>
-<p>声明：本人也接触此领域不久，不保证以下所有做法都是最佳实践。</p>
-</blockquote>
+<p>如何开发一个以太坊的 dapp？本系列将尽量以比较详细的方式介绍一个 dapp 开发中需要掌握的基本概念和其核心用法。</p>
+<p>本系列会不定时更新，有想了解的问题可以在此博文下留言，我会加入到系列文章内容中。本人也接触此领域不久，不保证以下所有做法都是最佳实践。</p>
 <p>大概以下几个方面：</p>
 <ol>
 <li>如何选择连接智能合约的js库？</li>
@@ -239,7 +233,7 @@
 <li>社区和社区经验有多重要？</li>
 </ol>
 <h2 id="预告">预告</h2>
-<p>下篇文章，我们将介绍如何链接 dapp 和 钱包，以及链接钱包需要引入的新的库 web3modal 。</p>
+<p>下篇文章，我们将介绍如何连接合约，以及发送交易</p>
 </div>
 
         <div class="post-footer" id="post-footer">
@@ -253,7 +247,7 @@
         <div class="post-info-line">
             <div class="post-info-md"></div>
             <div class="post-info-share">
-                <span><a href="#" onclick="return false;" title="分享到 微博" data-sharer="weibo" data-url="http://example.org/posts/web3_important_point/" data-title="以太坊DAPP前端开发要点#1 js库选择对比" data-image="/eth_important/cover.jpeg"><i class="fab fa-weibo fa-fw"></i></a></span>
+                <span><a href="#" onclick="return false;" title="分享到 微博" data-sharer="weibo" data-url="http://example.org/posts/web3_important_point/" data-title="以太坊(Web3)DAPP前端开发要点#1 js库选择对比" data-image="/eth_important/cover.jpeg"><i class="fab fa-weibo fa-fw"></i></a></span>
             </div>
         </div>
     </div>

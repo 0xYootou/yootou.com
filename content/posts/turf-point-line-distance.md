@@ -4,7 +4,7 @@ date: 2021-04-01 23:44:00
 author: 芋头
 featuredImage: /turf-poin-line-distance/cover.jpg
 tags: ["turf.js", "GIS", "JavaScript"]
-categories: ["技术"]
+categories: ["GIS"]
 ---
 
 ### 问题定义：

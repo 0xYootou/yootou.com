@@ -3,16 +3,7 @@
         <title>产品 - 分类 - 芋头乱炖，一只普通程序员的自留地</title>
         <link>http://example.org/categories/%E4%BA%A7%E5%93%81/</link>
         <description>产品 - 分类 - 芋头乱炖，一只普通程序员的自留地</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sun, 27 May 2018 16:26:00 &#43;0000</lastBuildDate><atom:link href="http://example.org/categories/%E4%BA%A7%E5%93%81/" rel="self" type="application/rss+xml" /><item>
-    <title>一次连续结对编程三天的经历</title>
-    <link>http://example.org/posts/code-with-another-man/</link>
-    <pubDate>Sun, 27 May 2018 16:26:00 &#43;0000</pubDate><author>
-        <name>芋头</name>
-    </author><guid>http://example.org/posts/code-with-another-man/</guid>
-    <description><![CDATA[<div class="featured-image">
-                <img src="/code-with-another-man/cover.jpeg" referrerpolicy="no-referrer">
-            </div>最近，公司的事情越发忙碌起来了，除了需要不断梳理架构团队的规划和进度之外，还要经常北上杭三地跑，平常好不容易有个完整的周末，也都瘫软在沙发上，一动脑就脑壳痛。感觉这种状态很容易让人疲惫乏力，需要改变一下，所以临近五一假期的时候，突发奇想，想完完整整写三天自己的代码！ 如果只是自己写，就略显无聊了，而且三天之内，很难写出什么成型的东西来，虽然之前脑子里有好几个想法，但是都不是三天可以做出一个线上产品的规模（例如一个开源的功能炒鸡多的 markdown 编辑器插件；或者是一个画脑图的网站？）顶多做做 demo ，成就感还是有差距的。 于是，我就想，为什么不找真正热爱编程和创造的人一起写呢！于是在五一前两天，在朋友圈征集了一波，最后找到了一个有一定编程经验的程序员，在五一假期三天基本上每天在咖啡馆编程至少 8 小时。 现场照片，节奏还是很紧张的 事实上，我发现这种结对编程，带来的优势比我想象中还要多很多。 结对编程的优势 高效。这个自不必]]></description>
-</item><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sun, 18 Mar 2018 23:14:00 &#43;0000</lastBuildDate><atom:link href="http://example.org/categories/%E4%BA%A7%E5%93%81/" rel="self" type="application/rss+xml" /><item>
     <title>帅气程序员和漂亮幼师老婆一起做了一个 app</title>
     <link>http://example.org/posts/make-app-with-wife/</link>
     <pubDate>Sun, 18 Mar 2018 23:14:00 &#43;0000</pubDate><author>
@@ -30,32 +21,5 @@
     <description><![CDATA[<div class="featured-image">
                 <img src="/self-developer-1/cover.jpeg" referrerpolicy="no-referrer">
             </div>本文主要与大家分享我业余时间如何学习多门技术以及开发业余项目的一些心得，分为 初衷、硬技能、软技能、第一生产力、环境、时间几个部分，阅读大概需要 10 分钟。 关于我之前做的一些业余项目，我在知乎上的一个回答大概可以总结： 小芋头君：作为程序员，你有哪些正在做的个人项目？ 业余开发项目的初衷 总体来说，在我的感觉里，国内的环境对于业余开发者来说其实是非常不友好的，不过作为一个开发者，一味抱怨并不会有大的改观，能做的就是不忘初心，多做尝试多做积累。包括我之前也和一些朋友深入聊过类似的话题，例如“在行”上约我聊相关话题的同学，我其实是鼓励大家勇敢的去做自由职业者或者业余开发者，虽然环境的确不是很友好，但是年轻时多尝试总是没错的，毕竟我们还有资本去寻找更多可能性，而且我相信每个开发者其实内心都是向往利用自己的力量改变人们的生活方式的，而我们通常做的事情却总是一个大工程中的螺丝钉，时间长了失却了创新的初衷意味，这]]></description>
-</item><item>
-    <title>如何自己实现一个 mobx - 原理解析</title>
-    <link>http://example.org/posts/smobx/</link>
-    <pubDate>Tue, 25 Apr 2017 14:04:00 &#43;0000</pubDate><author>
-        <name>芋头</name>
-    </author><guid>http://example.org/posts/smobx/</guid>
-    <description><![CDATA[<div class="featured-image">
-                <img src="/smobx/cover.jpeg" referrerpolicy="no-referrer">
-            </div>前言 Mobx 是一个非常优雅的状态管理库，具有相当大的自由度，并且使用非常简单，本文通过自己实现一个 mini 版的 mobx （s-mobx）来探究一下类似的 FRP 模式在 js 中的实现。 本文主要讲述了如何自己实现一个 mobx，主要是其核心几个 api 的实现。目的不是要重新造一个轮子，只是通过造轮子的过程，了解 mobx 的核心原理，以及一些具体实现的时候需要趟的坑，从而对RFP之类的编程范式有更深入的了解。 所以，不要将此文中提到的项目（s-mobx）应用于实际项目中，除非你真的想节省那一点点带宽（打包后 6K，GZip后 2.3K）。 另外，s-mobx 的实现和 mobx 的实现细节可能并不一致。 关于 s-mobx github: https://github.com/xinyu198736/s-mobx npm: npm install s-mobx —save 核心组成 S-mobx 最最核心是两个功能。 Observable 。用来包装一个属性为 被观察者 Autorun 。用来包装一个方法为 观察者 整个 s-mobx 就是围绕这两个功能做包装。 依赖收集 Autorun 是个神奇的函数，被他包装过的方法，就会变为观察者函数，并且这里有一个很重要的特性，这个函数只会观察自己依]]></description>
-</item><item>
-    <title>手把手教你写一个全功能全拼输入法</title>
-    <link>http://example.org/posts/pinyin-input-develop/</link>
-    <pubDate>Mon, 24 Oct 2016 22:57:00 &#43;0000</pubDate><author>
-        <name>芋头</name>
-    </author><guid>http://example.org/posts/pinyin-input-develop/</guid>
-    <description><![CDATA[<div class="featured-image">
-                <img src="/pinyin-input-develop/cover.jpeg" referrerpolicy="no-referrer">
-            </div>时间不多还要陪老婆睡觉，我准备直入主题，本文会手把手教你写一个智能的全拼汉语输入法。 其实是语言无关的，我也不打算把具体的代码放出来，我之前用ios实现过一个，效果很棒，可惜ios写涉及数据结构的代码真的是蛋疼，后来放弃维护了。 好的，一步一步手把手来，不涉及什么算法，也不难理解。 第一部分 拼音分解 第一步，用户输入一串拼音，假设是这样的： woshiyimingshuaibichengxuyuan （预期结果：我是一名帅比程序员） 首先，当然是要把拼音分解开，这一步其实有一些深入优化的点，不过就普通的拼音分解来说，其实一个正则足够了。 1 [^aoeiuv]?h?[iuv]?(ai|ei|ao|ou|er|ang?|eng?|ong|a|o|e|i|u|ng|n)? 不要问我怎么知道这个正则的，这条正则的大概意思就是按照元音辅音的规则对一串拼音进行分解。 到了这一步，我们得到这样一个单音数组： 1 [‘wo’,’shi’,’yi’,’ming’,’shuai’,’bi’,’cheng’,’xu’,’yuan’] 发明拼音的人也是挺屌的，想想觉得很佩服，这里是一些关于拼音的历史介绍 汉语拼音_互动]]></description>
-</item><item>
-    <title>把你的JS代码翻译成中文书写的代码</title>
-    <link>http://example.org/posts/js-to-chinese/</link>
-    <pubDate>Fri, 04 Mar 2016 21:11:00 &#43;0000</pubDate><author>
-        <name>芋头</name>
-    </author><guid>http://example.org/posts/js-to-chinese/</guid>
-    <description><![CDATA[<div class="featured-image">
-                <img src="/Nodejs/cover.jpeg" referrerpolicy="no-referrer">
-            </div>不少人应该知道JS里可以用部分unicode字符来命名变量和方法。想想挺好玩的，不但可以用中文来编程，还可以用颜文字和emoji来编程，想想也是醉了。 不过还是不建议在真实项目中这样做，但是这并不代表不可以用嘛，不过本文纯搞笑，大家别太较真，看看就行。 今天，跟大家介绍一下我写的一个《英文代码翻译器》可以用一句命令，把你的js代码翻译成中文变量命名并且还可以运行的js代码！ 虽然这个项目只是开个玩笑，单其中涉及到的几个技术要点，还是值得一说的。本文主要分以下几节： 介绍 | 代码编译 | 翻译 | 全局变量处理 | 重复翻译结果处理 | 小结 介绍 github地址： GitHub - xinyu198736/hancode: 把你的JS代码翻译成中文书写的代码，并且可执行 使用方式： GitHub - xinyu198736/hancode: 把你的JS代码翻译成中文书写的代码，并且可执行 sudo npm install hancode -g; 定位到某个目录 hancode -s ./code.js 会在当前目录生成一个 code.汉.js code.汉.js 的代码其实就是本库的中文版，测试可以跑通，并且结果一样。 一]]></description>
 </item></channel>
 </rss>

@@ -1,7 +1,7 @@
 +++
-resources = []
 title = "当我们谈论前端架构时，我们到底在谈论什么？"
 pubdate = "2019-01-07"
+categories = ["web"]
 featuredImage = "/frontend-arch/cover.jpeg"
 +++
 

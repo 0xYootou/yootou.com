@@ -1,8 +1,8 @@
 +++
-resources = []
 title = "以太坊小示例和基本概念"
 pubdate = "2021-12-25"
 featuredImage = "/eth/cover.png"
+categories = ["web3"]
 +++
 
 > 声明：市场有风险，投资需谨慎，币圈骗子多，一定要小心，违法的事不要做，违法的人不结识，仅供学习，致力于用区块链技术打造和谐社会。

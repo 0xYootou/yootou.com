@@ -4,7 +4,7 @@ date: 2021-08-01 23:17:00
 author: 芋头
 featuredImage: /mysql8-gis-srid/cover.jpg
 tags: ["GIS", "JavaScript"]
-categories: ["技术"]
+categories: ["GIS"]
 ---
 
 ## 请为列指定 SRID

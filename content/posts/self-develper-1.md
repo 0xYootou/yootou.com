@@ -3,7 +3,7 @@ title: 开发笔记：个人开发者的困境与突破
 date: 2017-10-12 23:20:00
 featuredImage: /self-developer-1/cover.jpeg
 author: 芋头
-categories: ["技术","产品"]
+categories: ["产品"]
 ---
 
 

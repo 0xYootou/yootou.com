@@ -3,7 +3,7 @@ title: 手把手教你写一个全功能全拼输入法
 date: 2016-10-24 22:57:00
 featuredImage: /pinyin-input-develop/cover.jpeg
 author: 芋头
-categories: ["技术","产品"]
+categories: ["web"]
 ---
 
 时间不多还要陪老婆睡觉，我准备直入主题，本文会手把手教你写一个智能的全拼汉语输入法。

@@ -1,8 +1,8 @@
 +++
-resources = []
 title = "Arduino LED 频谱仪 #1 arduino 芯片选择"
 mainContent = ""
 pubdate = "2022-01-05"
+categories = ["arduino"]
 featuredImage = "/Arduino%20%E9%9F%B3%E9%A2%91%E7%9B%92%E5%AD%90%E5%88%B6%E4%BD%9C%20%231%20arduino%20%E8%8A%AF%E7%89%87%E9%80%89%E6%8B%A9/IMG_6479.JPG"
 +++
 

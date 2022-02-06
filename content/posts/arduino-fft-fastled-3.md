@@ -1,5 +1,5 @@
 +++
-resources = []
+resources = ["arduino"]
 title = "Arduino LED 频谱仪 #3 LED选择和FastLED"
 mainContent = ""
 pubdate = "2022-01-11"

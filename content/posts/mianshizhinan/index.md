@@ -1,7 +1,8 @@
 +++
-resources = []
+
 title = "前端工程师“应试”指南"
 pubdate = "2019-01-18"
+categories = ["web"]
 featuredImage = "/mianshizhinan/cover.jpeg"
 +++
 

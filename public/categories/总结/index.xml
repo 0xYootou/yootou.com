@@ -4,6 +4,15 @@
         <link>http://example.org/categories/%E6%80%BB%E7%BB%93/</link>
         <description>总结 - 分类 - 芋头乱炖，一只普通程序员的自留地</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Fri, 31 Dec 2021 23:59:59 &#43;0000</lastBuildDate><atom:link href="http://example.org/categories/%E6%80%BB%E7%BB%93/" rel="self" type="application/rss+xml" /><item>
+    <title>关于我</title>
+    <link>http://example.org/posts/about-me/</link>
+    <pubDate>Sat, 27 Nov 2021 22:07:07 &#43;0800</pubDate><author>
+        <name>芋头</name>
+    </author><guid>http://example.org/posts/about-me/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="/aboutme/cover3.jpeg" referrerpolicy="no-referrer">
+            </div>BLOG Languages Skill Framework Social Media My Side Product Vistor counts My eWallet Address]]></description>
+</item><item>
     <title>GOODBYE 2021, HELLO 2022</title>
     <link>http://example.org/posts/2021-year-report/</link>
     <pubDate>Fri, 31 Dec 2021 23:59:59 &#43;0000</pubDate><author>

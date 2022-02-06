@@ -2,7 +2,7 @@
 title: Prisma + NestJs + GraphQL 表现层应用开发
 date: 2021-12-20 23:59:59
 author: 芋头
-categories: ["技术"]
+categories: ["web"]
 featuredImage: /Nodejs/cover.jpeg
 ---
 
@@ -15,7 +15,7 @@ featuredImage: /Nodejs/cover.jpeg
 对于开发者来说，特别是使用 graphql 的时候，只需要写非常少量的代码即可完成数据的各种操作，同时也支持接口透传。
 
 ### 开发&部署
-
+ 
 #### 本地开发
 
 npm run start:dev
@@ -55,7 +55,7 @@ graphql playground：http://localhost:3001/index.html
 
 - 通过 graphiQL 的第三方插件 graphiql-explorer 快速预览和组合 graphql 请求
 
-![](./F0698852-0F7F-4C35-88F5-E2BA76E47B09.png)
+![](/Nodejs/F0698852-0F7F-4C35-88F5-E2BA76E47B09.png)
 
 更多信息：[](./share.md)
 
@@ -67,7 +67,7 @@ graphql playground：http://localhost:3001/index.html
 
 添加新的业务模型
 
-```
+```graphql
 model xxx {
   id         Int      @id @default(autoincrement())
   uid        String   @unique @default(uuid())
@@ -129,7 +129,7 @@ this.prisma.tag.findMany({
 
 如：
 
-```
+```ts
 
 import { FindManytagArgs } from '../@generated/tag/find-manytag.args';
 import { FindUniquetagArgs } from '../@generated/tag/find-uniquetag.args';
@@ -151,7 +151,7 @@ FindManytagArgs 是 生成的类型
 
 this.tagsGqlService.findMany 就是一个透传，内部是 this.prisma.tag.findMany
 
-```
+```ts
 
 @Injectable()
 export class TagsGqlService {
@@ -167,7 +167,7 @@ export class TagsGqlService {
 
 ```
 
-![](./5C44E121-4090-4C9B-8197-30771B9F9671.png)
+![](/Nodejs/5C44E121-4090-4C9B-8197-30771B9F9671.png)
 
 #### 6. 查看 swagger 和 graphql playground
 

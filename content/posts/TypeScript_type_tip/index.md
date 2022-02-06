@@ -1,5 +1,5 @@
 +++
-resources = ["技术"]
+resources = ["web"]
 title = "TypeScript 类型小甜点"
 date = 2022-01-04
 featuredImage = "/TypeScript_type_tip/cover.png"

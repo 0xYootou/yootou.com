@@ -1,8 +1,8 @@
 +++
-resources = []
 title = "pkg 打包 Nodejs native addons 的 bug"
 pubdate = "2022-01-07"
 featuredImage = "/pkg/cover.jpeg"
+categories = ["web"]
 +++
 
 ## 问题

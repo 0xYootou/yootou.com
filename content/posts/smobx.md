@@ -3,7 +3,7 @@ title: 如何自己实现一个 mobx - 原理解析
 date: 2017-04-25 14:04:00
 featuredImage: /smobx/cover.jpeg
 author: 芋头
-categories: ["技术","产品"]
+categories: ["web"]
 ---
 
 ### 前言

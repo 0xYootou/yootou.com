@@ -3,7 +3,7 @@ title: 帅气程序员和漂亮幼师老婆一起做了一个 app
 date: 2018-03-18 23:14:00
 featuredImage: /make-app-with-wife/v2-455f120c78a4b74fb1b960084741385b_1440w.jpg
 author: 芋头
-categories: ["技术","产品"]
+categories: ["产品"]
 ---
 
 ![](/make-app-with-wife/v2-455f120c78a4b74fb1b960084741385b_1440w.jpg)

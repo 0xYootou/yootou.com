@@ -4,7 +4,7 @@ date: 2021-09-30 23:17:00
 author: 芋头
 featuredImage: /display-video-in-console/cover.jpeg
 tags: ["Console", "JavaScript"]
-categories: ["技术"]
+categories: ["web"]
 ---
 
 ## 如何在浏览器 console 控制台中播放视频？

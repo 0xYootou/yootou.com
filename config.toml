@@ -50,14 +50,14 @@ summaryLength = 400
   dateFormat = "01-02"
   # amount of RSS pages
   # RSS 文章数目
-  rss = 10
+  rss = 20
   # recently updated posts settings
   # 最近更新文章设置
   [params.section.recentlyUpdated]
     enable = true
     rss = true
     days = 30
-    maxCount = 10
+    maxCount = 20
 [params.social]
   [params.social.GitHub]
     # 排列图标时的权重 (权重越大, 图标的位置越靠后)
@@ -97,14 +97,7 @@ summaryLength = 400
     # 当你将鼠标悬停在此菜单链接上时, 将显示的标题
     title = ""
     weight = 1
-  [[menu.main]]
-    identifier = "tags"
-    pre = ""
-    post = ""
-    name = "标签"
-    url = "/tags/"
-    title = ""
-    weight = 2
+  
   [[menu.main]]
     identifier = "categories"
     pre = ""

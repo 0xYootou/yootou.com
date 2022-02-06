@@ -3,7 +3,7 @@ title: 把你的JS代码翻译成中文书写的代码
 date: 2016-03-04 21:11:00
 featuredImage: /Nodejs/cover.jpeg
 author: 芋头
-categories: ["技术","产品"]
+categories: ["web"]
 ---
 不少人应该知道JS里可以用部分unicode字符来命名变量和方法。想想挺好玩的，不但可以用中文来编程，还可以用颜文字和emoji来编程，想想也是醉了。
 
