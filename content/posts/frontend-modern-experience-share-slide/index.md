@@ -1,8 +1,8 @@
 +++
-resources = []
 title = "Web 体验技术发展前沿速览"
 pubdate = "2022-01-21"
 featuredImage = "/modern/cover.jpeg"
+categories = ["web"]
 +++
 
 我最近在听的音乐推荐
@@ -91,7 +91,7 @@ featuredImage = "/modern/cover.jpeg"
 
 
 
- <video src="/modern/1.mp4" controls  autoplay />
+ <video src="/modern/1.mp4" controls   />
 
 ### 背后技术
 
@@ -153,7 +153,7 @@ featuredImage = "/modern/cover.jpeg"
 
 cursor chat & live chat & video chat & screen share & comments & collaborative editing
 
-<video src="/modern/7.mp4" controls   autoplay />
+<video src="/modern/7.mp4" controls    />
 
 ### Figma
 
@@ -373,7 +373,7 @@ Develop / Version Control / Automated build( assets. pre render. deploy.) / Upda
 
 ### Google Meeting
 
-<video src="/modern/11.mp4" controls   autoplay />
+<video src="/modern/11.mp4" controls    />
 
 ## 五 移动端
 
