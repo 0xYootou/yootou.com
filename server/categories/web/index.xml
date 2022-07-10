@@ -1,0 +1,97 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>web - 分类 - 芋头乱炖，一只普通程序员的自留地</title>
+        <link>http://example.org/categories/web/</link>
+        <description>web - 分类 - 芋头乱炖，一只普通程序员的自留地</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Fri, 21 Jan 2022 00:00:00 &#43;0000</lastBuildDate><atom:link href="http://example.org/categories/web/" rel="self" type="application/rss+xml" /><item>
+    <title>Web 体验技术发展前沿速览</title>
+    <link>http://example.org/posts/frontend-modern-experience-share-slide/</link>
+    <pubDate>Fri, 21 Jan 2022 00:00:00 &#43;0000</pubDate><author>
+        <name>作者</name>
+    </author><guid>http://example.org/posts/frontend-modern-experience-share-slide/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="/modern/cover.jpeg" referrerpolicy="no-referrer">
+            </div>我最近在听的音乐推荐 小芋头君@ yootou.com 在线 Slide 地址 在线 Slide 声明 本分享内容具有一定局限性，不代表社区真实现状，仅做参考！ 部分内容面向非专业用户（偏产品向）。 感谢 本文主要内容 实时体验（Realtime experience） 在线协作（Online collaboration） 快速建站（Jamstack） 浏览器计算能力 浏览器系统能力 移动端 区块链 一 实时体验 实时体验 https://vercel.com 在 2021 年 6 月，Next.js 框架背后的开发商 Vercel 在 C 轮融资中筹集了 1.02 亿美金，使其估值达到 11 亿美元，正式成为了一家独角兽企业。11 月份，Vercel 再次宣布获得新的融资，其在 D 轮融资中筹集了 1.5 亿美元，使其估值相比之前翻了一番，达到 25 亿美元。 70 CITIES 24B+ REQUESTS PER WEEK 10PB DATA SERVED 99.99% GUARANTEED UPTIME 部署前端应用的云服务，也支持简单的服务端、存储等。 vercel 核心特色 产品定位和产品功能极简，官方定义：Develop. Preview. Ship. 部署过程极简，连接 Github 账号、导入 Github 项目、Deploy、Preview，最小步骤完成。]]></description>
+</item><item>
+    <title>pkg 打包 Nodejs native addons 的 bug</title>
+    <link>http://example.org/posts/pkg_package_node_bind_centos/</link>
+    <pubDate>Fri, 07 Jan 2022 00:00:00 &#43;0000</pubDate><author>
+        <name>作者</name>
+    </author><guid>http://example.org/posts/pkg_package_node_bind_centos/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="/pkg/cover.jpeg" referrerpolicy="no-referrer">
+            </div>问题 先说结论：pkg@5.5.1 和 pkg@5.4.1 打包出来的可执行文件，如果包含 native addons，可能会在某些版本的 centos 中报错。 原因是 pkg 本身的bug，和系统有一定关系，但是关系不大，而且此问题出现概率较高，等待官方修复。 什么是 pkg 最近在公司的产品里尝试使用了 prisma + nestjs + graphql 的选型，涉及到将这个应用部署到用户环境的问题，我们公司的产品比较特殊，虽然不需要给客户定制，但是部署环境经常需要部署到客户的内网，所以应用的部署环境标准化是非常迫切的需求。 在用户私网环境内部署，最重要要解决的问题有几个： 环境的复杂性，可能需要兼容各种系统，因为可能需要和客户其他服务共享机器。 机器可能和外网不通，不能方便地安装比较复杂的环境。 所以保持部署的一致性和简单化非常重要，我们现在通常都是将应用、nginx、系统软件等打包成一个标准的 rpm 安装包，客户处的运维一键安装和升级。 而之前在公司里使用 Nodejs，通常都是在机器上安装 Nodejs 运行环境，然后再运]]></description>
+</item><item>
+    <title>Prisma &#43; NestJs &#43; GraphQL 表现层应用开发</title>
+    <link>http://example.org/posts/prisma-nestjs-graphql/</link>
+    <pubDate>Mon, 20 Dec 2021 23:59:59 &#43;0000</pubDate><author>
+        <name>芋头</name>
+    </author><guid>http://example.org/posts/prisma-nestjs-graphql/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="/Nodejs/cover.jpeg" referrerpolicy="no-referrer">
+            </div>介绍 本文 github 项目地址：https://github.com/yu-tou/nestjs-prisma-example 这是一个 prisma + nestjs + graphql 的集成示例 对于开发者来说，特别是使用 graphql 的时候，只需要写非常少量的代码即可完成数据的各种操作，同时也支持接口透传。 开发&amp;部署 本地开发 npm run start:dev swagger 地址：http://localhost:3001/swagger graphql playground：http://localhost:3001/index.html 核心能力 1. prisma 集成 prisma 接管数据模型定义 prisma 提供 orm 数据操作 prisma 提供数据订正和管理 2. graphql 集成 prisma-nestjs-graphql 提供 prisma 数据模型到 graphql 类型的转换 使用 nestjs 内置的代码优先模式，使用生成的类型提供 graphql 模型 使用 graphql 模型 + orm，自动通过 resolver 提供给前端访问接口 此方案中，普通和高级的增删改查基本不需要自己增加代码 3. restful api proxy 通过 swagger-to-graphql 将 openapi 接口通过 oas 文档直接转换为 graphql 定义 通过 graphqlHTTP 将请求代理到 restful 接口 此方案中，swagger 的描述无缝转换到]]></description>
+</item><item>
+    <title>如何在浏览器 console 控制台中播放视频？</title>
+    <link>http://example.org/posts/display-video-in-console/</link>
+    <pubDate>Thu, 30 Sep 2021 23:17:00 &#43;0000</pubDate><author>
+        <name>芋头</name>
+    </author><guid>http://example.org/posts/display-video-in-console/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="/display-video-in-console/cover.jpeg" referrerpolicy="no-referrer">
+            </div>如何在浏览器 console 控制台中播放视频？ 要实现这个目标，主要涉及到这几个点： 如何获取和解析视频流？ 如何在 console 里播放动态内容？ 如何在 console 里播放彩色内容？ 如何连接视频流和 console？ 事实上最后的代码极其简单，我们就一步一步简单讲一下 效果 测试地址：https://yu-tou.github.io/colors-web/dist/camera.html 如何获取和解析视频流？ 这里我们用电脑摄像头捕获视频流，然后获取视频流每一帧的图像数据，作为下一步的输入。 1 2 3 4 5 6 7 8 9 10 11 12 13 14 // 捕捉电脑摄像头的视频流 const mediaStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true, }); // 创建一个 video 标签 const video = document.createElement(&#34;video&#34;); document.body.appendChild(video); video.onloadedmetadata = function (e) { video.play(); // 等摄像头数据加载完成后，开始播放 }; // video 标签播放视频流 video.srcObject = mediaStream; 如何获取每一帧图像的数据？创建一个 canvas 画布，可以将 video 当前的内容绘制到画布上，然后通过 canvas 的方法即可拿到图像的像素数据。 1 2 3 4 5 6 7 8 const ctx = canvas.getContext(&#34;2d&#34;); canvas.width = width; canvas.height = height; ctx.drawImage(video, 0, 0, width, height); const imageData = ctx.getImageData(0, 0, width, height); const data = imageData.data; // imageData 的]]></description>
+</item><item>
+    <title>前端工程师“应试”指南</title>
+    <link>http://example.org/posts/mianshizhinan/</link>
+    <pubDate>Fri, 18 Jan 2019 00:00:00 &#43;0000</pubDate><author>
+        <name>作者</name>
+    </author><guid>http://example.org/posts/mianshizhinan/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="/mianshizhinan/cover.jpeg" referrerpolicy="no-referrer">
+            </div>本文主要分为以下几个部分，希望对还在找工作的同学有切实帮助，所有这些主旨其实都不是在教大家如何取巧，而是如何踏踏实实准备一场面试，将自己的真实水平发挥出来，并且平常多训练自己的学习和总结方式。 如何准备简历 面试前如何准备 面试中注意事项 平常如何学习才能更好的跳槽 常见面试题解析 如何准备简历 准备简历最重要的一点是，如何让你的简历在几十几百封简历中让人眼前一亮，作为一个前端面试官，每天都需要看很多简历，千篇一律的简历建的太多了，很多时候看一封简历的时间可能只有几秒钟，这个看的过程其实核心关注几个点： 工作经历。是否是来自大公司？是的话会重点关注，不是的话看做过的项目类型，如果是较为复杂的项目或者承担核心角色，重点关注，否则继续。 技术经历。这块其实是最稀缺的，因为每个简历基本都有工作经历，但是大部分都是项目罗列，基本差异都不大，这时候如果你在这块没有什么特色，基本你的简历就会被刷掉了。所谓技术经历，主要]]></description>
+</item><item>
+    <title>当我们谈论前端架构时，我们到底在谈论什么？</title>
+    <link>http://example.org/posts/frontend-arch/</link>
+    <pubDate>Mon, 07 Jan 2019 00:00:00 &#43;0000</pubDate><author>
+        <name>作者</name>
+    </author><guid>http://example.org/posts/frontend-arch/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="/frontend-arch/cover.jpeg" referrerpolicy="no-referrer">
+            </div>前端架构漫谈 下笔的时候有点后悔开了一个这么大的话题，“架构”这词对于程序员来说是略显神圣的，而且其涵盖范围和意义也是非常广泛，可能每个人每个团队对于它的理解也是不同的，所以今天不深入探讨它本身，而是着重讲讲我们在这方面的一些实践。 ###架构到底是什么？前端架构又是什么？ 我们先看维基百科对软件架构的定义。 软件架构是一个系统的草图。软件架构描述的对象是直接构成系统的抽象组件。各个组件之间的连接则明确和相对细致地描述组件之间的通讯。在实现阶段，这些抽象组件被细化为实际的组件，比如具体某个类或者对象。在面向对象领域中，组件之间的连接通常用接口来实现。 传统架构的理解和前端架构的理解略有不同，这个稍后讨论，我们先看看传统意义上对于软件架构的定义。这两句话里可以总结出几个核心名词出来：抽象、解耦、组合，而架构的实际工作，其实就是对这些架构方法和实际场景的梳理把握。 传统意义上的架构师，在实际项目层面，高级]]></description>
+</item><item>
+    <title>一次连续结对编程三天的经历</title>
+    <link>http://example.org/posts/code-with-another-man/</link>
+    <pubDate>Sun, 27 May 2018 16:26:00 &#43;0000</pubDate><author>
+        <name>芋头</name>
+    </author><guid>http://example.org/posts/code-with-another-man/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="/code-with-another-man/cover.jpeg" referrerpolicy="no-referrer">
+            </div>最近，公司的事情越发忙碌起来了，除了需要不断梳理架构团队的规划和进度之外，还要经常北上杭三地跑，平常好不容易有个完整的周末，也都瘫软在沙发上，一动脑就脑壳痛。感觉这种状态很容易让人疲惫乏力，需要改变一下，所以临近五一假期的时候，突发奇想，想完完整整写三天自己的代码！ 如果只是自己写，就略显无聊了，而且三天之内，很难写出什么成型的东西来，虽然之前脑子里有好几个想法，但是都不是三天可以做出一个线上产品的规模（例如一个开源的功能炒鸡多的 markdown 编辑器插件；或者是一个画脑图的网站？）顶多做做 demo ，成就感还是有差距的。 于是，我就想，为什么不找真正热爱编程和创造的人一起写呢！于是在五一前两天，在朋友圈征集了一波，最后找到了一个有一定编程经验的程序员，在五一假期三天基本上每天在咖啡馆编程至少 8 小时。 现场照片，节奏还是很紧张的 事实上，我发现这种结对编程，带来的优势比我想象中还要多很多。 结对编程的优势 高效。这个自不必]]></description>
+</item><item>
+    <title>JS 装饰器（Decorator）场景实战</title>
+    <link>http://example.org/posts/js-decorator-code/</link>
+    <pubDate>Thu, 26 Oct 2017 22:36:00 &#43;0000</pubDate><author>
+        <name>芋头</name>
+    </author><guid>http://example.org/posts/js-decorator-code/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="/js-decorator-code/cover.jpeg" referrerpolicy="no-referrer">
+            </div>本文不会大篇幅介绍装饰器（Decorator）的概念和基础用法，核心介绍我们团队如何将装饰器应用于实际开发，和一些高级用法的实现。 装饰器简介 Decorator 是 ES7 的一个新语法，正如其“装饰器”的叫法所表达的，他可以对一些对象进行装饰包装然后返回一个被包装过的对象，可以装饰的对象包括：类，属性，方法等。Decorator 的写法与 Java 里的注解（Annotation）非常类似，但是一定不要把 JS 中的装饰器叫做是“注解”，因为这两者的原理和实现的功能还是有所区别的，在 Java 中，注解主要是对某个对象进行标注，然后在运行时或者编译时，可以通过例如反射这样的机制拿到被标注的对象，对其进行一些逻辑包装。而 Decorator 的原理和作用则更为简单，就是包装对象，然后返回一个新的对象描述（descriptor），其作用也非常单一简单，基本上就是获取包装对象的宿主、键值几个有限的信息。 关于 Decorator 的详细介绍参见文章： zhuanlan.zhihu.com/F]]></description>
+</item><item>
+    <title>如何自己实现一个 mobx - 原理解析</title>
+    <link>http://example.org/posts/smobx/</link>
+    <pubDate>Tue, 25 Apr 2017 14:04:00 &#43;0000</pubDate><author>
+        <name>芋头</name>
+    </author><guid>http://example.org/posts/smobx/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="/smobx/cover.jpeg" referrerpolicy="no-referrer">
+            </div>前言 Mobx 是一个非常优雅的状态管理库，具有相当大的自由度，并且使用非常简单，本文通过自己实现一个 mini 版的 mobx （s-mobx）来探究一下类似的 FRP 模式在 js 中的实现。 本文主要讲述了如何自己实现一个 mobx，主要是其核心几个 api 的实现。目的不是要重新造一个轮子，只是通过造轮子的过程，了解 mobx 的核心原理，以及一些具体实现的时候需要趟的坑，从而对RFP之类的编程范式有更深入的了解。 所以，不要将此文中提到的项目（s-mobx）应用于实际项目中，除非你真的想节省那一点点带宽（打包后 6K，GZip后 2.3K）。 另外，s-mobx 的实现和 mobx 的实现细节可能并不一致。 关于 s-mobx github: https://github.com/xinyu198736/s-mobx npm: npm install s-mobx —save 核心组成 S-mobx 最最核心是两个功能。 Observable 。用来包装一个属性为 被观察者 Autorun 。用来包装一个方法为 观察者 整个 s-mobx 就是围绕这两个功能做包装。 依赖收集 Autorun 是个神奇的函数，被他包装过的方法，就会变为观察者函数，并且这里有一个很重要的特性，这个函数只会观察自己依]]></description>
+</item><item>
+    <title>手把手教你写一个全功能全拼输入法</title>
+    <link>http://example.org/posts/pinyin-input-develop/</link>
+    <pubDate>Mon, 24 Oct 2016 22:57:00 &#43;0000</pubDate><author>
+        <name>芋头</name>
+    </author><guid>http://example.org/posts/pinyin-input-develop/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="/pinyin-input-develop/cover.jpeg" referrerpolicy="no-referrer">
+            </div>时间不多还要陪老婆睡觉，我准备直入主题，本文会手把手教你写一个智能的全拼汉语输入法。 其实是语言无关的，我也不打算把具体的代码放出来，我之前用ios实现过一个，效果很棒，可惜ios写涉及数据结构的代码真的是蛋疼，后来放弃维护了。 好的，一步一步手把手来，不涉及什么算法，也不难理解。 第一部分 拼音分解 第一步，用户输入一串拼音，假设是这样的： woshiyimingshuaibichengxuyuan （预期结果：我是一名帅比程序员） 首先，当然是要把拼音分解开，这一步其实有一些深入优化的点，不过就普通的拼音分解来说，其实一个正则足够了。 1 [^aoeiuv]?h?[iuv]?(ai|ei|ao|ou|er|ang?|eng?|ong|a|o|e|i|u|ng|n)? 不要问我怎么知道这个正则的，这条正则的大概意思就是按照元音辅音的规则对一串拼音进行分解。 到了这一步，我们得到这样一个单音数组： 1 [‘wo’,’shi’,’yi’,’ming’,’shuai’,’bi’,’cheng’,’xu’,’yuan’] 发明拼音的人也是挺屌的，想想觉得很佩服，这里是一些关于拼音的历史介绍 汉语拼音_互动]]></description>
+</item></channel>
+</rss>

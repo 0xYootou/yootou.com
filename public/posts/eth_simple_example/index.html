@@ -8,7 +8,7 @@
     <title class="pjax-title">以太坊小示例和基本概念 - 芋头乱炖，一只普通程序员的自留地</title><meta name="Description" content=""><meta property="og:title" content="以太坊小示例和基本概念" />
 <meta property="og:description" content="声明：市场有风险，投资需谨慎，币圈骗子多，一定要小心，违法的事不要做，违法的人不结识，仅供学习，致力于用区块链技术打造和谐社会。 本文所涉及的项目代码： https://github.com/yu-tou/eth-self-token-example 在以太坊发布自己的 token 代码示例 1 2 3 yarn install # 启动本地网络 yarn chain token 代码在 ./contracts，其中 YuTou.sol 是 token 合约，YuTouMintable 是发币合约 编辑合约后，部署脚本在 deploy/00_deploy_your_contract.js，如合约名有变化则修改 1 2 3 # 部署到本地网络 yarn deploy 执行成功后终端，有合约地址，将地址导入钱包，即可看到 token 钱包使用测试网络连接合约后可以获取自己的一个地址，接下去向地址发 token 修改合约地址和账户地址，在 scripts/mint.js 中 1 2 # 发币到自己的账户 yarn mint 以太坊概念教程 1. 以太坊基础概念 1.1 比特币 BTC &amp; 以太坊 Ethereum 比特币：价值工具。 以太坊：分布式应用平台。 1.2 智能合约 contract 智能合约（Smart contract ）是一种旨在以信息化方式传播、验证或执行合同的计算机协议。智能合约允许" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="http://example.org/posts/eth_simple_example/" /><meta property="article:section" content="posts" />
+<meta property="og:url" content="https://yootou.com/posts/eth_simple_example/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2021-12-25T00:00:00+00:00" />
 <meta property="article:modified_time" content="2021-12-25T00:00:00+00:00" />
 
@@ -20,9 +20,17 @@
 
 <meta name="theme-color" content="#f8f8f8"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="canonical" href="http://example.org/posts/eth_simple_example/" /><link rel="prev" href="http://example.org/posts/prisma-nestjs-graphql/" /><link rel="next" href="http://example.org/posts/2021-year-report/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/fontawesome-free/all.min.css">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="canonical" href="https://yootou.com/posts/eth_simple_example/" /><link rel="prev" href="https://yootou.com/posts/prisma-nestjs-graphql/" /><link rel="next" href="https://yootou.com/posts/2021-year-report/" /><link rel="stylesheet" href="https://yootou.com/lib/normalize/normalize.min.8235a67a2521ef99fb1e455a5891b022af1653b4ede3cfffcac4e473beee88fbcc1a36bbb3cfdd75fd6df46732032f9d96e30adae9c88b769e1fbf7945cd27e0.css"><link rel="stylesheet" href="https://yootou.com/css/style.min.ccda882d27016d5492a07313a9a2a0cd7c7b78f87ab62005e713037791d59ccda6c2f953089e56386531d9ea851e9f0072bc92db050bcb89b16037ce0b54f85f.css"><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/fontawesome-free/all.min.css">
     <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/animate/animate.min.css">
-    <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-KQJK254');</script>
+    
+
+    <meta name="google-site-verification" content="9i1I8fxXVrNLWPoZxLCneiA6u1j9znyl8KgHuUY7kbI" /><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
@@ -30,9 +38,9 @@
         "inLanguage": "zh-CN",
         "mainEntityOfPage": {
             "@type": "WebPage",
-            "@id": "http:\/\/example.org\/posts\/eth_simple_example\/"
+            "@id": "https:\/\/yootou.com\/posts\/eth_simple_example\/"
         },"genre": "posts","wordcount":  3239 ,
-        "url": "http:\/\/example.org\/posts\/eth_simple_example\/","datePublished": "2021-12-25T00:00:00+00:00","dateModified": "2021-12-25T00:00:00+00:00","publisher": {
+        "url": "https:\/\/yootou.com\/posts\/eth_simple_example\/","datePublished": "2021-12-25T00:00:00+00:00","dateModified": "2021-12-25T00:00:00+00:00","publisher": {
             "@type": "Organization",
             "name": "作者"},"author": {
                 "@type": "Person",
@@ -386,7 +394,7 @@ yarn mint
         <div class="post-info-line">
             <div class="post-info-md"></div>
             <div class="post-info-share">
-                <span><a href="#" onclick="return false;" title="分享到 微博" data-sharer="weibo" data-url="http://example.org/posts/eth_simple_example/" data-title="以太坊小示例和基本概念" data-image="/eth/cover.png"><i class="fab fa-weibo fa-fw"></i></a></span>
+                <span><a href="#" onclick="return false;" title="分享到 微博" data-sharer="weibo" data-url="https://yootou.com/posts/eth_simple_example/" data-title="以太坊小示例和基本概念" data-image="/eth/cover.png"><i class="fab fa-weibo fa-fw"></i></a></span>
             </div>
         </div>
     </div>

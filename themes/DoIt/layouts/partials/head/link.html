@@ -6,8 +6,6 @@
         <link rel="icon" href="{{ . }}">
     {{- else -}}
         <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
-        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     {{- end -}}
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     {{- with .Site.Params.app.iconColor -}}
@@ -39,7 +37,7 @@
 {{- /* style.min.css */ -}}
 {{- $style := dict "Source" "css/style.scss" "Fingerprint" $fingerprint -}}
 {{- $options := dict "targetPath" "css/style.min.css" "enableSourceMap" true -}}
-{{- $style = dict "Context" . "ToCSS" $options | merge $style -}}
+{{- $style = dict "Context" . "ToCSS" $options | merge $style  -}}
 {{- partial "plugin/style.html" $style -}}
 
 {{- /* Font Awesome */ -}}
@@ -62,3 +60,12 @@
         {{- $_ := $sw.Permalink -}}
     {{- end -}}
 {{- end -}}
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-KQJK254');</script>
+    <!-- End Google Tag Manager -->
+
+    <meta name="google-site-verification" content="9i1I8fxXVrNLWPoZxLCneiA6u1j9znyl8KgHuUY7kbI" />

@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noodp" />
+    <title class="pjax-title">Mysql 8.0 中存储 gis 数据的正确姿势 - 芋头乱炖，一只普通程序员的自留地</title><meta name="Description" content=""><meta property="og:title" content="Mysql 8.0 中存储 gis 数据的正确姿势" />
+<meta property="og:description" content="请为列指定 SRID 如果你想要在使用一些 spatial function 的时候获得尽可能精确的值，请务必为您的数据库中的 geometry 列指定 SRID，如 st_area st_distance 等。否则您将获得直角坐标上的距离，而不是真实的值，另外在 mysql 老版本中，不指定 SRID（默认为 0），可以使用某些计算函数，但是在 mysql 中，某些函数必须指定 SRID，也要求被计算的列必须指定 SRID。 什么是 SRID？ SRID 指定的是 spatial 数据的坐标系，地理数据中一个最重要的指标就是坐标系，没有坐标系，就不存在经纬度，不存在投影，不存在地心，不存在真实距离，一切将会变为平面坐标，与真实地理信息天差地别。 SRID 坐标系定义了什么？ 简单来说，这里不展开，坐标系定义了，大地水准面 -&gt; 椭球体 -&gt; 大地基准面，他们分别是海平面、地球形状和球心、球心偏移等，在每个尺度和地区，这些值都在发生变化，所以会定义不同的坐标系，以尽量消除误差。 最常用的 SRID 是什么？ 在服务端，通常存储数据都是使用 4326 的 SRID，在前端，地图渲染使用 3857 坐标系（代表" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://example.org/posts/mysql8-gis-srid/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-08-01T23:17:00+00:00" />
+<meta property="article:modified_time" content="2021-08-01T23:17:00+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Mysql 8.0 中存储 gis 数据的正确姿势"/>
+<meta name="twitter:description" content="请为列指定 SRID 如果你想要在使用一些 spatial function 的时候获得尽可能精确的值，请务必为您的数据库中的 geometry 列指定 SRID，如 st_area st_distance 等。否则您将获得直角坐标上的距离，而不是真实的值，另外在 mysql 老版本中，不指定 SRID（默认为 0），可以使用某些计算函数，但是在 mysql 中，某些函数必须指定 SRID，也要求被计算的列必须指定 SRID。 什么是 SRID？ SRID 指定的是 spatial 数据的坐标系，地理数据中一个最重要的指标就是坐标系，没有坐标系，就不存在经纬度，不存在投影，不存在地心，不存在真实距离，一切将会变为平面坐标，与真实地理信息天差地别。 SRID 坐标系定义了什么？ 简单来说，这里不展开，坐标系定义了，大地水准面 -&gt; 椭球体 -&gt; 大地基准面，他们分别是海平面、地球形状和球心、球心偏移等，在每个尺度和地区，这些值都在发生变化，所以会定义不同的坐标系，以尽量消除误差。 最常用的 SRID 是什么？ 在服务端，通常存储数据都是使用 4326 的 SRID，在前端，地图渲染使用 3857 坐标系（代表"/>
+<meta name="application-name" content="芋头乱炖，一只普通程序员的自留地">
+<meta name="apple-mobile-web-app-title" content="芋头乱炖，一只普通程序员的自留地">
+
+<meta name="theme-color" content="#f8f8f8"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="canonical" href="http://example.org/posts/mysql8-gis-srid/" /><link rel="prev" href="http://example.org/posts/dilikeshihua/" /><link rel="next" href="http://example.org/posts/display-video-in-console/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/fontawesome-free/all.min.css">
+    <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/animate/animate.min.css">
+    <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Mysql 8.0 中存储 gis 数据的正确姿势",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/example.org\/posts\/mysql8-gis-srid\/"
+        },"genre": "posts","keywords": "GIS, JavaScript","wordcount":  1979 ,
+        "url": "http:\/\/example.org\/posts\/mysql8-gis-srid\/","datePublished": "2021-08-01T23:17:00+00:00","dateModified": "2021-08-01T23:17:00+00:00","publisher": {
+            "@type": "Organization",
+            "name": "芋头"},"author": {
+                "@type": "Person",
+                "name": "芋头"
+            },"description": ""
+    }
+    </script></head>
+
+<body header-desktop="" header-mobile=""><script type="text/javascript">
+        function setTheme(theme) {document.body.setAttribute('theme', theme);}
+        function saveTheme(theme) {window.localStorage && localStorage.setItem('theme', theme);}
+        function getMeta(metaName) {const metas = document.getElementsByTagName('meta'); for (let i = 0; i < metas.length; i++) if (metas[i].getAttribute('name') === metaName) return metas[i]; return '';}
+        if (window.localStorage && localStorage.getItem('theme')) {let theme = localStorage.getItem('theme');theme === 'light' || theme === 'dark' || theme === 'black' ? setTheme(theme) : (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? setTheme('dark') : setTheme('light')); } else { if ('' === 'light' || '' === 'dark' || '' === 'black') setTheme(''), saveTheme(''); else saveTheme('auto'), window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? setTheme('dark') : setTheme('light');}
+        let metaColors = {'light': '#f8f8f8','dark': '#252627','black': '#000000'}
+        getMeta('theme-color').content = metaColors[document.body.getAttribute('theme')];
+    </script>
+    <div id="back-to-top"></div>
+    <div id="mask"></div><div class="wrapper"><div style="display: none"><img src="/android-chrome-512x512.png" width="320" height="320"/></div>
+<header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="芋头乱炖，一只普通程序员的自留地"><img
+        class="lazyload logo"
+        data-src="/logo.png"
+        alt="/logo.png"
+        title="/logo.png"
+    /><span id="desktop-header-typeit" class="typeit"></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><a href="#" onclick="return false;" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a></div>
+        </div>
+    </div>
+</header><div style="display: none"><img src="/android-chrome-512x512.png" width="320" height="320"/></div>
+<header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="芋头乱炖，一只普通程序员的自留地"><img
+        class="lazyload logo"
+        data-src="/logo.png"
+        alt="/logo.png"
+        title="/logo.png"
+    /><span id="mobile-header-typeit" class="typeit"></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/categories/" title="">分类</a><a href="#" onclick="return false;" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+            <div class="container"><script src="/qrcode.js"></script><div class="toc" id="toc-auto">
+        <h2 class="toc-title">目录</h2>
+        <div class="toc-content" id="toc-content-auto"></div>
+        
+        
+    </div><script>document.getElementsByTagName("main")[0].setAttribute("pageStyle", "normal")</script><script>document.getElementsByTagName("main")[0].setAttribute("autoTOC", "false")</script><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Mysql 8.0 中存储 gis 数据的正确姿势</h1><div class="post-meta">
+            <div class="post-meta-line">
+                
+                
+                
+
+                
+            </div>
+            <div class="post-meta-line"><span style="padding-right:10px;"><time datetime="2021-08-01">2021-08-01</time> </span>
+                <span style="padding-right:10px;">阅读: <span id="/posts/mysql8-gis-srid/" class="waline-visitor-count" ></span></span>
+                <span style="padding-right:10px;">评论: <span id="/posts/mysql8-gis-srid/" class="waline-comment-count" ></span></span>
+                <span style="padding-right:10px;">约 1979 字</span>
+                <span style="padding-right:10px;">预计阅读 4 分钟</span></div>
+        </div><div class="featured-image-preview-post " style="background-image: url(/mysql8-gis-srid/cover.jpg);">
+                
+            </div><div class="details toc open" id="toc-static"  kept="true">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#请为列指定-srid">请为列指定 SRID</a></li>
+    <li><a href="#什么是-srid">什么是 SRID？</a></li>
+    <li><a href="#最常用的-srid-是什么">最常用的 SRID 是什么？</a></li>
+    <li><a href="#定义-srid-为-4326-需要注意什么">定义 SRID 为 4326 需要注意什么？</a></li>
+    <li><a href="#坐标轴顺序">坐标轴顺序</a></li>
+    <li><a href="#特殊情况">特殊情况</a></li>
+    <li><a href="#结束了吗">结束了吗？</a></li>
+    <li><a href="#嗯这么简单">嗯？这么简单？</a></li>
+    <li><a href="#甜点">甜点</a></li>
+    <li><a href="#联系我">联系我</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content heti" id="content"><h2 id="请为列指定-srid">请为列指定 SRID</h2>
+<p>如果你想要在使用一些 spatial function 的时候获得尽可能精确的值，请务必为您的数据库中的 geometry 列指定 SRID，如 st_area st_distance 等。否则您将获得直角坐标上的距离，而不是真实的值，另外在 mysql 老版本中，不指定 SRID（默认为 0），可以使用某些计算函数，但是在 mysql 中，某些函数必须指定 SRID，也要求被计算的列必须指定 SRID。</p>
+<h2 id="什么是-srid">什么是 SRID？</h2>
+<p>SRID 指定的是 spatial 数据的坐标系，地理数据中一个最重要的指标就是坐标系，没有坐标系，就不存在经纬度，不存在投影，不存在地心，不存在真实距离，一切将会变为平面坐标，与真实地理信息天差地别。</p>
+<p>SRID 坐标系定义了什么？
+简单来说，这里不展开，坐标系定义了，大地水准面 -&gt; 椭球体 -&gt; 大地基准面，他们分别是海平面、地球形状和球心、球心偏移等，在每个尺度和地区，这些值都在发生变化，所以会定义不同的坐标系，以尽量消除误差。
+<img
+        class="lazyload"
+        data-src="/mysql8-gis-srid/303ED2C9-4745-4CD7-8730-98105AEA7A24.png"
+        alt="/mysql8-gis-srid/303ED2C9-4745-4CD7-8730-98105AEA7A24.png"
+        title="/mysql8-gis-srid/303ED2C9-4745-4CD7-8730-98105AEA7A24.png"
+    /></p>
+<h2 id="最常用的-srid-是什么">最常用的 SRID 是什么？</h2>
+<p>在服务端，通常存储数据都是使用 4326 的 SRID，在前端，地图渲染使用 3857 坐标系（代表莫卡托投影），而处理数据，使用经过定制的 4326 坐标系（如 GeoJSON ，使用经纬度反过来的 4326 坐标系）</p>
+<p><img
+        class="lazyload"
+        data-src="/mysql8-gis-srid/CB7C5EE4-2DBA-470F-83A3-C3D568CF4CFB.png"
+        alt="/mysql8-gis-srid/CB7C5EE4-2DBA-470F-83A3-C3D568CF4CFB.png"
+        title="/mysql8-gis-srid/CB7C5EE4-2DBA-470F-83A3-C3D568CF4CFB.png"
+    /></p>
+<p>平常我们见到的 84 坐标系、高德坐标系、百度坐标系、国测、火星等乱糟糟的都是基于 4326 坐标系的定义的，国内这些坐标系只是做了数值的转换，没有改变坐标系定义的参数。</p>
+<h2 id="定义-srid-为-4326-需要注意什么">定义 SRID 为 4326 需要注意什么？</h2>
+<p>通常，在 mysql 8.0 中，不给列定义坐标系，就不可以给列增加空间索引，所以当你知道需要给列定义 SRID 之后，你以为事情已经结束了，其实问题还刚开始，真正的复杂度还在后面，不急，先来看怎么定义 SRID</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">CREATE TABLE geom (g GEOMETRY NOT NULL SRID 4326);
+</code></pre></td></tr></table>
+</div>
+</div><p>Ok，万事大吉，然后你开始向数据库写入数据：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">insert into geom (g) values (st_geomfromtext(&#39;POINT (120.11, 80.12)&#39;,4326))
+</code></pre></td></tr></table>
+</div>
+</div><p>大错特错，虽然你还没意识到哪里错了，但是我们需要回到坐标系的问题了（这句 sql 是不会执行成功的）</p>
+<h2 id="坐标轴顺序">坐标轴顺序</h2>
+<p>SRID 除了定义上述提到的大地基准，球体，水准面等，他还会定义坐标轴的单位和顺序，例如是度，还是公里，是 lng/lat 还是 lat/lng。</p>
+<p><img
+        class="lazyload"
+        data-src="/mysql8-gis-srid/F45DFC86-D93A-411E-B1E0-3AD7F0F5C3B9.png"
+        alt="/mysql8-gis-srid/F45DFC86-D93A-411E-B1E0-3AD7F0F5C3B9.png"
+        title="/mysql8-gis-srid/F45DFC86-D93A-411E-B1E0-3AD7F0F5C3B9.png"
+    /></p>
+<p>不巧了，4326 规范中定义的轴顺序是 lat/lng，也就是维度/经度，而你发现你日常生活中拿到或者处理的数据，大部分都是经纬度的顺序，甚至很多前端的库，例如处理 wkt 的库，处理 geojson 的库，都假定了坐标是 lng/lat。。最后出来的结果也都是 lng/lat，而实际上规范里的定义，坐标系中定义的是什么，就是什么顺序，而数据库通常都严格实现了规范的定义。</p>
+<p>所以，你插入刚才的表的数据，必须是 纬度经度的顺序，这样才能插入成功，也才能建立索引。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">insert into geom (g) values (st_geomfromtext(&#39;POINT (80.12, 120.11)&#39;,4326))
+</code></pre></td></tr></table>
+</div>
+</div><p>事实上，并不是所有系统都是按照规范定义的实现的，除了部分框架或者库是因为作者没搞清楚坐标系的概念（如 npmjs.org/wkt ，wkt 是不带坐标系的，所以转换 wkt 必须指定坐标系，而作者以为 wkt 的顺序都是经纬度。。）</p>
+<h2 id="特殊情况">特殊情况</h2>
+<p>这里简单列举：
+1.GeoJSON 的官方规范中规定，所有 GeoJSON 中出现的坐标轴顺序都是 经纬度，但是其定义完全遵循 4326 坐标系
+<img
+        class="lazyload"
+        data-src="/mysql8-gis-srid/6C6B8257-CB3F-4823-87F5-790D532E9F4A.png"
+        alt="/mysql8-gis-srid/6C6B8257-CB3F-4823-87F5-790D532E9F4A.png"
+        title="/mysql8-gis-srid/6C6B8257-CB3F-4823-87F5-790D532E9F4A.png"
+    /></p>
+<p>2.GeoServer 中内置的 4326 坐标系，其坐标轴是强制的经纬度顺序，与官方定义不同，主要是因为 Geoserver 是偏末端的系统，通常在前端或者末端，都会尝试统一成 经纬度的顺序。
+<img
+        class="lazyload"
+        data-src="/mysql8-gis-srid/D7917E07-4E8E-454E-A94D-82202CE2E46C.png"
+        alt="/mysql8-gis-srid/D7917E07-4E8E-454E-A94D-82202CE2E46C.png"
+        title="/mysql8-gis-srid/D7917E07-4E8E-454E-A94D-82202CE2E46C.png"
+    /></p>
+<p>3.OGC 为了兼容这些定义，定义了一个新的坐标系，他完全等于 4326，唯一的不同是坐标轴反过来了，现在大部分系统都没有实现这个标准：urn:ogc:def:crs:OGC::CRS84 ，例如 mysql 8 就没有这个坐标系的实现。</p>
+<h2 id="结束了吗">结束了吗？</h2>
+<p>有没有觉得，前端的数据坐标系都是经纬度，而到了数据库一侧，就要变成纬经度，感觉非常麻烦？有没有办法可以直接用经纬度的方法操作数据库？还真有，多看看 mysql 8.0 的官方文档就知道了。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">insert into geom (g) values (st_geomfromtext(&#39;POINT (120.11 80.12)&#39;,4326,&#39;axis-order=long-lat&#39;)))
+</code></pre></td></tr></table>
+</div>
+</div><p>加一个 axis-order 的参数，就可以让你插入的语句可以传入反过来的坐标轴了</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">SELECT ST_AsText(ST_SwapXY(g)) from geom;
+</code></pre></td></tr></table>
+</div>
+</div><p>这样，读取的时候也可以自动反转，而底层存储，实际上还是纬经度。</p>
+<h2 id="嗯这么简单">嗯？这么简单？</h2>
+<p>不，实际上真正搞清楚这些事情的人还是比较稀少的，而且这里面历史遗留问题比较严重，所以造成了比较混乱的局面，所以当你使用一些 mysql client 操作刚才定义的数据库的时候，你会发现一些很奇怪的现象，以 Navicat 为例，当你用 Navicat 打开这张表的时候，你会发现 Navicat 自动把相关的列转成了 经纬度的顺序（我不知道为什么 Navicat 要这么做），存储的实际数据和展示的数据不符，这还没什么，当你想编辑一个列的时候，你发现你编辑之后无法保存，报的错就是因为轴顺序错误，也就是虽然它展示的是经纬度，但是你编辑的时候，要自己把数据翻转一次才能编辑，非常麻烦，所以基本上，只能用 sql 对数据库进行操作。</p>
+<h2 id="甜点">甜点</h2>
+<p>Mysql 中指定了 SRID 之后，计算会精确很多，但是大家通常在前端或者 python、java 等程序中，会引用一些代码包，里面可以算 polygon 的面积，point 的距离等，也没见他们要指定 SRID，那他们是怎么算的，实际上，大部分库为了简化计算，都是使用标准圆球体作为参考做计算的，所以他们的精度不如 4326，而且差异可能还挺大，但是这样计算比较简单，例如 turf.js 中计算距离的函数：</p>
+<p><img
+        class="lazyload"
+        data-src="/mysql8-gis-srid/39421787-B081-479F-9140-AFECE1AAEBB4.png"
+        alt="/mysql8-gis-srid/39421787-B081-479F-9140-AFECE1AAEBB4.png"
+        title="/mysql8-gis-srid/39421787-B081-479F-9140-AFECE1AAEBB4.png"
+    /></p>
+<h2 id="联系我">联系我</h2>
+<p>我是芋头，一名工作 10 多年的前端开发，目前我主要专注于 GIS 领域，包括分析、计算、可视化等，欢迎勾搭。</p>
+<p><img
+        class="lazyload"
+        data-src="/mysql8-gis-srid/94A8CC3A-1E0F-4FC0-BB2F-E67971987A74.png"
+        alt="/mysql8-gis-srid/94A8CC3A-1E0F-4FC0-BB2F-E67971987A74.png"
+        title="/mysql8-gis-srid/94A8CC3A-1E0F-4FC0-BB2F-E67971987A74.png"
+    /></p>
+</div>
+
+        <div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2021-08-01</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="#" onclick="return false;" title="分享到 微博" data-sharer="weibo" data-url="http://example.org/posts/mysql8-gis-srid/" data-title="Mysql 8.0 中存储 gis 数据的正确姿势" data-image="/mysql8-gis-srid/cover.jpg"><i class="fab fa-weibo fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/gis/">GIS</a>,&nbsp;<a href="/tags/javascript/">JavaScript</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/dilikeshihua/" class="prev" rel="prev" title="分享：地理可视化，不止于炫酷"><i class="fas fa-angle-left fa-fw"></i>分享：地理可视化，不止于炫酷</a>
+            <a href="/posts/display-video-in-console/" class="next" rel="next" title="如何在浏览器 console 控制台中播放视频？">如何在浏览器 console 控制台中播放视频？<i class="fas fa-angle-right fa-fw"></i></a></div>
+    <script src="/client.js"></script>
+    <div style="clear: both;margin-top:20px;"></div>
+    <div id="waline"></div>
+<script>
+Waline({
+  el: '#waline',
+  serverURL: 'https://comment-weld.vercel.app',
+  visitor: true, 
+});
+</script>
+</div>
+</article></div>
+        </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2021 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank" rel="noopener noreferrer"></a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+                    <span class="icp"><a href='https://beian.miit.gov.cn/'>浙ICP备12047043号-10</a></span></div>
+        </div></footer>
+</div>
+
+    <div id="fixed-buttons"><a href="#back-to-top" id="back-to-top-button" class="fixed-button" title="回到顶部">
+            <i class="fas fa-arrow-up fa-fw"></i>
+        </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+            <i class="fas fa-comment fa-fw"></i>
+        </a>
+    </div><div class="assets"><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/topbar/topbar.min.js"></script><script type="text/javascript" src="/lib/pjax/pjax.min.js"></script><script type="text/javascript" src="/js/theme.min.js"></script></div>
+
+<div class="pjax-assets"><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/typeit/typeit.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":100},"comment":{},"data":{"desktop-header-typeit":"芋头乱炖","mobile-header-typeit":"芋头乱炖"},"sharerjs":true,"typeit":{"cursorChar":null,"cursorSpeed":null,"data":{"desktop-header-typeit":["desktop-header-typeit"],"mobile-header-typeit":["mobile-header-typeit"]},"duration":null,"speed":null}};</script></div>
+</body>
+
+</html>

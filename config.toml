@@ -1,4 +1,4 @@
-baseURL = "http://example.org/"
+baseURL = "https://yootou.com/"
 defaultContentLanguage = "zh-cn"
 languageCode = "zh-CN"
 hasCJKLanguage = true

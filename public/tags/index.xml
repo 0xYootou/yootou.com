@@ -1,42 +1,42 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>Tags - 标签 - 芋头乱炖，一只普通程序员的自留地</title>
-        <link>http://example.org/tags/</link>
+        <link>https://yootou.com/tags/</link>
         <description>Tags - 标签 - 芋头乱炖，一只普通程序员的自留地</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Thu, 30 Sep 2021 23:17:00 &#43;0000</lastBuildDate><atom:link href="http://example.org/tags/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Thu, 30 Sep 2021 23:17:00 &#43;0000</lastBuildDate><atom:link href="https://yootou.com/tags/" rel="self" type="application/rss+xml" /><item>
     <title>Console</title>
-    <link>http://example.org/tags/console/</link>
+    <link>https://yootou.com/tags/console/</link>
     <pubDate>Thu, 30 Sep 2021 23:17:00 &#43;0000</pubDate><author>
         <name>作者</name>
-    </author><guid>http://example.org/tags/console/</guid>
+    </author><guid>https://yootou.com/tags/console/</guid>
     <description><![CDATA[]]></description>
 </item><item>
     <title>JavaScript</title>
-    <link>http://example.org/tags/javascript/</link>
+    <link>https://yootou.com/tags/javascript/</link>
     <pubDate>Thu, 30 Sep 2021 23:17:00 &#43;0000</pubDate><author>
         <name>作者</name>
-    </author><guid>http://example.org/tags/javascript/</guid>
+    </author><guid>https://yootou.com/tags/javascript/</guid>
     <description><![CDATA[]]></description>
 </item><item>
     <title>GIS</title>
-    <link>http://example.org/tags/gis/</link>
+    <link>https://yootou.com/tags/gis/</link>
     <pubDate>Sun, 01 Aug 2021 23:17:00 &#43;0000</pubDate><author>
         <name>作者</name>
-    </author><guid>http://example.org/tags/gis/</guid>
+    </author><guid>https://yootou.com/tags/gis/</guid>
     <description><![CDATA[]]></description>
 </item><item>
     <title>turf.js</title>
-    <link>http://example.org/tags/turf.js/</link>
+    <link>https://yootou.com/tags/turf.js/</link>
     <pubDate>Thu, 01 Apr 2021 23:44:00 &#43;0000</pubDate><author>
         <name>作者</name>
-    </author><guid>http://example.org/tags/turf.js/</guid>
+    </author><guid>https://yootou.com/tags/turf.js/</guid>
     <description><![CDATA[]]></description>
 </item><item>
     <title>Decorator</title>
-    <link>http://example.org/tags/decorator/</link>
+    <link>https://yootou.com/tags/decorator/</link>
     <pubDate>Thu, 26 Oct 2017 22:36:00 &#43;0000</pubDate><author>
         <name>作者</name>
-    </author><guid>http://example.org/tags/decorator/</guid>
+    </author><guid>https://yootou.com/tags/decorator/</guid>
     <description><![CDATA[]]></description>
 </item></channel>
 </rss>

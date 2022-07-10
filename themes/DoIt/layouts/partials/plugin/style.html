@@ -25,7 +25,9 @@
             {{- $resource = $resource | fingerprint . -}}
             {{- $integrity = $resource.Data.Integrity -}}
         {{- end -}}
-        {{- $href = $resource.RelPermalink -}}
+        {{ $secureCSS := $resource | resources.Fingerprint "sha512" -}}
+        {{- $href = $secureCSS.Permalink -}}
     {{- end -}}
+    
     <link rel="stylesheet" href="{{ $href }}"{{ if .Crossorigin }} crossorigin="anonymous"{{ end }}{{ with $integrity }} integrity="{{ . }}"{{ end }}{{ with .Attr }} {{ . | safeHTMLAttr }}{{ end }}>
 {{- end -}}

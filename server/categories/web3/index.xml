@@ -1,0 +1,34 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>web3 - 分类 - 芋头乱炖，一只普通程序员的自留地</title>
+        <link>http://example.org/categories/web3/</link>
+        <description>web3 - 分类 - 芋头乱炖，一只普通程序员的自留地</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sat, 05 Feb 2022 09:00:00 &#43;0000</lastBuildDate><atom:link href="http://example.org/categories/web3/" rel="self" type="application/rss+xml" /><item>
+    <title>以太坊(Web3)DAPP前端开发要点#2 连接合约和发送交易</title>
+    <link>http://example.org/posts/web3_important_point_2/</link>
+    <pubDate>Sat, 05 Feb 2022 09:00:00 &#43;0000</pubDate><author>
+        <name>作者</name>
+    </author><guid>http://example.org/posts/web3_important_point_2/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="/covers/2.jpeg" referrerpolicy="no-referrer">
+            </div>概述 如何开发一个以太坊的 dapp？本系列将尽量以比较详细的方式介绍一个 dapp 开发中需要掌握的基本概念和其核心用法。 本系列会不定时更新，有想了解的问题可以在此博文下留言，我会加入到系列文章内容中。本人也接触此领域不久，不保证以下所有做法都是最佳实践。 本系列涉及的合约为了方便大家学习，直接内置了一个私钥、一个账户地址、一个合约地址，请大家不要做破坏性的使用 合约项目地址：https://github.com/yu-tou/eth-self-token-example 本文内容大致如下： 如何连接合约？ 如何发送交易？ 如何使用类型？ 正文 我们首先分别看两个最基本的连接合约的示例，这是基础方法，在实际的项目中，情况会更为复杂，这里暂时只讲最基本的用法。 本文因为只是最简单的合约连接，所以使用了 nodejs 脚本，没有涉及到真实的第三方钱包以及前端连接合约的用法，这些在稍后的教程中会继续分享，因为要理解在前端页面如何连接钱包，]]></description>
+</item><item>
+    <title>以太坊(Web3)DAPP前端开发要点#1 js库选择对比</title>
+    <link>http://example.org/posts/web3_important_point/</link>
+    <pubDate>Sun, 09 Jan 2022 00:00:00 &#43;0000</pubDate><author>
+        <name>作者</name>
+    </author><guid>http://example.org/posts/web3_important_point/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="/eth_important/cover.jpeg" referrerpolicy="no-referrer">
+            </div>概述 如何开发一个以太坊的 dapp？本系列将尽量以比较详细的方式介绍一个 dapp 开发中需要掌握的基本概念和其核心用法。 本系列会不定时更新，有想了解的问题可以在此博文下留言，我会加入到系列文章内容中。本人也接触此领域不久，不保证以下所有做法都是最佳实践。 大概以下几个方面： 如何选择连接智能合约的js库？ 如何连接钱包以及获取钱包基本信息？ 如何实例化合约？ 如何在ts中编写强类型合约调用代码？ 如何发起交易？ 如何处理大数单位？ 何时需要 approve？ 发起交易时如何费用估算？ 如何获取交易结果？ 如何拉取交易记录？ 如何选择js库？ 连接智能合约，比较基本的可以使用 web3.js，中文文档：https://web3.tryblockchain.org/ 这个库不止是在前端可以使用，在 nodejs 脚本中也可以使用，所以一些工具会使用 web3.js 来部署合约等，它的能力还有很多，前端调用合约，发起交易只是它非常小的一部分，不过如果纯粹作为前端，实]]></description>
+</item><item>
+    <title>以太坊小示例和基本概念</title>
+    <link>http://example.org/posts/eth_simple_example/</link>
+    <pubDate>Sat, 25 Dec 2021 00:00:00 &#43;0000</pubDate><author>
+        <name>作者</name>
+    </author><guid>http://example.org/posts/eth_simple_example/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="/eth/cover.png" referrerpolicy="no-referrer">
+            </div>声明：市场有风险，投资需谨慎，币圈骗子多，一定要小心，违法的事不要做，违法的人不结识，仅供学习，致力于用区块链技术打造和谐社会。 本文所涉及的项目代码： https://github.com/yu-tou/eth-self-token-example 在以太坊发布自己的 token 代码示例 1 2 3 yarn install # 启动本地网络 yarn chain token 代码在 ./contracts，其中 YuTou.sol 是 token 合约，YuTouMintable 是发币合约 编辑合约后，部署脚本在 deploy/00_deploy_your_contract.js，如合约名有变化则修改 1 2 3 # 部署到本地网络 yarn deploy 执行成功后终端，有合约地址，将地址导入钱包，即可看到 token 钱包使用测试网络连接合约后可以获取自己的一个地址，接下去向地址发 token 修改合约地址和账户地址，在 scripts/mint.js 中 1 2 # 发币到自己的账户 yarn mint 以太坊概念教程 1. 以太坊基础概念 1.1 比特币 BTC &amp; 以太坊 Ethereum 比特币：价值工具。 以太坊：分布式应用平台。 1.2 智能合约 contract 智能合约（Smart contract ）是一种旨在以信息化方式传播、验证或执行合同的计算机协议。智能合约允许]]></description>
+</item></channel>
+</rss>

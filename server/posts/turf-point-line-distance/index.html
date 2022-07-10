@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noodp" />
+    <title class="pjax-title">点到任意折线组的最短距离（及 turf.js 的实现解析） - 芋头乱炖，一只普通程序员的自留地</title><meta name="Description" content=""><meta property="og:title" content="点到任意折线组的最短距离（及 turf.js 的实现解析）" />
+<meta property="og:description" content="问题定义： 有一点 Pt，有一任意长度和形状的折线 L： [[P1,P2],[p2,p3],[p3,p4]…] 求 Pt 与折线 L 的最近距离 N 问题澄清： 注意：折线 L 上离 Pt 最近的点，必然在折线上 使用场景： 对行车轨迹进行贴路修正，轨迹点与路上最短的距离的点既是修正后的点。 问题分析： 假设我们还不知道最终答案，甚至还不知晓解题思路（已经知道的同学先不急，这个题其实的确很简单） 我们先画个图分析下可能的思路，按照题目，我们画一个比较“复杂的场景” 其实这个题简单的地方就是，当你把图画出来，基本靠人眼可以一眼判断出答案，如上图，L 中距离 Pt 最近的点很容易用肉眼找到。 事实上，要找出点到折线的最短距离，必然需要遍历整条折线，计算某条线段与点之间的距离，并取其中最小的值。 那如何判断一个点到一条线段的最小距离？这里其实是这道题目最核心的逻辑，基于刚才我们的提示，线段上距离点最近的点，必然在线段内，而不可超出线段之外，我们穷举下点和" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://example.org/posts/turf-point-line-distance/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-04-01T23:44:00+00:00" />
+<meta property="article:modified_time" content="2021-04-01T23:44:00+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="点到任意折线组的最短距离（及 turf.js 的实现解析）"/>
+<meta name="twitter:description" content="问题定义： 有一点 Pt，有一任意长度和形状的折线 L： [[P1,P2],[p2,p3],[p3,p4]…] 求 Pt 与折线 L 的最近距离 N 问题澄清： 注意：折线 L 上离 Pt 最近的点，必然在折线上 使用场景： 对行车轨迹进行贴路修正，轨迹点与路上最短的距离的点既是修正后的点。 问题分析： 假设我们还不知道最终答案，甚至还不知晓解题思路（已经知道的同学先不急，这个题其实的确很简单） 我们先画个图分析下可能的思路，按照题目，我们画一个比较“复杂的场景” 其实这个题简单的地方就是，当你把图画出来，基本靠人眼可以一眼判断出答案，如上图，L 中距离 Pt 最近的点很容易用肉眼找到。 事实上，要找出点到折线的最短距离，必然需要遍历整条折线，计算某条线段与点之间的距离，并取其中最小的值。 那如何判断一个点到一条线段的最小距离？这里其实是这道题目最核心的逻辑，基于刚才我们的提示，线段上距离点最近的点，必然在线段内，而不可超出线段之外，我们穷举下点和"/>
+<meta name="application-name" content="芋头乱炖，一只普通程序员的自留地">
+<meta name="apple-mobile-web-app-title" content="芋头乱炖，一只普通程序员的自留地">
+
+<meta name="theme-color" content="#f8f8f8"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="canonical" href="http://example.org/posts/turf-point-line-distance/" /><link rel="prev" href="http://example.org/posts/mianshizhinan/" /><link rel="next" href="http://example.org/posts/jinsheng-shouce/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/fontawesome-free/all.min.css">
+    <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/animate/animate.min.css">
+    <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "点到任意折线组的最短距离（及 turf.js 的实现解析）",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/example.org\/posts\/turf-point-line-distance\/"
+        },"genre": "posts","keywords": "turf.js, GIS, JavaScript","wordcount":  1486 ,
+        "url": "http:\/\/example.org\/posts\/turf-point-line-distance\/","datePublished": "2021-04-01T23:44:00+00:00","dateModified": "2021-04-01T23:44:00+00:00","publisher": {
+            "@type": "Organization",
+            "name": "芋头"},"author": {
+                "@type": "Person",
+                "name": "芋头"
+            },"description": ""
+    }
+    </script></head>
+
+<body header-desktop="" header-mobile=""><script type="text/javascript">
+        function setTheme(theme) {document.body.setAttribute('theme', theme);}
+        function saveTheme(theme) {window.localStorage && localStorage.setItem('theme', theme);}
+        function getMeta(metaName) {const metas = document.getElementsByTagName('meta'); for (let i = 0; i < metas.length; i++) if (metas[i].getAttribute('name') === metaName) return metas[i]; return '';}
+        if (window.localStorage && localStorage.getItem('theme')) {let theme = localStorage.getItem('theme');theme === 'light' || theme === 'dark' || theme === 'black' ? setTheme(theme) : (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? setTheme('dark') : setTheme('light')); } else { if ('' === 'light' || '' === 'dark' || '' === 'black') setTheme(''), saveTheme(''); else saveTheme('auto'), window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? setTheme('dark') : setTheme('light');}
+        let metaColors = {'light': '#f8f8f8','dark': '#252627','black': '#000000'}
+        getMeta('theme-color').content = metaColors[document.body.getAttribute('theme')];
+    </script>
+    <div id="back-to-top"></div>
+    <div id="mask"></div><div class="wrapper"><div style="display: none"><img src="/android-chrome-512x512.png" width="320" height="320"/></div>
+<header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="芋头乱炖，一只普通程序员的自留地"><img
+        class="lazyload logo"
+        data-src="/logo.png"
+        alt="/logo.png"
+        title="/logo.png"
+    /><span id="desktop-header-typeit" class="typeit"></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><a href="#" onclick="return false;" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a></div>
+        </div>
+    </div>
+</header><div style="display: none"><img src="/android-chrome-512x512.png" width="320" height="320"/></div>
+<header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="芋头乱炖，一只普通程序员的自留地"><img
+        class="lazyload logo"
+        data-src="/logo.png"
+        alt="/logo.png"
+        title="/logo.png"
+    /><span id="mobile-header-typeit" class="typeit"></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/categories/" title="">分类</a><a href="#" onclick="return false;" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+            <div class="container"><script src="/qrcode.js"></script><div class="toc" id="toc-auto">
+        <h2 class="toc-title">目录</h2>
+        <div class="toc-content" id="toc-content-auto"></div>
+        
+        
+    </div><script>document.getElementsByTagName("main")[0].setAttribute("pageStyle", "normal")</script><script>document.getElementsByTagName("main")[0].setAttribute("autoTOC", "false")</script><article class="page single"><h1 class="single-title animate__animated animate__flipInX">点到任意折线组的最短距离（及 turf.js 的实现解析）</h1><div class="post-meta">
+            <div class="post-meta-line">
+                
+                
+                
+
+                
+            </div>
+            <div class="post-meta-line"><span style="padding-right:10px;"><time datetime="2021-04-01">2021-04-01</time> </span>
+                <span style="padding-right:10px;">阅读: <span id="/posts/turf-point-line-distance/" class="waline-visitor-count" ></span></span>
+                <span style="padding-right:10px;">评论: <span id="/posts/turf-point-line-distance/" class="waline-comment-count" ></span></span>
+                <span style="padding-right:10px;">约 1486 字</span>
+                <span style="padding-right:10px;">预计阅读 3 分钟</span></div>
+        </div><div class="featured-image-preview-post " style="background-image: url(/turf-poin-line-distance/cover.jpg);">
+                
+            </div><div class="details toc open" id="toc-static"  kept="true">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#问题定义">问题定义：</a></li>
+        <li><a href="#问题澄清">问题澄清：</a></li>
+        <li><a href="#使用场景">使用场景：</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content heti" id="content"><h3 id="问题定义">问题定义：</h3>
+<blockquote>
+<p>有一点 Pt，有一任意长度和形状的折线 L： [[P1,P2],[p2,p3],[p3,p4]…]<br>
+求 Pt 与折线 L 的最近距离 N</p>
+</blockquote>
+<h3 id="问题澄清">问题澄清：</h3>
+<blockquote>
+<p>注意：折线 L 上离 Pt 最近的点，必然在折线上</p>
+</blockquote>
+<h3 id="使用场景">使用场景：</h3>
+<blockquote>
+<p>对行车轨迹进行贴路修正，轨迹点与路上最短的距离的点既是修正后的点。</p>
+</blockquote>
+<p>问题分析：
+假设我们还不知道最终答案，甚至还不知晓解题思路（已经知道的同学先不急，这个题其实的确很简单）
+我们先画个图分析下可能的思路，按照题目，我们画一个比较“复杂的场景”</p>
+<p><img
+        class="lazyload"
+        data-src="/turf-poin-line-distance/831B7173-0C61-47AB-958C-07994E420DB7.png"
+        alt="/turf-poin-line-distance/831B7173-0C61-47AB-958C-07994E420DB7.png"
+        title="/turf-poin-line-distance/831B7173-0C61-47AB-958C-07994E420DB7.png"
+    /></p>
+<p>其实这个题简单的地方就是，当你把图画出来，基本靠人眼可以一眼判断出答案，如上图，L 中距离 Pt 最近的点很容易用肉眼找到。</p>
+<p><img
+        class="lazyload"
+        data-src="/turf-poin-line-distance/AD5A6A5E-71EF-428E-A344-D2C531BBF026.png"
+        alt="/turf-poin-line-distance/AD5A6A5E-71EF-428E-A344-D2C531BBF026.png"
+        title="/turf-poin-line-distance/AD5A6A5E-71EF-428E-A344-D2C531BBF026.png"
+    /></p>
+<p>事实上，要找出点到折线的最短距离，必然需要遍历整条折线，计算某条线段与点之间的距离，并取其中最小的值。
+那如何判断一个点到一条线段的最小距离？这里其实是这道题目最核心的逻辑，基于刚才我们的提示，线段上距离点最近的点，必然在线段内，而不可超出线段之外，我们穷举下点和线段之间的位置关系，不难总结出来，点到线段的最短距离，有两种可能性，一个是点到线段的垂直距离，另一个是点到线段某个端点的距离，点和线段的最短距离必然是这两种情况之一，而且肯定是这两种情况的最小的那个值。</p>
+<p><img
+        class="lazyload"
+        data-src="/turf-poin-line-distance//12603155-0FC6-47EA-B226-B6215E6B3A1C.png"
+        alt="/turf-poin-line-distance//12603155-0FC6-47EA-B226-B6215E6B3A1C.png"
+        title="/turf-poin-line-distance//12603155-0FC6-47EA-B226-B6215E6B3A1C.png"
+    /></p>
+<p>如果要给这两种情况一个定性的话（什么情况下取垂直距离，什么情况下取到端点的距离），我们可以观察下点在不同位置下，与线段端点连接起来的两个夹角，不难发现，如果最短距离是垂直距离，α 和 β 都是锐角，如果最短距离是到某个端点的距离，则其中必然有一个角度是钝角（大于 90°），当然还存在中间状态，是不是很有意思，不过我们的计算过程不会涉及这个特性，而是会采用三个距离对比的方式，在几何计算上会更快。</p>
+<p><img
+        class="lazyload"
+        data-src="/turf-poin-line-distance//8B1016D2-5336-4547-A8E4-F1156A5B99AF.png"
+        alt="/turf-poin-line-distance//8B1016D2-5336-4547-A8E4-F1156A5B99AF.png"
+        title="/turf-poin-line-distance//8B1016D2-5336-4547-A8E4-F1156A5B99AF.png"
+    /></p>
+<p>问题转化：
+到现在，问题转化成了两个小计算：</p>
+<ol>
+<li>计算一个点到另一个点的距离，这个很容易，不说了。</li>
+<li>计算一个点到线段的垂直距离，这个稍微复杂一些，其实用三角函数也不难。</li>
+</ol>
+<p><img
+        class="lazyload"
+        data-src="/turf-poin-line-distance//6A3CF65D-EB6D-43E0-9349-084504BF15DF.png"
+        alt="/turf-poin-line-distance//6A3CF65D-EB6D-43E0-9349-084504BF15DF.png"
+        title="/turf-poin-line-distance//6A3CF65D-EB6D-43E0-9349-084504BF15DF.png"
+    /></p>
+<p>点到线段的垂直距离
+COSα = (b² + a² - c²)/2ab（余弦定理）
+sinα = N/a
+N = a * sinα</p>
+<p>其实这里有很多种解法，感兴趣可以去搜索一下。最后我们看一下 turf.js 里的实现把。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span><span class="lnt">78
+</span><span class="lnt">79
+</span><span class="lnt">80
+</span><span class="lnt">81
+</span><span class="lnt">82
+</span><span class="lnt">83
+</span><span class="lnt">84
+</span><span class="lnt">85
+</span><span class="lnt">86
+</span><span class="lnt">87
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-typescript" data-lang="typescript"><span class="kd">function</span> <span class="nx">nearestPointOnLine</span><span class="p">&lt;</span><span class="nt">G</span> <span class="na">extends</span> <span class="na">LineString</span> <span class="err">|</span> <span class="na">MultiLineString</span><span class="p">&gt;(</span>
+  <span class="nx">lines</span>: <span class="kt">Feature</span><span class="p">&lt;</span><span class="nt">G</span><span class="p">&gt;</span> <span class="o">|</span> <span class="nx">G</span><span class="p">,</span>
+  <span class="nx">pt</span>: <span class="kt">Coord</span><span class="p">,</span>
+  <span class="nx">options</span><span class="o">:</span> <span class="p">{</span> <span class="nx">units?</span>: <span class="kt">Units</span> <span class="p">}</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="p">)</span><span class="o">:</span> <span class="nx">NearestPointOnLine</span> <span class="p">{</span>
+  <span class="kd">let</span> <span class="nx">closestPt</span>: <span class="kt">any</span> <span class="o">=</span> <span class="nx">point</span><span class="p">([</span><span class="kc">Infinity</span><span class="p">,</span> <span class="kc">Infinity</span><span class="p">],</span> <span class="p">{</span>
+    <span class="nx">dist</span>: <span class="kt">Infinity</span><span class="p">,</span>
+  <span class="p">});</span>
+
+  <span class="kd">let</span> <span class="nx">length</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">;</span>
+  <span class="nx">flattenEach</span><span class="p">(</span><span class="nx">lines</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">line</span>: <span class="kt">any</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kr">const</span> <span class="nx">coords</span>: <span class="kt">any</span> <span class="o">=</span> <span class="nx">getCoords</span><span class="p">(</span><span class="nx">line</span><span class="p">);</span>
+
+    <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">coords</span><span class="p">.</span><span class="nx">length</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+      <span class="c1">//start
+</span><span class="c1"></span>      <span class="kr">const</span> <span class="nx">start</span> <span class="o">=</span> <span class="nx">point</span><span class="p">(</span><span class="nx">coords</span><span class="p">[</span><span class="nx">i</span><span class="p">]);</span>
+      <span class="c1">// 起点到 pt 点的距离
+</span><span class="c1"></span>      <span class="nx">start</span><span class="p">.</span><span class="nx">properties</span><span class="p">.</span><span class="nx">dist</span> <span class="o">=</span> <span class="nx">distance</span><span class="p">(</span><span class="nx">pt</span><span class="p">,</span> <span class="nx">start</span><span class="p">,</span> <span class="nx">options</span><span class="p">);</span>
+      <span class="c1">//stop
+</span><span class="c1"></span>      <span class="kr">const</span> <span class="nx">stop</span> <span class="o">=</span> <span class="nx">point</span><span class="p">(</span><span class="nx">coords</span><span class="p">[</span><span class="nx">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]);</span>
+      <span class="c1">// 终点到 pt 点的距离
+</span><span class="c1"></span>      <span class="nx">stop</span><span class="p">.</span><span class="nx">properties</span><span class="p">.</span><span class="nx">dist</span> <span class="o">=</span> <span class="nx">distance</span><span class="p">(</span><span class="nx">pt</span><span class="p">,</span> <span class="nx">stop</span><span class="p">,</span> <span class="nx">options</span><span class="p">);</span>
+      <span class="c1">// sectionLength，起点到终点的距离
+</span><span class="c1"></span>      <span class="kr">const</span> <span class="nx">sectionLength</span> <span class="o">=</span> <span class="nx">distance</span><span class="p">(</span><span class="nx">start</span><span class="p">,</span> <span class="nx">stop</span><span class="p">,</span> <span class="nx">options</span><span class="p">);</span>
+      <span class="c1">//perpendicular，pt到端点距离较长的那条
+</span><span class="c1"></span>      <span class="kr">const</span> <span class="nx">heightDistance</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">max</span><span class="p">(</span>
+        <span class="nx">start</span><span class="p">.</span><span class="nx">properties</span><span class="p">.</span><span class="nx">dist</span><span class="p">,</span>
+        <span class="nx">stop</span><span class="p">.</span><span class="nx">properties</span><span class="p">.</span><span class="nx">dist</span>
+      <span class="p">);</span>
+      <span class="c1">// 当前线段的角度（正北为0，顺时针增加）
+</span><span class="c1"></span>      <span class="kr">const</span> <span class="nx">direction</span> <span class="o">=</span> <span class="nx">bearing</span><span class="p">(</span><span class="nx">start</span><span class="p">,</span> <span class="nx">stop</span><span class="p">);</span>
+      <span class="c1">// 从 pt 点开始以垂直于线段的方向画线，长度为pt到起点和终点中最长的那个，找到新的点
+</span><span class="c1"></span>      <span class="kr">const</span> <span class="nx">perpendicularPt1</span> <span class="o">=</span> <span class="nx">destination</span><span class="p">(</span>
+        <span class="nx">pt</span><span class="p">,</span>
+        <span class="nx">heightDistance</span><span class="p">,</span>
+        <span class="nx">direction</span> <span class="o">+</span> <span class="mi">90</span><span class="p">,</span>
+        <span class="nx">options</span>
+      <span class="p">);</span>
+      <span class="c1">// 同上，反方向延伸
+</span><span class="c1"></span>      <span class="kr">const</span> <span class="nx">perpendicularPt2</span> <span class="o">=</span> <span class="nx">destination</span><span class="p">(</span>
+        <span class="nx">pt</span><span class="p">,</span>
+        <span class="nx">heightDistance</span><span class="p">,</span>
+        <span class="nx">direction</span> <span class="o">-</span> <span class="mi">90</span><span class="p">,</span>
+        <span class="nx">options</span>
+      <span class="p">);</span>
+      <span class="c1">// 将上述取到的两个点，与当前线段取交点
+</span><span class="c1"></span>      <span class="kr">const</span> <span class="nx">intersect</span> <span class="o">=</span> <span class="nx">lineIntersects</span><span class="p">(</span>
+        <span class="nx">lineString</span><span class="p">([</span>
+          <span class="nx">perpendicularPt1</span><span class="p">.</span><span class="nx">geometry</span><span class="p">.</span><span class="nx">coordinates</span><span class="p">,</span>
+          <span class="nx">perpendicularPt2</span><span class="p">.</span><span class="nx">geometry</span><span class="p">.</span><span class="nx">coordinates</span><span class="p">,</span>
+        <span class="p">]),</span>
+        <span class="nx">lineString</span><span class="p">([</span><span class="nx">start</span><span class="p">.</span><span class="nx">geometry</span><span class="p">.</span><span class="nx">coordinates</span><span class="p">,</span> <span class="nx">stop</span><span class="p">.</span><span class="nx">geometry</span><span class="p">.</span><span class="nx">coordinates</span><span class="p">])</span>
+      <span class="p">);</span>
+
+      <span class="kd">let</span> <span class="nx">intersectPt</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+      <span class="c1">// 交点个数大于1，取第一个交点
+</span><span class="c1"></span>      <span class="k">if</span> <span class="p">(</span><span class="nx">intersect</span><span class="p">.</span><span class="nx">features</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">intersectPt</span> <span class="o">=</span> <span class="nx">intersect</span><span class="p">.</span><span class="nx">features</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+        <span class="nx">intersectPt</span><span class="p">.</span><span class="nx">properties</span><span class="p">.</span><span class="nx">dist</span> <span class="o">=</span> <span class="nx">distance</span><span class="p">(</span><span class="nx">pt</span><span class="p">,</span> <span class="nx">intersectPt</span><span class="p">,</span> <span class="nx">options</span><span class="p">);</span>
+        <span class="nx">intersectPt</span><span class="p">.</span><span class="nx">properties</span><span class="p">.</span><span class="nx">location</span> <span class="o">=</span>
+          <span class="nx">length</span> <span class="o">+</span> <span class="nx">distance</span><span class="p">(</span><span class="nx">start</span><span class="p">,</span> <span class="nx">intersectPt</span><span class="p">,</span> <span class="nx">options</span><span class="p">);</span>
+      <span class="p">}</span>
+      <span class="c1">// 分别用起点、终点、垂直交点，与之前最短的距离进行对比，取最小的值
+</span><span class="c1"></span>      <span class="k">if</span> <span class="p">(</span><span class="nx">start</span><span class="p">.</span><span class="nx">properties</span><span class="p">.</span><span class="nx">dist</span> <span class="o">&lt;</span> <span class="nx">closestPt</span><span class="p">.</span><span class="nx">properties</span><span class="p">.</span><span class="nx">dist</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">closestPt</span> <span class="o">=</span> <span class="nx">start</span><span class="p">;</span>
+        <span class="nx">closestPt</span><span class="p">.</span><span class="nx">properties</span><span class="p">.</span><span class="nx">index</span> <span class="o">=</span> <span class="nx">i</span><span class="p">;</span>
+        <span class="nx">closestPt</span><span class="p">.</span><span class="nx">properties</span><span class="p">.</span><span class="nx">location</span> <span class="o">=</span> <span class="nx">length</span><span class="p">;</span>
+      <span class="p">}</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">stop</span><span class="p">.</span><span class="nx">properties</span><span class="p">.</span><span class="nx">dist</span> <span class="o">&lt;</span> <span class="nx">closestPt</span><span class="p">.</span><span class="nx">properties</span><span class="p">.</span><span class="nx">dist</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">closestPt</span> <span class="o">=</span> <span class="nx">stop</span><span class="p">;</span>
+        <span class="nx">closestPt</span><span class="p">.</span><span class="nx">properties</span><span class="p">.</span><span class="nx">index</span> <span class="o">=</span> <span class="nx">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="nx">closestPt</span><span class="p">.</span><span class="nx">properties</span><span class="p">.</span><span class="nx">location</span> <span class="o">=</span> <span class="nx">length</span> <span class="o">+</span> <span class="nx">sectionLength</span><span class="p">;</span>
+      <span class="p">}</span>
+      <span class="k">if</span> <span class="p">(</span>
+        <span class="nx">intersectPt</span> <span class="o">&amp;&amp;</span>
+        <span class="nx">intersectPt</span><span class="p">.</span><span class="nx">properties</span><span class="p">.</span><span class="nx">dist</span> <span class="o">&lt;</span> <span class="nx">closestPt</span><span class="p">.</span><span class="nx">properties</span><span class="p">.</span><span class="nx">dist</span>
+      <span class="p">)</span> <span class="p">{</span>
+        <span class="nx">closestPt</span> <span class="o">=</span> <span class="nx">intersectPt</span><span class="p">;</span>
+        <span class="nx">closestPt</span><span class="p">.</span><span class="nx">properties</span><span class="p">.</span><span class="nx">index</span> <span class="o">=</span> <span class="nx">i</span><span class="p">;</span>
+      <span class="p">}</span>
+      <span class="c1">// update length
+</span><span class="c1"></span>      <span class="nx">length</span> <span class="o">+=</span> <span class="nx">sectionLength</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">});</span>
+
+  <span class="k">return</span> <span class="nx">closestPt</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>这里其实不是所有计算的代码，里面涉及到几个方法，特别是 lineIntersects ，计算两条线的交点，然后计算交点到 Pt 的距离，即可计算出点到线段的垂直距离，至于这个方法内部实现，改天可以再聊，另外大家可以考虑下如何优化整个计算，是否需要遍历每条线段做完整的计算。</p>
+</div>
+
+        <div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2021-04-01</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="#" onclick="return false;" title="分享到 微博" data-sharer="weibo" data-url="http://example.org/posts/turf-point-line-distance/" data-title="点到任意折线组的最短距离（及 turf.js 的实现解析）" data-image="/turf-poin-line-distance/cover.jpg"><i class="fab fa-weibo fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/turf.js/">turf.js</a>,&nbsp;<a href="/tags/gis/">GIS</a>,&nbsp;<a href="/tags/javascript/">JavaScript</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/mianshizhinan/" class="prev" rel="prev" title="前端工程师“应试”指南"><i class="fas fa-angle-left fa-fw"></i>前端工程师“应试”指南</a>
+            <a href="/posts/jinsheng-shouce/" class="next" rel="next" title="分享：晋升参考和自查手册">分享：晋升参考和自查手册<i class="fas fa-angle-right fa-fw"></i></a></div>
+    <script src="/client.js"></script>
+    <div style="clear: both;margin-top:20px;"></div>
+    <div id="waline"></div>
+<script>
+Waline({
+  el: '#waline',
+  serverURL: 'https://comment-weld.vercel.app',
+  visitor: true, 
+});
+</script>
+</div>
+</article></div>
+        </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2021 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank" rel="noopener noreferrer"></a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+                    <span class="icp"><a href='https://beian.miit.gov.cn/'>浙ICP备12047043号-10</a></span></div>
+        </div></footer>
+</div>
+
+    <div id="fixed-buttons"><a href="#back-to-top" id="back-to-top-button" class="fixed-button" title="回到顶部">
+            <i class="fas fa-arrow-up fa-fw"></i>
+        </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+            <i class="fas fa-comment fa-fw"></i>
+        </a>
+    </div><div class="assets"><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/topbar/topbar.min.js"></script><script type="text/javascript" src="/lib/pjax/pjax.min.js"></script><script type="text/javascript" src="/js/theme.min.js"></script></div>
+
+<div class="pjax-assets"><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/typeit/typeit.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":100},"comment":{},"data":{"desktop-header-typeit":"芋头乱炖","mobile-header-typeit":"芋头乱炖"},"sharerjs":true,"typeit":{"cursorChar":null,"cursorSpeed":null,"data":{"desktop-header-typeit":["desktop-header-typeit"],"mobile-header-typeit":["mobile-header-typeit"]},"duration":null,"speed":null}};</script></div>
+</body>
+
+</html>

@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noodp" />
+    <title class="pjax-title">以太坊(Web3)DAPP前端开发要点#2 连接合约和发送交易 - 芋头乱炖，一只普通程序员的自留地</title><meta name="Description" content=""><meta property="og:title" content="以太坊(Web3)DAPP前端开发要点#2 连接合约和发送交易" />
+<meta property="og:description" content="概述 如何开发一个以太坊的 dapp？本系列将尽量以比较详细的方式介绍一个 dapp 开发中需要掌握的基本概念和其核心用法。 本系列会不定时更新，有想了解的问题可以在此博文下留言，我会加入到系列文章内容中。本人也接触此领域不久，不保证以下所有做法都是最佳实践。 本系列涉及的合约为了方便大家学习，直接内置了一个私钥、一个账户地址、一个合约地址，请大家不要做破坏性的使用 合约项目地址：https://github.com/yu-tou/eth-self-token-example 本文内容大致如下： 如何连接合约？ 如何发送交易？ 如何使用类型？ 正文 我们首先分别看两个最基本的连接合约的示例，这是基础方法，在实际的项目中，情况会更为复杂，这里暂时只讲最基本的用法。 本文因为只是最简单的合约连接，所以使用了 nodejs 脚本，没有涉及到真实的第三方钱包以及前端连接合约的用法，这些在稍后的教程中会继续分享，因为要理解在前端页面如何连接钱包，" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://example.org/posts/web3_important_point_2/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-02-05T09:00:00+00:00" />
+<meta property="article:modified_time" content="2022-02-05T09:00:00+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="以太坊(Web3)DAPP前端开发要点#2 连接合约和发送交易"/>
+<meta name="twitter:description" content="概述 如何开发一个以太坊的 dapp？本系列将尽量以比较详细的方式介绍一个 dapp 开发中需要掌握的基本概念和其核心用法。 本系列会不定时更新，有想了解的问题可以在此博文下留言，我会加入到系列文章内容中。本人也接触此领域不久，不保证以下所有做法都是最佳实践。 本系列涉及的合约为了方便大家学习，直接内置了一个私钥、一个账户地址、一个合约地址，请大家不要做破坏性的使用 合约项目地址：https://github.com/yu-tou/eth-self-token-example 本文内容大致如下： 如何连接合约？ 如何发送交易？ 如何使用类型？ 正文 我们首先分别看两个最基本的连接合约的示例，这是基础方法，在实际的项目中，情况会更为复杂，这里暂时只讲最基本的用法。 本文因为只是最简单的合约连接，所以使用了 nodejs 脚本，没有涉及到真实的第三方钱包以及前端连接合约的用法，这些在稍后的教程中会继续分享，因为要理解在前端页面如何连接钱包，"/>
+<meta name="application-name" content="芋头乱炖，一只普通程序员的自留地">
+<meta name="apple-mobile-web-app-title" content="芋头乱炖，一只普通程序员的自留地">
+
+<meta name="theme-color" content="#f8f8f8"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="canonical" href="http://example.org/posts/web3_important_point_2/" /><link rel="prev" href="http://example.org/posts/frontend-modern-experience-share-slide/" /><link rel="next" href="http://example.org/posts/tools-recommend-1/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/fontawesome-free/all.min.css">
+    <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/animate/animate.min.css">
+    <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "以太坊(Web3)DAPP前端开发要点#2 连接合约和发送交易",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/example.org\/posts\/web3_important_point_2\/"
+        },"genre": "posts","wordcount":  2547 ,
+        "url": "http:\/\/example.org\/posts\/web3_important_point_2\/","datePublished": "2022-02-05T09:00:00+00:00","dateModified": "2022-02-05T09:00:00+00:00","publisher": {
+            "@type": "Organization",
+            "name": "作者"},"author": {
+                "@type": "Person",
+                "name": "作者"
+            },"description": ""
+    }
+    </script></head>
+
+<body header-desktop="" header-mobile=""><script type="text/javascript">
+        function setTheme(theme) {document.body.setAttribute('theme', theme);}
+        function saveTheme(theme) {window.localStorage && localStorage.setItem('theme', theme);}
+        function getMeta(metaName) {const metas = document.getElementsByTagName('meta'); for (let i = 0; i < metas.length; i++) if (metas[i].getAttribute('name') === metaName) return metas[i]; return '';}
+        if (window.localStorage && localStorage.getItem('theme')) {let theme = localStorage.getItem('theme');theme === 'light' || theme === 'dark' || theme === 'black' ? setTheme(theme) : (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? setTheme('dark') : setTheme('light')); } else { if ('' === 'light' || '' === 'dark' || '' === 'black') setTheme(''), saveTheme(''); else saveTheme('auto'), window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? setTheme('dark') : setTheme('light');}
+        let metaColors = {'light': '#f8f8f8','dark': '#252627','black': '#000000'}
+        getMeta('theme-color').content = metaColors[document.body.getAttribute('theme')];
+    </script>
+    <div id="back-to-top"></div>
+    <div id="mask"></div><div class="wrapper"><div style="display: none"><img src="/android-chrome-512x512.png" width="320" height="320"/></div>
+<header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="芋头乱炖，一只普通程序员的自留地"><img
+        class="lazyload logo"
+        data-src="/logo.png"
+        alt="/logo.png"
+        title="/logo.png"
+    /><span id="desktop-header-typeit" class="typeit"></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><a href="#" onclick="return false;" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a></div>
+        </div>
+    </div>
+</header><div style="display: none"><img src="/android-chrome-512x512.png" width="320" height="320"/></div>
+<header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="芋头乱炖，一只普通程序员的自留地"><img
+        class="lazyload logo"
+        data-src="/logo.png"
+        alt="/logo.png"
+        title="/logo.png"
+    /><span id="mobile-header-typeit" class="typeit"></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/categories/" title="">分类</a><a href="#" onclick="return false;" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+            <div class="container"><script src="/qrcode.js"></script><div class="toc" id="toc-auto">
+        <h2 class="toc-title">目录</h2>
+        <div class="toc-content" id="toc-content-auto"></div>
+        
+        
+    </div><script>document.getElementsByTagName("main")[0].setAttribute("pageStyle", "normal")</script><script>document.getElementsByTagName("main")[0].setAttribute("autoTOC", "false")</script><article class="page single"><h1 class="single-title animate__animated animate__flipInX">以太坊(Web3)DAPP前端开发要点#2 连接合约和发送交易</h1><div class="post-meta">
+            <div class="post-meta-line">
+                
+                
+                
+
+                
+            </div>
+            <div class="post-meta-line"><span style="padding-right:10px;"><time datetime="2022-02-05">2022-02-05</time> </span>
+                <span style="padding-right:10px;">阅读: <span id="/posts/web3_important_point_2/" class="waline-visitor-count" ></span></span>
+                <span style="padding-right:10px;">评论: <span id="/posts/web3_important_point_2/" class="waline-comment-count" ></span></span>
+                <span style="padding-right:10px;">约 2547 字</span>
+                <span style="padding-right:10px;">预计阅读 6 分钟</span></div>
+        </div><div class="featured-image-preview-post " style="background-image: url(/covers/2.jpeg);">
+                
+            </div><div class="details toc open" id="toc-static"  kept="true">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#概述">概述</a></li>
+    <li><a href="#正文">正文</a>
+      <ul>
+        <li><a href="#使用-web3js-连接合约和发送交易">使用 web3.js 连接合约和发送交易</a></li>
+        <li><a href="#使用-ethersjs-连接合约">使用 ethers.js 连接合约</a></li>
+        <li><a href="#合约强类型-typechain">合约强类型 TypeChain</a></li>
+      </ul>
+    </li>
+    <li><a href="#预告">预告</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content heti" id="content"><h2 id="概述">概述</h2>
+<p>如何开发一个以太坊的 dapp？本系列将尽量以比较详细的方式介绍一个 dapp 开发中需要掌握的基本概念和其核心用法。</p>
+<p>本系列会不定时更新，有想了解的问题可以在此博文下留言，我会加入到系列文章内容中。本人也接触此领域不久，不保证以下所有做法都是最佳实践。</p>
+<p>本系列涉及的合约为了方便大家学习，直接内置了一个私钥、一个账户地址、一个合约地址，请大家不要做破坏性的使用</p>
+<p>合约项目地址：<a href="https://github.com/yu-tou/eth-self-token-example" target="_blank" rel="noopener noreffer">https://github.com/yu-tou/eth-self-token-example</a></p>
+<p>本文内容大致如下：</p>
+<ol>
+<li>如何连接合约？</li>
+<li>如何发送交易？</li>
+<li>如何使用类型？</li>
+</ol>
+<h2 id="正文">正文</h2>
+<p>我们首先分别看两个最基本的连接合约的示例，这是基础方法，在实际的项目中，情况会更为复杂，这里暂时只讲最基本的用法。</p>
+<p>本文因为只是最简单的合约连接，所以使用了 nodejs 脚本，没有涉及到真实的第三方钱包以及前端连接合约的用法，这些在稍后的教程中会继续分享，因为要理解在前端页面如何连接钱包，首先要理解如何连接网络节点和发送交易等基础知识，这样才能循序渐进掌握清楚在前端如何连接钱包及请求合约。</p>
+<h3 id="使用-web3js-连接合约和发送交易">使用 web3.js 连接合约和发送交易</h3>
+<h4 id="连接合约">连接合约</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="kr">const</span> <span class="nx">Web3</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&#34;web3&#34;</span><span class="p">);</span>
+<span class="kr">const</span> <span class="nx">abi</span> <span class="o">=</span>
+  <span class="nx">require</span><span class="p">(</span><span class="s2">&#34;../artifacts/contracts/YuTouMintable.sol/YuTouMintable.json&#34;</span><span class="p">).</span><span class="nx">abi</span><span class="p">;</span>
+
+<span class="kr">const</span> <span class="nx">config</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&#34;./../config&#34;</span><span class="p">);</span>
+
+<span class="c1">// 合约地址，这里我放了一个名叫 YuTou 的代币合约的地址，在 bsctestnet 网络中
+</span><span class="c1"></span><span class="kr">const</span> <span class="nx">contractAddress</span> <span class="o">=</span> <span class="s2">&#34;0xeD0F31xxxxxx&#34;</span><span class="p">;</span>
+<span class="kr">const</span> <span class="nx">account</span> <span class="o">=</span> <span class="s2">&#34;0x122xxxxx&#34;</span><span class="p">;</span>
+<span class="c1">// 创建web3对象
+</span><span class="c1"></span><span class="kr">const</span> <span class="nx">web3</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Web3</span><span class="p">();</span>
+<span class="c1">// 连接到网络，这里是bsc测试网
+</span><span class="c1"></span><span class="nx">web3</span><span class="p">.</span><span class="nx">setProvider</span><span class="p">(</span>
+  <span class="k">new</span> <span class="nx">Web3</span><span class="p">.</span><span class="nx">providers</span><span class="p">.</span><span class="nx">HttpProvider</span><span class="p">(</span>
+    <span class="s2">&#34;https://data-seed-prebsc-1-s1.binance.org:8545&#34;</span>
+  <span class="p">)</span>
+<span class="p">);</span>
+
+<span class="c1">// 初始化合约对象
+</span><span class="c1"></span><span class="kr">const</span> <span class="nx">contract</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">web3</span><span class="p">.</span><span class="nx">eth</span><span class="p">.</span><span class="nx">Contract</span><span class="p">(</span><span class="nx">abi</span><span class="p">,</span> <span class="nx">contractAddress</span><span class="p">,</span> <span class="p">{</span>
+  <span class="nx">from</span><span class="o">:</span> <span class="nx">account</span><span class="p">,</span>
+  <span class="nx">gasPrice</span><span class="o">:</span> <span class="s2">&#34;20000000000&#34;</span><span class="p">,</span>
+  <span class="nx">gas</span><span class="o">:</span> <span class="s2">&#34;1000000&#34;</span><span class="p">,</span>
+<span class="p">});</span>
+
+<span class="kr">const</span> <span class="nx">main</span> <span class="o">=</span> <span class="kr">async</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="c1">// 查询余额
+</span><span class="c1"></span>  <span class="kr">const</span> <span class="nx">tokenBalance</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">contract</span><span class="p">.</span><span class="nx">methods</span><span class="p">.</span><span class="nx">balanceOf</span><span class="p">(</span><span class="nx">account</span><span class="p">).</span><span class="nx">call</span><span class="p">();</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;tokenBalance&#34;</span><span class="p">,</span> <span class="nx">tokenBalance</span><span class="p">);</span>
+<span class="p">};</span>
+
+<span class="nx">main</span><span class="p">();</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p>这里主要是三个步骤：</p>
+<ol>
+<li>设置网络对象（provider）</li>
+<li>连接自定义合约</li>
+<li>查询余额</li>
+</ol>
+<h4 id="发送交易">发送交易</h4>
+<p>web3js 的版本一直在迭代，一些用法也在发生变化，刚才的代码应该兼容性是比较高的，但是这里只涉及到了最基本的连接合约和合约读取，如果你需要调用会在链上产生更改的方法，在最新的 web3js 中，需要设置一下钱包信息（web3@1.7.0）</p>
+<p>以上的合约中有一个使用创世账号，给任意用户发token的操作（mint），我们可以调用一下。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js">
+<span class="c1">// 初始化合约对象
+</span><span class="c1">// 这里的第三个参数，设置此次所有操作默认使用的发送账号和gas信息
+</span><span class="c1"></span><span class="kr">const</span> <span class="nx">contract</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">web3</span><span class="p">.</span><span class="nx">eth</span><span class="p">.</span><span class="nx">Contract</span><span class="p">(</span><span class="nx">abi</span><span class="p">,</span> <span class="nx">contractAddress</span><span class="p">,</span> <span class="p">{</span>
+  <span class="nx">from</span><span class="o">:</span> <span class="nx">account</span><span class="p">,</span>
+  <span class="nx">gasPrice</span><span class="o">:</span> <span class="s2">&#34;20000000000&#34;</span><span class="p">,</span>
+  <span class="nx">gas</span><span class="o">:</span> <span class="s2">&#34;1000000&#34;</span><span class="p">,</span>
+<span class="p">});</span>
+
+
+<span class="nx">contract</span><span class="p">.</span><span class="nx">methods</span>
+  <span class="c1">// 发送 1024 个 YuTou 币
+</span><span class="c1"></span>  <span class="p">.</span><span class="nx">mint</span><span class="p">(</span><span class="nx">account</span><span class="p">,</span> <span class="mi">1024</span> <span class="o">*</span> <span class="mi">10</span> <span class="o">**</span> <span class="mi">8</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">send</span><span class="p">()</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">receipt</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;call result&#34;</span><span class="p">,</span> <span class="nx">receipt</span><span class="p">);</span>
+  <span class="p">})</span>
+  <span class="p">.</span><span class="k">catch</span><span class="p">((</span><span class="nx">error</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span> <span class="nx">error</span><span class="p">);</span>
+  <span class="p">});</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p>和 balanceOf 的调用类似，区别是 balanceOf 是读的接口，mint 是写的接口，读的接口使用 call() 调用，写的接口使用 send() 调用。</p>
+<p>不过当你执行以上的代码的时候会报一个错误：Returned error: unknown account 。</p>
+<p>这里需要在 web3.js 中执行一个初始化钱包的动作</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="c1">// 向web3 示例中添加一个钱包账号，这个账号就是 from 的账号，也是合约的部署者，使用私钥或者助记词来导入账号
+</span><span class="c1"></span><span class="nx">web3</span><span class="p">.</span><span class="nx">eth</span><span class="p">.</span><span class="nx">accounts</span><span class="p">.</span><span class="nx">wallet</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="nx">config</span><span class="p">.</span><span class="nx">private_key</span><span class="p">);</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p>此时再调用写的合约即可调用成功，修改调用方法可以给任意地址发送 token，注意这里的私钥必须是创世账号的私钥，只有创世账号才有权限给所有人发 token，这是合约里的限制。</p>
+<h4 id="如何获取可以调用的合约方法">如何获取可以调用的合约方法</h4>
+<p>刚才我们调用了两个合约的方法：balanceOf() 以及 mint()，这些方法是从哪里来的？如何获取所有可以调用的方法？</p>
+<p>两个办法：</p>
+<ol>
+<li>看合约源码</li>
+<li>看合约编译后的 abi 文件</li>
+</ol>
+<p>其实还有第三种方法，不过在 web3.js 中我没有很好的实践过，但是等会在 ethers.js 中可以看到比较好的融合，也就是使用 typechain 编译出完整的 typescript 类型，不过看 typechain 的官方，也支持 web3.js 的类型，见<a href="https://github.com/dethcrypto/TypeChain/tree/master/examples/web3-v1" target="_blank" rel="noopener noreffer">示例</a></p>
+<p>这里只简单展示一下 abi 内部的结构，例如刚才的 balanceOf 方法，在 abi 文件中可以看到：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">{
+    &#34;inputs&#34;: [
+    {
+        &#34;internalType&#34;: &#34;address&#34;,
+        &#34;name&#34;: &#34;_owner&#34;,
+        &#34;type&#34;: &#34;address&#34;
+    }
+    ],
+    &#34;name&#34;: &#34;balanceOf&#34;,
+    &#34;outputs&#34;: [
+    {
+        &#34;internalType&#34;: &#34;uint256&#34;,
+        &#34;name&#34;: &#34;balance&#34;,
+        &#34;type&#34;: &#34;uint256&#34;
+    }
+    ],
+    &#34;stateMutability&#34;: &#34;view&#34;,
+    &#34;type&#34;: &#34;function&#34;
+},
+</code></pre></td></tr></table>
+</div>
+</div><p>可以看到方法名，输入和输出参数及类型等信息，如果来不及搭建 typechain 的开发工具链，也可以用这种笨拙的方法直接开发。</p>
+<h3 id="使用-ethersjs-连接合约">使用 ethers.js 连接合约</h3>
+<h4 id="连接合约-1">连接合约</h4>
+<p>以下代码见：test/ethers.js 文件</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="kr">const</span> <span class="nx">ethers</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&#34;ethers&#34;</span><span class="p">);</span>
+<span class="kr">const</span> <span class="nx">config</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&#34;../config&#34;</span><span class="p">);</span>
+
+<span class="kr">const</span> <span class="nx">abi</span> <span class="o">=</span>
+  <span class="nx">require</span><span class="p">(</span><span class="s2">&#34;../artifacts/contracts/YuTouMintable.sol/YuTouMintable.json&#34;</span><span class="p">).</span><span class="nx">abi</span><span class="p">;</span>
+
+<span class="kr">const</span> <span class="nx">provider</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ethers</span><span class="p">.</span><span class="nx">providers</span><span class="p">.</span><span class="nx">JsonRpcProvider</span><span class="p">(</span><span class="nx">config</span><span class="p">.</span><span class="nx">network</span><span class="p">.</span><span class="nx">url</span><span class="p">);</span>
+
+<span class="kr">const</span> <span class="nx">contract</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ethers</span><span class="p">.</span><span class="nx">Contract</span><span class="p">(</span><span class="nx">config</span><span class="p">.</span><span class="nx">contract_address</span><span class="p">,</span> <span class="nx">abi</span><span class="p">,</span> <span class="nx">provider</span><span class="p">);</span>
+
+<span class="kr">const</span> <span class="nx">main</span> <span class="o">=</span> <span class="kr">async</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="kr">const</span> <span class="nx">balanceOf</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">contract</span><span class="p">.</span><span class="nx">balanceOf</span><span class="p">(</span><span class="nx">config</span><span class="p">.</span><span class="nx">deployer</span><span class="p">);</span>
+  <span class="c1">// 格式化一下真实的token余额
+</span><span class="c1"></span>  <span class="kr">const</span> <span class="nx">realBalanceOf</span> <span class="o">=</span> <span class="nx">ethers</span><span class="p">.</span><span class="nx">utils</span><span class="p">.</span><span class="nx">formatUnits</span><span class="p">(</span><span class="nx">balanceOf</span><span class="p">,</span> <span class="mi">8</span><span class="p">);</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;realBalanceOf&#34;</span><span class="p">,</span> <span class="nx">realBalanceOf</span><span class="p">);</span>
+<span class="p">};</span>
+
+<span class="nx">main</span><span class="p">();</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p>可以看到和 web3.js 非常类似，也是三步，其实他们完成的事情是完全一样的。</p>
+<p>不过 ethers.js 实例化合约之后，合约方法直接挂到了实例上，另外就是不需要调用 call 或者 send 方法，直接调用合约暴露的方法即可，这种写法其实本质上依然没有变化，但是对于大部分js开发者来说，使用起来会更直观简单一些。</p>
+<h4 id="发送交易-1">发送交易</h4>
+<p>我们跟 web3.js 一样，尝试发送一个写的交易。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">
+const result = await contract.mint(config.deployer, 1024 * 10 ** 8);
+console.log(&#34;result&#34;, result);
+
+</code></pre></td></tr></table>
+</div>
+</div><p>依然会报错：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">sending a transaction requires a signer
+</code></pre></td></tr></table>
+</div>
+</div><p>添加以下代码，同 web3.js 一样，我们需要引入钱包的概念，生成一个成为 signer 的对象。</p>
+<p>什么是 signer ，见官方解释：</p>
+<blockquote>
+<p>A Signer in ethers is an abstraction of an Ethereum Account, which can be used to sign messages and transactions and send signed transactions to the Ethereum Network to execute state changing operations.</p>
+</blockquote>
+<p>我们可以把 provider 直接包装成一个 signer，之后使用这个 provider 实例化的合约对象，即可直接发送交易。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="kr">const</span> <span class="nx">ethers</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&#34;ethers&#34;</span><span class="p">);</span>
+<span class="kr">const</span> <span class="nx">config</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&#34;../config&#34;</span><span class="p">);</span>
+
+<span class="kr">const</span> <span class="nx">abi</span> <span class="o">=</span>
+  <span class="nx">require</span><span class="p">(</span><span class="s2">&#34;../artifacts/contracts/YuTouMintable.sol/YuTouMintable.json&#34;</span><span class="p">).</span><span class="nx">abi</span><span class="p">;</span>
+
+<span class="kr">const</span> <span class="nx">provider</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ethers</span><span class="p">.</span><span class="nx">providers</span><span class="p">.</span><span class="nx">JsonRpcProvider</span><span class="p">(</span><span class="nx">config</span><span class="p">.</span><span class="nx">network</span><span class="p">.</span><span class="nx">url</span><span class="p">);</span>
+
+<span class="c1">// 实例化钱包，使用私钥
+</span><span class="c1"></span><span class="kr">const</span> <span class="nx">Wallet</span> <span class="o">=</span> <span class="nx">ethers</span><span class="p">.</span><span class="nx">Wallet</span><span class="p">;</span>
+<span class="kr">const</span> <span class="nx">signer</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ethers</span><span class="p">.</span><span class="nx">Wallet</span><span class="p">(</span><span class="nx">config</span><span class="p">.</span><span class="nx">private_key</span><span class="p">,</span> <span class="nx">provider</span><span class="p">);</span>
+
+<span class="c1">// 第三个参数由 provider 更改为 signer
+</span><span class="c1"></span><span class="kr">const</span> <span class="nx">contract</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ethers</span><span class="p">.</span><span class="nx">Contract</span><span class="p">(</span><span class="nx">config</span><span class="p">.</span><span class="nx">contract_address</span><span class="p">,</span> <span class="nx">abi</span><span class="p">,</span> <span class="nx">signer</span><span class="p">);</span>
+
+<span class="kr">const</span> <span class="nx">main</span> <span class="o">=</span> <span class="kr">async</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="kr">const</span> <span class="nx">balanceOf</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">contract</span><span class="p">.</span><span class="nx">balanceOf</span><span class="p">(</span><span class="nx">config</span><span class="p">.</span><span class="nx">deployer</span><span class="p">);</span>
+  <span class="c1">// 格式化一下真实的token余额
+</span><span class="c1"></span>  <span class="kr">const</span> <span class="nx">realBalanceOf</span> <span class="o">=</span> <span class="nx">ethers</span><span class="p">.</span><span class="nx">utils</span><span class="p">.</span><span class="nx">formatUnits</span><span class="p">(</span><span class="nx">balanceOf</span><span class="p">,</span> <span class="mi">8</span><span class="p">);</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;realBalanceOf&#34;</span><span class="p">,</span> <span class="nx">realBalanceOf</span><span class="p">);</span>
+
+  <span class="c1">// 此时即可发送交易
+</span><span class="c1"></span>  <span class="kr">const</span> <span class="nx">trans</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">contract</span><span class="p">.</span><span class="nx">mint</span><span class="p">(</span><span class="nx">config</span><span class="p">.</span><span class="nx">deployer</span><span class="p">,</span> <span class="mi">1024</span> <span class="o">*</span> <span class="mi">10</span> <span class="o">**</span> <span class="mi">8</span><span class="p">);</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;trans&#34;</span><span class="p">,</span> <span class="nx">trans</span><span class="p">);</span>
+  <span class="c1">// 上一句调用只是获取了交易本身的信息，这里我们继续等待交易返回，交易完全执行之后即可获取到真实的结果
+</span><span class="c1"></span>  <span class="kr">const</span> <span class="nx">result</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">trans</span><span class="p">.</span><span class="nx">wait</span><span class="p">();</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;result&#34;</span><span class="p">,</span> <span class="nx">result</span><span class="p">);</span>
+<span class="p">};</span>
+
+<span class="nx">main</span><span class="p">();</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="合约强类型-typechain">合约强类型 TypeChain</h3>
+<p>我通常使用 TypeChain 来编写合约的前端代码，据我了解，社区里大部分人都是使用这个库的。</p>
+<h4 id="关于">关于</h4>
+<p><a href="https://github.com/dethcrypto/TypeChain" target="_blank" rel="noopener noreffer">项目地址</a></p>
+<h4 id="编译">编译</h4>
+<p>前端开发可以直接忽略这个步骤，可以找合约的开发者要生成后的 TypeChain 文件夹。</p>
+<p>因为我们合约是使用 hardhat，所以直接使用一个零配置的库 <a href="https://github.com/dethcrypto/TypeChain/tree/master/packages/hardhat" target="_blank" rel="noopener noreffer">@typechain/hardhat</a></p>
+<p>安装依赖后，在编写合约的 hardhat 项目中，直接引入即可：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="nx">require</span><span class="p">(</span><span class="s1">&#39;@typechain/hardhat&#39;</span><span class="p">)</span>
+<span class="nx">require</span><span class="p">(</span><span class="s1">&#39;@nomiclabs/hardhat-ethers&#39;</span><span class="p">)</span>
+<span class="nx">require</span><span class="p">(</span><span class="s1">&#39;@nomiclabs/hardhat-waffle&#39;</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>引入后，每次编译合约的时候都会生成对应的 TS 文件。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">typechain-types                  
+├─ factories                     
+│  ├─ ERC20__factory.ts          
+│  ├─ Ownable__factory.ts        
+│  ├─ YuTouMintable__factory.ts  
+│  └─ YuTou__factory.ts          
+├─ ERC20.ts                      
+├─ Ownable.ts                    
+├─ YuTou.ts                      
+├─ YuTouMintable.ts              
+├─ common.ts                     
+├─ hardhat.d.ts                  
+└─ index.ts                      
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="使用">使用</h4>
+<p>在连接合约的代码中（nodejs或者前端项目中）可以直接使用 typechain 生成的类型。</p>
+<p>如</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="kr">import</span> <span class="nx">YuTouMintable</span> <span class="kr">from</span> <span class="s1">&#39;./typechain-types/YuTouMintable.ts&#39;</span>
+
+<span class="kr">const</span> <span class="nx">contract</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ethers</span><span class="p">.</span><span class="nx">Contract</span><span class="p">(</span><span class="nx">config</span><span class="p">.</span><span class="nx">contract_address</span><span class="p">,</span> <span class="nx">abi</span><span class="p">,</span> <span class="nx">signer</span><span class="p">)</span> <span class="kr">as</span> <span class="nx">YuTouMintable</span><span class="p">;</span>
+
+<span class="c1">// 此时 contract 变成了强类型，所有合约中定义的方法，输入输出都定义的非常清楚
+</span><span class="c1"></span>
+</code></pre></td></tr></table>
+</div>
+</div><p>在 web3.js 中同样可以使用，只需要安装不同的插件即可，不过我没有尝试过，有兴趣可以自己尝试一下。</p>
+<p>对于习惯使用 typescript 进行编程的同学来说，使合约具备强类型是非常必要的，希望大家可以将其作为最佳实践在项目中使用和集成。</p>
+<h2 id="预告">预告</h2>
+<p>下期，我们将回到前端页面，带大家看一下如何连接钱包和合约。</p>
+</div>
+
+        <div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-02-05</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="#" onclick="return false;" title="分享到 微博" data-sharer="weibo" data-url="http://example.org/posts/web3_important_point_2/" data-title="以太坊(Web3)DAPP前端开发要点#2 连接合约和发送交易" data-image="/covers/2.jpeg"><i class="fab fa-weibo fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/frontend-modern-experience-share-slide/" class="prev" rel="prev" title="Web 体验技术发展前沿速览"><i class="fas fa-angle-left fa-fw"></i>Web 体验技术发展前沿速览</a>
+            <a href="/posts/tools-recommend-1/" class="next" rel="next" title="工具&amp;产品推荐#1 geogebra &amp;&amp; rawpixel">工具&amp;产品推荐#1 geogebra &amp;&amp; rawpixel<i class="fas fa-angle-right fa-fw"></i></a></div>
+    <script src="/client.js"></script>
+    <div style="clear: both;margin-top:20px;"></div>
+    <div id="waline"></div>
+<script>
+Waline({
+  el: '#waline',
+  serverURL: 'https://comment-weld.vercel.app',
+  visitor: true, 
+});
+</script>
+</div>
+</article></div>
+        </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2021 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank" rel="noopener noreferrer"></a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+                    <span class="icp"><a href='https://beian.miit.gov.cn/'>浙ICP备12047043号-10</a></span></div>
+        </div></footer>
+</div>
+
+    <div id="fixed-buttons"><a href="#back-to-top" id="back-to-top-button" class="fixed-button" title="回到顶部">
+            <i class="fas fa-arrow-up fa-fw"></i>
+        </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+            <i class="fas fa-comment fa-fw"></i>
+        </a>
+    </div><div class="assets"><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/topbar/topbar.min.js"></script><script type="text/javascript" src="/lib/pjax/pjax.min.js"></script><script type="text/javascript" src="/js/theme.min.js"></script></div>
+
+<div class="pjax-assets"><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/typeit/typeit.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":100},"comment":{},"data":{"desktop-header-typeit":"芋头乱炖","mobile-header-typeit":"芋头乱炖"},"sharerjs":true,"typeit":{"cursorChar":null,"cursorSpeed":null,"data":{"desktop-header-typeit":["desktop-header-typeit"],"mobile-header-typeit":["mobile-header-typeit"]},"duration":null,"speed":null}};</script></div>
+</body>
+
+</html>

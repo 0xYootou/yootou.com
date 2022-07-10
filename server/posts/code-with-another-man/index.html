@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noodp" />
+    <title class="pjax-title">一次连续结对编程三天的经历 - 芋头乱炖，一只普通程序员的自留地</title><meta name="Description" content=""><meta property="og:title" content="一次连续结对编程三天的经历" />
+<meta property="og:description" content="最近，公司的事情越发忙碌起来了，除了需要不断梳理架构团队的规划和进度之外，还要经常北上杭三地跑，平常好不容易有个完整的周末，也都瘫软在沙发上，一动脑就脑壳痛。感觉这种状态很容易让人疲惫乏力，需要改变一下，所以临近五一假期的时候，突发奇想，想完完整整写三天自己的代码！ 如果只是自己写，就略显无聊了，而且三天之内，很难写出什么成型的东西来，虽然之前脑子里有好几个想法，但是都不是三天可以做出一个线上产品的规模（例如一个开源的功能炒鸡多的 markdown 编辑器插件；或者是一个画脑图的网站？）顶多做做 demo ，成就感还是有差距的。 于是，我就想，为什么不找真正热爱编程和创造的人一起写呢！于是在五一前两天，在朋友圈征集了一波，最后找到了一个有一定编程经验的程序员，在五一假期三天基本上每天在咖啡馆编程至少 8 小时。 现场照片，节奏还是很紧张的 事实上，我发现这种结对编程，带来的优势比我想象中还要多很多。 结对编程的优势 高效。这个自不必" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://example.org/posts/code-with-another-man/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2018-05-27T16:26:00+00:00" />
+<meta property="article:modified_time" content="2018-05-27T16:26:00+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="一次连续结对编程三天的经历"/>
+<meta name="twitter:description" content="最近，公司的事情越发忙碌起来了，除了需要不断梳理架构团队的规划和进度之外，还要经常北上杭三地跑，平常好不容易有个完整的周末，也都瘫软在沙发上，一动脑就脑壳痛。感觉这种状态很容易让人疲惫乏力，需要改变一下，所以临近五一假期的时候，突发奇想，想完完整整写三天自己的代码！ 如果只是自己写，就略显无聊了，而且三天之内，很难写出什么成型的东西来，虽然之前脑子里有好几个想法，但是都不是三天可以做出一个线上产品的规模（例如一个开源的功能炒鸡多的 markdown 编辑器插件；或者是一个画脑图的网站？）顶多做做 demo ，成就感还是有差距的。 于是，我就想，为什么不找真正热爱编程和创造的人一起写呢！于是在五一前两天，在朋友圈征集了一波，最后找到了一个有一定编程经验的程序员，在五一假期三天基本上每天在咖啡馆编程至少 8 小时。 现场照片，节奏还是很紧张的 事实上，我发现这种结对编程，带来的优势比我想象中还要多很多。 结对编程的优势 高效。这个自不必"/>
+<meta name="application-name" content="芋头乱炖，一只普通程序员的自留地">
+<meta name="apple-mobile-web-app-title" content="芋头乱炖，一只普通程序员的自留地">
+
+<meta name="theme-color" content="#f8f8f8"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="canonical" href="http://example.org/posts/code-with-another-man/" /><link rel="prev" href="http://example.org/posts/make-app-with-wife/" /><link rel="next" href="http://example.org/posts/frontend-arch/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/fontawesome-free/all.min.css">
+    <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/animate/animate.min.css">
+    <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "一次连续结对编程三天的经历",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/example.org\/posts\/code-with-another-man\/"
+        },"genre": "posts","wordcount":  2742 ,
+        "url": "http:\/\/example.org\/posts\/code-with-another-man\/","datePublished": "2018-05-27T16:26:00+00:00","dateModified": "2018-05-27T16:26:00+00:00","publisher": {
+            "@type": "Organization",
+            "name": "芋头"},"author": {
+                "@type": "Person",
+                "name": "芋头"
+            },"description": ""
+    }
+    </script></head>
+
+<body header-desktop="" header-mobile=""><script type="text/javascript">
+        function setTheme(theme) {document.body.setAttribute('theme', theme);}
+        function saveTheme(theme) {window.localStorage && localStorage.setItem('theme', theme);}
+        function getMeta(metaName) {const metas = document.getElementsByTagName('meta'); for (let i = 0; i < metas.length; i++) if (metas[i].getAttribute('name') === metaName) return metas[i]; return '';}
+        if (window.localStorage && localStorage.getItem('theme')) {let theme = localStorage.getItem('theme');theme === 'light' || theme === 'dark' || theme === 'black' ? setTheme(theme) : (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? setTheme('dark') : setTheme('light')); } else { if ('' === 'light' || '' === 'dark' || '' === 'black') setTheme(''), saveTheme(''); else saveTheme('auto'), window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? setTheme('dark') : setTheme('light');}
+        let metaColors = {'light': '#f8f8f8','dark': '#252627','black': '#000000'}
+        getMeta('theme-color').content = metaColors[document.body.getAttribute('theme')];
+    </script>
+    <div id="back-to-top"></div>
+    <div id="mask"></div><div class="wrapper"><div style="display: none"><img src="/android-chrome-512x512.png" width="320" height="320"/></div>
+<header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="芋头乱炖，一只普通程序员的自留地"><img
+        class="lazyload logo"
+        data-src="/logo.png"
+        alt="/logo.png"
+        title="/logo.png"
+    /><span id="desktop-header-typeit" class="typeit"></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><a href="#" onclick="return false;" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a></div>
+        </div>
+    </div>
+</header><div style="display: none"><img src="/android-chrome-512x512.png" width="320" height="320"/></div>
+<header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="芋头乱炖，一只普通程序员的自留地"><img
+        class="lazyload logo"
+        data-src="/logo.png"
+        alt="/logo.png"
+        title="/logo.png"
+    /><span id="mobile-header-typeit" class="typeit"></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/categories/" title="">分类</a><a href="#" onclick="return false;" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+            <div class="container"><script src="/qrcode.js"></script><div class="toc" id="toc-auto">
+        <h2 class="toc-title">目录</h2>
+        <div class="toc-content" id="toc-content-auto"></div>
+        
+        
+    </div><script>document.getElementsByTagName("main")[0].setAttribute("pageStyle", "normal")</script><script>document.getElementsByTagName("main")[0].setAttribute("autoTOC", "false")</script><article class="page single"><h1 class="single-title animate__animated animate__flipInX">一次连续结对编程三天的经历</h1><div class="post-meta">
+            <div class="post-meta-line">
+                
+                
+                
+
+                
+            </div>
+            <div class="post-meta-line"><span style="padding-right:10px;"><time datetime="2018-05-27">2018-05-27</time> </span>
+                <span style="padding-right:10px;">阅读: <span id="/posts/code-with-another-man/" class="waline-visitor-count" ></span></span>
+                <span style="padding-right:10px;">评论: <span id="/posts/code-with-another-man/" class="waline-comment-count" ></span></span>
+                <span style="padding-right:10px;">约 2742 字</span>
+                <span style="padding-right:10px;">预计阅读 6 分钟</span></div>
+        </div><div class="featured-image-preview-post " style="background-image: url(/code-with-another-man/cover.jpeg);">
+                
+            </div><div class="details toc open" id="toc-static"  kept="true">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#结对编程的优势">结对编程的优势</a></li>
+        <li><a href="#执行方式">执行方式</a></li>
+        <li><a href="#结语">结语</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content heti" id="content"><p>最近，公司的事情越发忙碌起来了，除了需要不断梳理架构团队的规划和进度之外，还要经常北上杭三地跑，平常好不容易有个完整的周末，也都瘫软在沙发上，一动脑就脑壳痛。感觉这种状态很容易让人疲惫乏力，需要改变一下，所以临近五一假期的时候，突发奇想，想完完整整写三天自己的代码！</p>
+<p>如果只是自己写，就略显无聊了，而且三天之内，很难写出什么成型的东西来，虽然之前脑子里有好几个想法，但是都不是三天可以做出一个线上产品的规模（例如一个开源的功能炒鸡多的 markdown 编辑器插件；或者是一个画脑图的网站？）顶多做做 demo ，成就感还是有差距的。</p>
+<p>于是，我就想，为什么不找真正热爱编程和创造的人一起写呢！于是在五一前两天，在朋友圈征集了一波，最后找到了一个有一定编程经验的程序员，在五一假期三天基本上每天在咖啡馆编程至少 8 小时。</p>
+<p><img
+        class="lazyload"
+        data-src="/code-with-another-man/v2-6fe060e75bb0e163af153b60eb19fea2_1440w.jpg"
+        alt="/code-with-another-man/v2-6fe060e75bb0e163af153b60eb19fea2_1440w.jpg"
+        title="/code-with-another-man/v2-6fe060e75bb0e163af153b60eb19fea2_1440w.jpg"
+    /></p>
+<p>现场照片，节奏还是很紧张的</p>
+<p>事实上，我发现这种结对编程，带来的优势比我想象中还要多很多。</p>
+<h3 id="结对编程的优势">结对编程的优势</h3>
+<p>高效。这个自不必说了，两个人编程，有问题可以快速讨论解决，而且可以互相监督不偷懒，列出来的任务有问题的话，可以快速沟通解决。</p>
+<p>互相学习。除了编程上的姿势，更重要的是学习对方做事的态度和方式，我其实也希望把我对创造产品的热情输出给对方，另外还有一点就是大家对产品本身讨论的过程，让我的产品逻辑和设计理念也改变了很多。</p>
+<p>清晰分工。在整个过程中，我主要承担 需求提供者、设计师、服务端开发、部分不重要的小程序页面开发。而对方主要承担前端核心逻辑的开发。二人都有核心的事情要做，但是会在一些边缘的事情上，看情况调节工作。这样清晰的分工可以让每个人专注在自己的事情上，快速高效的输出。</p>
+<p>讨论改进。在放假之前，事实上我脑子里没有一个很清楚的产品的概念，后来见面之后，我们先讨论和分解事情，此时做了不少讨论，这让我的一些想法变得清晰和合理，如果是我自己，很难有这种快速的纠正。</p>
+<p>这些优势，让我找回了一点前几年参加黑客马拉松的感觉。所谓黑客马拉松，就是一群程序员或者设计师，临时组队，2-4人，从碰撞想法到通宵编码实现，最终创造一个真实的产品出来（更多时候其实是一个 demo 即可）。我第一次参加黑客马拉松，留下的印象就非常深刻，那时候我刚毕业也没几年，正在入门学习 Nodejs，然后在现场找到一个做服务端开发的程序员，他对 Nodejs 了解更为深入，并且熟练使用 CoffeeScript，当时我提供了想法和需求，他主编码，我给他打下手，虽然最后没拿到奖项，但是那一天一夜，跟他学了不少技术上的姿势，而且这种合作让我们从陌生变成一个合作奋斗过的伙伴，这种快速的交流让我至今对他印象还非常深刻。</p>
+<p>其实我很喜欢这种程序员之间的交流方式和最终产生的关系维系，为什么会产生关系维系？其实更多是通过这种方式寻找与自己一样喜欢创造，对用代码创造产品充满热情，或者对技术本身充满热情的同伴。这也是为什么我要从事程序员这个行业的原因！</p>
+<p>昨天，和一个从美国硅谷回来准备创业的创业者聊天，他提了一个问题，为什么国内的程序员给他的感觉都很保守，难道不应该是每个程序员都充满了创造的热情吗，毕业的时候首要考虑的是组队或者自己去做一些创造的事情，而不是进入公司工作。我跟他解释道，实际上，有这种想法的程序员很多，只是国内环境所迫。年轻人刚毕业就被房子、结婚、孩子三座大山压在身上，大部分人无法摆脱环境的影响，对选择做出妥协。实际上，如果这三座大山可以摆脱，我相信会有很多年轻人选择更为激进的道路。</p>
+<p>不再啰嗦了，说说我和同伴结对编程的过程吧，希望可以对读者有所帮助。</p>
+<h3 id="执行方式">执行方式</h3>
+<p>首先，提前约定。在临近假期的时候，我准备了几个点子，然后就在朋友圈发了一个招募，我报销所有吃饭和咖啡的费用，招募参与者一起做一个产品，这个产品属于我们共同创造，但是最后所有权可能是我的（我没有太多强调，毕竟不是商业产品）。发出招募之后，很快就有人来联系我，我大概做了筛选，选择了一个拥有一定开发经验的伙伴（事实上也没有几个人来报名）</p>
+<p>当天，快速进入状态。五一假期只有三天，中间还有可能要处理一些私人的事情，所以时间很紧急，第一天见面的时候已经接近中午了，开始的时候我们首先要互相了解一下，于是我们直接走路去吃了一顿午饭，期间，我们互相做了介绍，对各自熟悉的技术栈进行了了解，对准备要做的事情做了初步的讨论，对一些生活啊公司啊之类的杂事也做了一些沟通交流。午餐过后，就快速开始进入角色了，我首先对如何进行这次结对编程的流程做了大概介绍（先做产品思路出原型图，然后针对原型，我们讨论技术方案，细化大块的任务，讨论一些技术实现的细节，最后分工，我做设计，他开始开发某些模块，然后我也承担一些部分的开发，最终联调发布）然后就开始按照这个流程立即执行。</p>
+<p><img
+        class="lazyload"
+        data-src="/code-with-another-man/v2-9569acdb4d470d5eb62b314c63d09dba_1440w.jpg"
+        alt="/code-with-another-man/v2-9569acdb4d470d5eb62b314c63d09dba_1440w.jpg"
+        title="/code-with-another-man/v2-9569acdb4d470d5eb62b314c63d09dba_1440w.jpg"
+    /></p>
+<p>当时的 Sketch 设计稿</p>
+<p>第三步，需求的沟通。事实上，这个是整个事情的核心，因为大家参与到这个事情，不是单纯的实现什么或者讨论技术，最最核心的还是一起创造一个产品的乐趣。所以两个人一定要针对这个产品各抒己见，一起勾勒产品的设计理念、操作逻辑、发展方向、受众喜好，这个过程对我帮助也很大，因为之前其实有一个初步的想法，但是很不具体，最终这个产品做出来之后，跟我一开始想的还是差别很大的，操作方式和展示形式更加丰满了，这是我对这次结对编程最有感触的地方之一。</p>
+<p>第四步，任务管理。我们选定了一个任务管理软件来管理我们二人的分工和计划，因为项目复杂度不高，选用了很简单的“奇妙清单”，针对原型和需求，我们把需要做的事情按照大块做了分解，这是当时的 check list，部分任务是后续一边做一边加入的，在最开始，我们核心梳理的是核心模块，一些细节靠后续的沟通加入。另外有一些核心模块的功能比较复杂，我们会细化一个方案写到任务详情中，例如详情页自动播放的具体逻辑，最近播放的存储逻辑等。</p>
+<p><img
+        class="lazyload"
+        data-src="/code-with-another-man/v2-0d253322967d97faa91485441fedc247_1440w.jpg"
+        alt="/code-with-another-man/v2-0d253322967d97faa91485441fedc247_1440w.jpg"
+        title="/code-with-another-man/v2-0d253322967d97faa91485441fedc247_1440w.jpg"
+    /></p>
+<p>任务列表</p>
+<p>第五步，分工。任务梳理出来之后，我们对着任务列表做分工，首先当然是擅长的人做擅长的事情，例如我擅长做界面设计，服务端开发，这两块的事情肯定是需要我来做，平衡一下，他负责前端最复杂部分的开发，其他前端的非核心的功能，暂时不做分工，谁先做完谁来做，及时在任务中分配就可以。</p>
+<p>第六步，开始开发。所有开发其实都要从设计开始，我首先开始用 Sketch 设计核心的界面，他则开始写和界面逻辑关系不大的功能，大概几个小时之后，主要的界面的设计已经产出，这个时候再开始构建前端的界面。</p>
+<h3 id="结语">结语</h3>
+<p>这次结对编程的经历算是一个试验吧，以后希望有机会也可以尝试类似的方式，以此寻找创造的乐趣，以及乐于创造的人，也希望对大家能有一点点启发，程序员更需要突破自己与人合作与人沟通的瓶颈，这样才能让技术的价值最大化，如果只是纠结于技术本身，会常常伴随着困惑和瓶颈。</p>
+<p>对类似事情感兴趣的同学，可以加我微信，说不定以后有机会可以一起结对。微信号：yutou-963</p>
+</div>
+
+        <div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2018-05-27</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="#" onclick="return false;" title="分享到 微博" data-sharer="weibo" data-url="http://example.org/posts/code-with-another-man/" data-title="一次连续结对编程三天的经历" data-image="/code-with-another-man/cover.jpeg"><i class="fab fa-weibo fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/make-app-with-wife/" class="prev" rel="prev" title="帅气程序员和漂亮幼师老婆一起做了一个 app"><i class="fas fa-angle-left fa-fw"></i>帅气程序员和漂亮幼师老婆一起做了一个 app</a>
+            <a href="/posts/frontend-arch/" class="next" rel="next" title="当我们谈论前端架构时，我们到底在谈论什么？">当我们谈论前端架构时，我们到底在谈论什么？<i class="fas fa-angle-right fa-fw"></i></a></div>
+    <script src="/client.js"></script>
+    <div style="clear: both;margin-top:20px;"></div>
+    <div id="waline"></div>
+<script>
+Waline({
+  el: '#waline',
+  serverURL: 'https://comment-weld.vercel.app',
+  visitor: true, 
+});
+</script>
+</div>
+</article></div>
+        </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2021 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank" rel="noopener noreferrer"></a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+                    <span class="icp"><a href='https://beian.miit.gov.cn/'>浙ICP备12047043号-10</a></span></div>
+        </div></footer>
+</div>
+
+    <div id="fixed-buttons"><a href="#back-to-top" id="back-to-top-button" class="fixed-button" title="回到顶部">
+            <i class="fas fa-arrow-up fa-fw"></i>
+        </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+            <i class="fas fa-comment fa-fw"></i>
+        </a>
+    </div><div class="assets"><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/topbar/topbar.min.js"></script><script type="text/javascript" src="/lib/pjax/pjax.min.js"></script><script type="text/javascript" src="/js/theme.min.js"></script></div>
+
+<div class="pjax-assets"><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/typeit/typeit.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":100},"comment":{},"data":{"desktop-header-typeit":"芋头乱炖","mobile-header-typeit":"芋头乱炖"},"sharerjs":true,"typeit":{"cursorChar":null,"cursorSpeed":null,"data":{"desktop-header-typeit":["desktop-header-typeit"],"mobile-header-typeit":["mobile-header-typeit"]},"duration":null,"speed":null}};</script></div>
+</body>
+
+</html>

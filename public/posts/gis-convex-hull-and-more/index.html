@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noodp" />
+    <title class="pjax-title">GIS 计算中的凸包、凹包、内凸包等问题求解 - 芋头乱炖，一只普通程序员的自留地</title><meta name="Description" content=""><meta property="og:title" content="GIS 计算中的凸包、凹包、内凸包等问题求解" />
+<meta property="og:description" content="1. 最小凸包 convex hull 1.1 凸包的定义（convex） 几何定义： 如果一个面是 convex，那它边上的任意两点相连出来的线段都落在面的内部。 如果一个面是 convex，那它内部任意两点相连都将面划分为半空间 half-space 表象：所有两个边所成的内边角不大于180度 通俗的表象：将点的集合看成一根根柱子，用一根皮筋圈套住所有的柱子形成的皮筋形状就是凸包的形状。 1.2 最小凸包的定义 convex hull 针对一群点的集合，其最小面积的包含所有点的凸集合形成的面 1.3 特性或用途 凸包是一个确定的、包容的、平滑的、优雅的图形。 实际上凹包用的更多。。。 1.4 凸包计算步骤（滚球法） 求极心 P0 找出屏幕最左边的一个点，这个点一定是凸包边的一部分 选中 P1，寻找下一个点 P2 求极心到上一个选中的点的角度 P0-&gt;P1，目的是作为内外侧判断的基准 用已选定的点轮训所有的点，求角度 P1-&gt;P2，然后求P1-&gt;P2与P0-&gt;P1的角度差 选中角度差最小的点 P2 使用 P2 循环" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://yootou.com/posts/gis-convex-hull-and-more/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-02-17T00:00:00+00:00" />
+<meta property="article:modified_time" content="2022-02-17T00:00:00+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="GIS 计算中的凸包、凹包、内凸包等问题求解"/>
+<meta name="twitter:description" content="1. 最小凸包 convex hull 1.1 凸包的定义（convex） 几何定义： 如果一个面是 convex，那它边上的任意两点相连出来的线段都落在面的内部。 如果一个面是 convex，那它内部任意两点相连都将面划分为半空间 half-space 表象：所有两个边所成的内边角不大于180度 通俗的表象：将点的集合看成一根根柱子，用一根皮筋圈套住所有的柱子形成的皮筋形状就是凸包的形状。 1.2 最小凸包的定义 convex hull 针对一群点的集合，其最小面积的包含所有点的凸集合形成的面 1.3 特性或用途 凸包是一个确定的、包容的、平滑的、优雅的图形。 实际上凹包用的更多。。。 1.4 凸包计算步骤（滚球法） 求极心 P0 找出屏幕最左边的一个点，这个点一定是凸包边的一部分 选中 P1，寻找下一个点 P2 求极心到上一个选中的点的角度 P0-&gt;P1，目的是作为内外侧判断的基准 用已选定的点轮训所有的点，求角度 P1-&gt;P2，然后求P1-&gt;P2与P0-&gt;P1的角度差 选中角度差最小的点 P2 使用 P2 循环"/>
+<meta name="application-name" content="芋头乱炖，一只普通程序员的自留地">
+<meta name="apple-mobile-web-app-title" content="芋头乱炖，一只普通程序员的自留地">
+
+<meta name="theme-color" content="#f8f8f8"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="canonical" href="https://yootou.com/posts/gis-convex-hull-and-more/" /><link rel="prev" href="https://yootou.com/posts/tools-recommend-1/" /><link rel="next" href="https://yootou.com/posts/about-me/" /><link rel="stylesheet" href="https://yootou.com/lib/normalize/normalize.min.8235a67a2521ef99fb1e455a5891b022af1653b4ede3cfffcac4e473beee88fbcc1a36bbb3cfdd75fd6df46732032f9d96e30adae9c88b769e1fbf7945cd27e0.css"><link rel="stylesheet" href="https://yootou.com/css/style.min.ccda882d27016d5492a07313a9a2a0cd7c7b78f87ab62005e713037791d59ccda6c2f953089e56386531d9ea851e9f0072bc92db050bcb89b16037ce0b54f85f.css"><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/fontawesome-free/all.min.css">
+    <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/animate/animate.min.css">
+    <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-KQJK254');</script>
+    
+
+    <meta name="google-site-verification" content="9i1I8fxXVrNLWPoZxLCneiA6u1j9znyl8KgHuUY7kbI" /><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "GIS 计算中的凸包、凹包、内凸包等问题求解",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/yootou.com\/posts\/gis-convex-hull-and-more\/"
+        },"genre": "posts","wordcount":  2680 ,
+        "url": "https:\/\/yootou.com\/posts\/gis-convex-hull-and-more\/","datePublished": "2022-02-17T00:00:00+00:00","dateModified": "2022-02-17T00:00:00+00:00","publisher": {
+            "@type": "Organization",
+            "name": "作者"},"author": {
+                "@type": "Person",
+                "name": "作者"
+            },"description": ""
+    }
+    </script></head>
+
+<body header-desktop="" header-mobile=""><script type="text/javascript">
+        function setTheme(theme) {document.body.setAttribute('theme', theme);}
+        function saveTheme(theme) {window.localStorage && localStorage.setItem('theme', theme);}
+        function getMeta(metaName) {const metas = document.getElementsByTagName('meta'); for (let i = 0; i < metas.length; i++) if (metas[i].getAttribute('name') === metaName) return metas[i]; return '';}
+        if (window.localStorage && localStorage.getItem('theme')) {let theme = localStorage.getItem('theme');theme === 'light' || theme === 'dark' || theme === 'black' ? setTheme(theme) : (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? setTheme('dark') : setTheme('light')); } else { if ('' === 'light' || '' === 'dark' || '' === 'black') setTheme(''), saveTheme(''); else saveTheme('auto'), window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? setTheme('dark') : setTheme('light');}
+        let metaColors = {'light': '#f8f8f8','dark': '#252627','black': '#000000'}
+        getMeta('theme-color').content = metaColors[document.body.getAttribute('theme')];
+    </script>
+    <div id="back-to-top"></div>
+    <div id="mask"></div><div class="wrapper"><div style="display: none"><img src="/android-chrome-512x512.png" width="320" height="320"/></div>
+<header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="芋头乱炖，一只普通程序员的自留地"><img
+        class="lazyload logo"
+        data-src="/logo.png"
+        alt="/logo.png"
+        title="/logo.png"
+    /><span id="desktop-header-typeit" class="typeit"></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><a href="#" onclick="return false;" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a></div>
+        </div>
+    </div>
+</header><div style="display: none"><img src="/android-chrome-512x512.png" width="320" height="320"/></div>
+<header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="芋头乱炖，一只普通程序员的自留地"><img
+        class="lazyload logo"
+        data-src="/logo.png"
+        alt="/logo.png"
+        title="/logo.png"
+    /><span id="mobile-header-typeit" class="typeit"></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/categories/" title="">分类</a><a href="#" onclick="return false;" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+            <div class="container"><script src="/qrcode.js"></script><div class="toc" id="toc-auto">
+        <h2 class="toc-title">目录</h2>
+        <div class="toc-content" id="toc-content-auto"></div>
+        
+        
+    </div><script>document.getElementsByTagName("main")[0].setAttribute("pageStyle", "normal")</script><script>document.getElementsByTagName("main")[0].setAttribute("autoTOC", "false")</script><article class="page single"><h1 class="single-title animate__animated animate__flipInX">GIS 计算中的凸包、凹包、内凸包等问题求解</h1><div class="post-meta">
+            <div class="post-meta-line">
+                
+                
+                
+
+                
+            </div>
+            <div class="post-meta-line"><span style="padding-right:10px;"><time datetime="2022-02-17">2022-02-17</time> </span>
+                <span style="padding-right:10px;">阅读: <span id="/posts/gis-convex-hull-and-more/" class="waline-visitor-count" ></span></span>
+                <span style="padding-right:10px;">评论: <span id="/posts/gis-convex-hull-and-more/" class="waline-comment-count" ></span></span>
+                <span style="padding-right:10px;">约 2680 字</span>
+                <span style="padding-right:10px;">预计阅读 6 分钟</span></div>
+        </div><div class="featured-image-preview-post " style="background-image: url(/covers/9.jpeg);">
+                
+            </div><div class="details toc open" id="toc-static"  kept="true">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-最小凸包-convex-hull">1. 最小凸包 convex hull</a>
+      <ul>
+        <li><a href="#11-凸包的定义convex">1.1 凸包的定义（convex）</a></li>
+        <li><a href="#12-最小凸包的定义-convex-hull">1.2 最小凸包的定义 convex hull</a></li>
+        <li><a href="#13-特性或用途">1.3 特性或用途</a></li>
+        <li><a href="#14-凸包计算步骤滚球法">1.4 凸包计算步骤（滚球法）</a></li>
+      </ul>
+    </li>
+    <li><a href="#2-凹包-concave-hull">2. 凹包 concave hull</a>
+      <ul>
+        <li><a href="#21-凹包定义">2.1 凹包定义</a></li>
+        <li><a href="#22-凹包用途">2.2 凹包用途</a></li>
+        <li><a href="#23--凹包计算步骤滚球法">2.3  凹包计算步骤（滚球法）</a></li>
+        <li><a href="#24-改进凹包计算自动伸缩滚球法">2.4. 改进凹包计算（自动伸缩滚球法）</a></li>
+      </ul>
+    </li>
+    <li><a href="#3-内凸包">3. 内凸包</a>
+      <ul>
+        <li><a href="#31-内凸包定义">3.1 内凸包定义</a></li>
+        <li><a href="#32-内凸包场景">3.2 内凸包场景</a></li>
+        <li><a href="#33-内凸包计算步骤">3.3 内凸包计算步骤</a></li>
+      </ul>
+    </li>
+    <li><a href="#4-群讨论">4. 群讨论</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content heti" id="content"><h2 id="1-最小凸包-convex-hull">1. 最小凸包 convex hull</h2>
+<h3 id="11-凸包的定义convex">1.1 凸包的定义（convex）</h3>
+<ul>
+<li>几何定义：
+<ul>
+<li>如果一个面是 convex，那它边上的任意两点相连出来的线段都落在面的内部。</li>
+<li>如果一个面是 convex，那它内部任意两点相连都将面划分为半空间 <a href="https://en.wikipedia.org/wiki/Half-space_%28geometry%29" target="_blank" rel="noopener noreffer">half-space</a></li>
+</ul>
+</li>
+<li>表象：所有两个边所成的内边角不大于180度</li>
+<li>通俗的表象：将点的集合看成一根根柱子，用一根皮筋圈套住所有的柱子形成的皮筋形状就是凸包的形状。</li>
+</ul>
+<p>
+<image src="/convex-hull/1.png" style="width:400px;border-width:3px; border-color:#666;border-style:solid;"/>
+</p>
+<image src="/convex-hull/2.png" style="width:400px;border-width:3px; border-color:#666;border-style:solid;"/>
+<h3 id="12-最小凸包的定义-convex-hull">1.2 最小凸包的定义 convex hull</h3>
+<p>针对一群点的集合，其最小面积的包含所有点的凸集合形成的面</p>
+<image src="/convex-hull/3.png" style="width:400px;border-width:3px; border-color:#666;border-style:solid;"/>
+<h3 id="13-特性或用途">1.3 特性或用途</h3>
+<ul>
+<li>凸包是一个确定的、包容的、平滑的、优雅的图形。</li>
+<li>实际上凹包用的更多。。。</li>
+</ul>
+<h3 id="14-凸包计算步骤滚球法">1.4 凸包计算步骤（滚球法）</h3>
+<image src="/convex-hull/4.png" style="width:400px;border-width:3px; border-color:#666;border-style:solid;"/>
+<ul>
+<li>求极心 P0</li>
+<li>找出屏幕最左边的一个点，这个点一定是凸包边的一部分</li>
+<li>选中 P1，寻找下一个点 P2
+<ul>
+<li>求极心到上一个选中的点的角度 P0-&gt;P1，目的是作为内外侧判断的基准</li>
+<li>用已选定的点轮训所有的点，求角度 P1-&gt;P2，然后求P1-&gt;P2与P0-&gt;P1的角度差</li>
+<li>选中角度差最小的点 P2</li>
+<li>使用 P2 循环以上过程</li>
+</ul>
+</li>
+</ul>
+<image src="/convex-hull/8.png" style="width:700px; border-width:3px; border-color:#666;border-style:solid;"/>
+<image src="/convex-hull/9.png" style="width:700px; border-width:3px; border-color:#666;border-style:solid;"/>
+<p>演算视频：</p>
+<p><video src="/convex-hull/10.mp4" style="width:600px; border-width:3px; border-color:#666;border-style:solid;" controls autoplay muted /></p>
+<h2 id="2-凹包-concave-hull">2. 凹包 concave hull</h2>
+<h3 id="21-凹包定义">2.1 凹包定义</h3>
+<ul>
+<li>没有明确的定义，也没有唯一值</li>
+<li>可以这样定义：Concave Hull 函数创建一个多边形，该多边形表示一组数据点所占据的区域。</li>
+</ul>
+<image src="/convex-hull/7.png" style="width:500px;border-width:3px; border-color:#666;border-style:solid;"/>
+<p>
+<image src="/convex-hull/11.png" style="width:500px;border-width:3px; border-color:#666;border-style:solid;"/>
+</p>
+<p>
+<image src="/convex-hull/12.png" style="width:500px;border-width:3px; border-color:#666;border-style:solid;"/>
+</p>
+<h3 id="22-凹包用途">2.2 凹包用途</h3>
+<p>凹包虽然是一个没有唯一值和明确定义的图形，但是它实际上比凸包使用场景甚至更广泛。因为他代表的是尽量真实的一组点所占据的区域。</p>
+<p>例如：现有一个较为密集的记录时间、位置的用户行驶轨迹数据，获取尽量准确的用户活动发生区域</p>
+<p>回到这张图，也可以非常准确的表达这个需求，在这个场景下，凸包实际上对需求的表达不是很准确，而尽量逼近的凹包才是我们想要的。</p>
+<p>
+<image src="/convex-hull/13.png" style="width:500px;border-width:3px; border-color:#666;border-style:solid;"/>
+</p>
+<p>又例如我之前做过的一个功能，在纵横交错的N条不规则的水平和垂直道路中，求任意四条的合围，把横着的路变成面，竖着的路变成面，最终取交集，这里怎么把很多条很复杂的线变成面，就需要用到凹包，凸包在这里完全发挥不了作用。</p>
+<p>
+<image src="/convex-hull/14.png" style="width:500px;border-width:3px; border-color:#666;border-style:solid;"/>
+</p>
+<h3 id="23--凹包计算步骤滚球法">2.3  凹包计算步骤（滚球法）</h3>
+<p>
+<image src="/convex-hull/5.gif" style="width:500px;border-width:3px; border-color:#666;border-style:solid;"/>
+</p>
+<image src="/convex-hull/6.png" style="width:500px;border-width:3px; border-color:#666;border-style:solid;"/>
+<ul>
+<li>求极心 P0</li>
+<li>找出屏幕最左边的一个点，这个点作为凹包边的一部分 P1</li>
+<li>选中 P1，进入寻找 P2 的逻辑
+<ul>
+<li>滚球法使用的球的半径，实际上代表的是一个扫描范围</li>
+<li>所以，下一步以 P1 为圆心，过滤出来固定半径范围内的点：nearestPoints。</li>
+<li>遍历 nearestPoints，以 P0-&gt;P1 角度为基准，逆时针旋转寻找最近的点。
+<ul>
+<li>假设当前遍历到 P2</li>
+<li>计算 P1-&gt;P2 的角度，然后比对 P0-&gt;P1和 P1-&gt;P2 在逆时针上最接近的 P2</li>
+</ul>
+</li>
+<li>最终遍历结束后，逆时针角度最小的点就是要寻找的 P2</li>
+<li>一直执行，直到回到起点或者执行完了一周的遍历</li>
+</ul>
+</li>
+</ul>
+<p>注意，凹包的特性如下：</p>
+<ul>
+<li>凹包不是唯一的。</li>
+<li>调节滚球的半径，可以获得不同的结果，什么时候用什么样的半径？不太好确定。</li>
+<li>如果点一会比较集中一会比较离散，很容易断线，也就是在一个 P1 中，球滚了一圈还没有结果，这时候要么提高滚球半径，要么就会得到一个不完全的凹包。</li>
+<li>提高滚球半径，会导致密集区域无法紧贴集合的边缘，二者矛盾。</li>
+</ul>
+<h3 id="24-改进凹包计算自动伸缩滚球法">2.4. 改进凹包计算（自动伸缩滚球法）</h3>
+<p>对于密集程度比较平均的集合，上述方法还算有效，但是当你拿到的是一个密集程度不均匀的集合的时候，你会发现这种普通滚球基本很难起作用。（实际上上面那个袜子图就是个很极端的均匀集合，现实情况远比这个复杂）</p>
+<p>例如下图中的点，它们会在某些区域集中聚集，在其他位置又非常离散，如果使用上述的滚球法，你会遇到以下矛盾：</p>
+<ul>
+<li>1.设置比较大的半径，否则你根本滚不到离散的点。</li>
+<li>2.如果设置比较大的半径，你无法在密集点处滚出尽量多的点到凹包边中，因为直接就会被远处的角度更小的点卡主，跳过密集的点。</li>
+</ul>
+<p>
+<image src="/convex-hull/15.png" style="width:500px;border-width:3px; border-color:#666;border-style:solid;"/>
+</p>
+<p>所以，我们引入自动调节滚球半径的机制，在初始的时候我们设置尽量小的半径，以使我们尽量贴近细节的边缘前进，但是在比较稀疏的位置，我们会尝试不断拉长球的半径，直到获取到下一个合理的点，并回到原始球的大小，继续前进。</p>
+<p>改进后的流程如下：</p>
+<ul>
+<li>求极心 P0</li>
+<li>找出屏幕最左边的一个点，这个点作为凹包边的一部分 P1</li>
+<li>选中 P1，进入寻找 P2 的逻辑
+<ul>
+<li>滚球法使用的球的半径 step（初始值100米），实际上代表的是一个扫描范围</li>
+<li>所以，下一步以 P1 为圆心，过滤出来固定半径范围内的点：nearestPoints。</li>
+<li>遍历 nearestPoints，以 P0-&gt;P1 角度为基准，逆时针旋转寻找最近的点。
+<ul>
+<li>假设当前遍历到 P2</li>
+<li>计算 P1-&gt;P2 的角度，然后比对 P0-&gt;P1和 P1-&gt;P2 在逆时针上最接近的 P2</li>
+<li>不同：此处需加入一个过滤逻辑，我们不需要角度过小的点，因为接下去我们新增了增加滚球半径的逻辑</li>
+<li>不同：过滤逻辑，P1-&gt;P2的角度 与上一个被确定的点的角度 P1-&gt;Plast 差不能小于50，小于50的直接去掉</li>
+</ul>
+</li>
+<li>不同：如果遍历结束最终我们没有得到 P2（经过过滤），进入递归，将 step 增加，然后继续以上一个被选中的点为 P1，寻找 P2</li>
+<li>不同：如果还没有，继续以上，将step继续增加，直到找到一个点</li>
+<li>最终递归+遍历结束后，逆时针角度最小的点就是要寻找的 P2</li>
+<li>一直执行，直到回到起点或者执行完了一周的遍历</li>
+</ul>
+</li>
+</ul>
+<p>演算视频：</p>
+<p><video src="/convex-hull/16.mp4" style="width:700px; border-width:3px; border-color:#666;border-style:solid;" controls autoplay muted /></p>
+<h2 id="3-内凸包">3. 内凸包</h2>
+<h3 id="31-内凸包定义">3.1 内凸包定义</h3>
+<ul>
+<li>凹包没有明确的定义，内凸包也没有明确的定义</li>
+<li>内凸包没有唯一值</li>
+<li>内凸包的凸包不一定是绝对的凸包</li>
+<li>网上关于内凸包的资料很少，讨论也比较少</li>
+<li>我是这样理解内凸包的：在点的集合的一处塞入一个气球，给气球充气，在某个时刻，气球挤出去的形状就是内凸包。。</li>
+<li>内凸包有一个中心参考点（气球的起点）</li>
+</ul>
+<p>
+<image src="/convex-hull/17.png" style="width:600px;border-width:3px; border-color:#666;border-style:solid;"/>
+</p>
+<h3 id="32-内凸包场景">3.2 内凸包场景</h3>
+<p>如下图，实现一个当鼠标在一群点中移动的时候，能够识别出内凸包，之后可以快速用比较合理的形状填充空白区域。</p>
+<p>
+<image src="/convex-hull/18.png" style="width:600px;border-width:3px; border-color:#666;border-style:solid;"/>
+</p>
+<h3 id="33-内凸包计算步骤">3.3 内凸包计算步骤</h3>
+<p>内凸包的计算方式和凹包非常相似，我们直接采用滚球法和自动伸缩半径的方式来计算。</p>
+<p>不过不同的是滚球不是在外围滚，而是在内部滚，要注意滚的方向。</p>
+<ul>
+<li>设鼠标位置为 P0,P0 位于内凸包内</li>
+<li>以 P0 为中心，对所有点计算其距离 P0-&gt;P，记录到每个点的信息中</li>
+<li>找出 P0-&gt;P 距离最短的点作为起点 P1，这个点一定是内凸包边上的点。</li>
+<li>选中 P1，进入寻找 P2 的逻辑
+<ul>
+<li>滚球法使用的球的半径 step（初始值100米），实际上代表的是一个扫描范围</li>
+<li>所以，下一步以 P1 为圆心，过滤出来固定半径范围 step 内的点：nearestPoints。</li>
+<li>遍历 nearestPoints，以 P0-&gt;P1 角度为基准，逆时针旋转寻找最近的点。
+<ul>
+<li>假设当前遍历到 P2</li>
+<li>计算 P1-&gt;P2 的角度，然后比对 P1-&gt;P0 和 P1-&gt;P2 在逆时针上最接近的 P2</li>
+<li>此处需加入一个过滤逻辑，我们只需要凸包，任何凹陷都要过滤掉</li>
+<li>过滤逻辑，P1-&gt;P2的角度 与上一个被确定的点的角度 P1-&gt;Plast 的角度不能大于180度，大于180度则过滤</li>
+</ul>
+</li>
+<li>如果遍历结束最终我们没有得到 P2（经过过滤），进入递归，将 step 增加，然后继续以上一个被选中的点为 P1，寻找 P2</li>
+<li>如果还没有，继续以上，将 step 继续增加，直到找到一个点</li>
+<li>最终递归+遍历结束后，逆时针角度最小的点就是要寻找的 P2</li>
+<li>一直执行，直到回到起点或者执行完了一周的遍历</li>
+</ul>
+</li>
+</ul>
+<p>示意如下：</p>
+<p>
+<image src="/convex-hull/19.png" style="width:600px;border-width:3px; border-color:#666;border-style:solid;"/>
+</p>
+<p>演算视频：</p>
+<p><video src="/convex-hull/20.mp4" style="width:700px; border-width:3px; border-color:#666;border-style:solid;" controls autoplay muted /></p>
+<h2 id="4-群讨论">4. 群讨论</h2>
+<p>
+<image src="/convex-hull/30.png" style="width:600px;border-width:3px; border-color:#666;border-style:solid;"/>
+</p></div>
+
+        <div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-02-17</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="#" onclick="return false;" title="分享到 微博" data-sharer="weibo" data-url="https://yootou.com/posts/gis-convex-hull-and-more/" data-title="GIS 计算中的凸包、凹包、内凸包等问题求解" data-image="/covers/9.jpeg"><i class="fab fa-weibo fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/tools-recommend-1/" class="prev" rel="prev" title="工具&amp;产品推荐#1 geogebra &amp;&amp; rawpixel"><i class="fas fa-angle-left fa-fw"></i>工具&amp;产品推荐#1 geogebra &amp;&amp; rawpixel</a>
+            <a href="/posts/about-me/" class="next" rel="next" title="关于我">关于我<i class="fas fa-angle-right fa-fw"></i></a></div>
+    <script src="/client.js"></script>
+    <div style="clear: both;margin-top:20px;"></div>
+    <div id="waline"></div>
+<script>
+Waline({
+  el: '#waline',
+  serverURL: 'https://comment-weld.vercel.app',
+  visitor: true, 
+});
+</script>
+</div>
+</article></div>
+        </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2021 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank" rel="noopener noreferrer"></a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+                    <span class="icp"><a href='https://beian.miit.gov.cn/'>浙ICP备12047043号-10</a></span></div>
+        </div></footer>
+</div>
+
+    <div id="fixed-buttons"><a href="#back-to-top" id="back-to-top-button" class="fixed-button" title="回到顶部">
+            <i class="fas fa-arrow-up fa-fw"></i>
+        </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+            <i class="fas fa-comment fa-fw"></i>
+        </a>
+    </div><div class="assets"><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/topbar/topbar.min.js"></script><script type="text/javascript" src="/lib/pjax/pjax.min.js"></script><script type="text/javascript" src="/js/theme.min.js"></script></div>
+
+<div class="pjax-assets"><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/typeit/typeit.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":100},"comment":{},"data":{"desktop-header-typeit":"芋头乱炖","mobile-header-typeit":"芋头乱炖"},"sharerjs":true,"typeit":{"cursorChar":null,"cursorSpeed":null,"data":{"desktop-header-typeit":["desktop-header-typeit"],"mobile-header-typeit":["mobile-header-typeit"]},"duration":null,"speed":null}};</script></div>
+</body>
+
+</html>

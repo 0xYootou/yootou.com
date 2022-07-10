@@ -1,14 +1,14 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>工具 - 分类 - 芋头乱炖，一只普通程序员的自留地</title>
-        <link>http://example.org/categories/%E5%B7%A5%E5%85%B7/</link>
+        <link>https://yootou.com/categories/%E5%B7%A5%E5%85%B7/</link>
         <description>工具 - 分类 - 芋头乱炖，一只普通程序员的自留地</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sat, 05 Feb 2022 10:00:00 &#43;0000</lastBuildDate><atom:link href="http://example.org/categories/%E5%B7%A5%E5%85%B7/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sat, 05 Feb 2022 10:00:00 &#43;0000</lastBuildDate><atom:link href="https://yootou.com/categories/%E5%B7%A5%E5%85%B7/" rel="self" type="application/rss+xml" /><item>
     <title>工具&amp;产品推荐#1 geogebra &amp;&amp; rawpixel</title>
-    <link>http://example.org/posts/tools-recommend-1/</link>
+    <link>https://yootou.com/posts/tools-recommend-1/</link>
     <pubDate>Sat, 05 Feb 2022 10:00:00 &#43;0000</pubDate><author>
         <name>作者</name>
-    </author><guid>http://example.org/posts/tools-recommend-1/</guid>
+    </author><guid>https://yootou.com/posts/tools-recommend-1/</guid>
     <description><![CDATA[<div class="featured-image">
                 <img src="/covers/3.jpeg" referrerpolicy="no-referrer">
             </div>前言 本系列不定期向大家推荐我日常工作和学习中使用到的一些工具，尽量只介绍大家不常见但是很有用或者很有意思的工具，希望对大家能够有所帮助。 工具：几何画图工具 geogebra.org 平常做 GIS 相关的项目，有时候会涉及到一些几何的算法之类的，需要画一些坐标做分析，之前我都是在纸上画，但是画来画去，如果太复杂，就乱套了，而且不能擦除，非常不方便，最后涂来涂去已经不记得现在的结果是什么了，后来就找了一下，发现了这个工具 geogebra： https://www.geogebra.org/geometry 这个工具非常简洁，他不做计算，就是作图，我相信做几何分析的职业或者老师，应该会需要这个工具，我是准备用这个工具来做 ppt 里的分析步骤的图片，之前都是自己用设计工具画，调整起来非常不方便。 而且这个工具，支持 pc 和 mobile，而且有原生的 app，随时随地做图，很方便。 截图： 网站：简约设计素材网站 rawpixel.com https://www.rawpixel.com/ 不知道大家发现没有，本站的题图风格是比较一致的，大部分文章的头图都是简单的抽象画，使用比较明艳的色彩]]></description>

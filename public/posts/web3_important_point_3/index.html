@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noodp" />
+    <title class="pjax-title">以太坊(Web3)DAPP前端开发要点#3 连接钱包和发起交易 - 芋头乱炖，一只普通程序员的自留地</title><meta name="Description" content=""><meta property="og:title" content="以太坊(Web3)DAPP前端开发要点#3 连接钱包和发起交易" />
+<meta property="og:description" content="概述 如何开发一个以太坊的 dapp？本系列将尽量以比较详细的方式介绍一个 dapp 开发中需要掌握的基本概念和其核心用法。 本系列会不定时更新，有想了解的问题可以在此博文下留言，我会加入到系列文章内容中。本人也接触此领域不久，不保证以下所有做法都是最佳实践。 本系列涉及的合约为了方便大家学习，直接内置了一个私钥、一个账户地址、一个合约地址，请大家不要做破坏性的使用 合约项目地址：https://github.com/yu-tou/eth-self-token-example 前端项目地址： 本文内容 本文为了尽量让用户理解在前端代码中连接钱包和合约的细节，而不只是复刻和使用封装库，所以尽量使用前端框架无关的方式连接钱包和合约。 本文内容大致如下： 为什么需要独立的钱包？ 准备abi、typechain和网络配置 连接钱包 网络检测 等待连接 获取 provider 获取账号信息 请求合约数据（读 发起交易 等待结果 事件监听 以下话题放在下一篇内容中分享" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://yootou.com/posts/web3_important_point_3/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-02-23T09:00:00+00:00" />
+<meta property="article:modified_time" content="2022-02-23T09:00:00+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="以太坊(Web3)DAPP前端开发要点#3 连接钱包和发起交易"/>
+<meta name="twitter:description" content="概述 如何开发一个以太坊的 dapp？本系列将尽量以比较详细的方式介绍一个 dapp 开发中需要掌握的基本概念和其核心用法。 本系列会不定时更新，有想了解的问题可以在此博文下留言，我会加入到系列文章内容中。本人也接触此领域不久，不保证以下所有做法都是最佳实践。 本系列涉及的合约为了方便大家学习，直接内置了一个私钥、一个账户地址、一个合约地址，请大家不要做破坏性的使用 合约项目地址：https://github.com/yu-tou/eth-self-token-example 前端项目地址： 本文内容 本文为了尽量让用户理解在前端代码中连接钱包和合约的细节，而不只是复刻和使用封装库，所以尽量使用前端框架无关的方式连接钱包和合约。 本文内容大致如下： 为什么需要独立的钱包？ 准备abi、typechain和网络配置 连接钱包 网络检测 等待连接 获取 provider 获取账号信息 请求合约数据（读 发起交易 等待结果 事件监听 以下话题放在下一篇内容中分享"/>
+<meta name="application-name" content="芋头乱炖，一只普通程序员的自留地">
+<meta name="apple-mobile-web-app-title" content="芋头乱炖，一只普通程序员的自留地">
+
+<meta name="theme-color" content="#f8f8f8"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="canonical" href="https://yootou.com/posts/web3_important_point_3/" /><link rel="prev" href="https://yootou.com/posts/gis-convex-hull-and-more/" /><link rel="next" href="https://yootou.com/posts/about-me/" /><link rel="stylesheet" href="https://yootou.com/lib/normalize/normalize.min.8235a67a2521ef99fb1e455a5891b022af1653b4ede3cfffcac4e473beee88fbcc1a36bbb3cfdd75fd6df46732032f9d96e30adae9c88b769e1fbf7945cd27e0.css"><link rel="stylesheet" href="https://yootou.com/css/style.min.ccda882d27016d5492a07313a9a2a0cd7c7b78f87ab62005e713037791d59ccda6c2f953089e56386531d9ea851e9f0072bc92db050bcb89b16037ce0b54f85f.css"><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/fontawesome-free/all.min.css">
+    <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/animate/animate.min.css">
+    <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-KQJK254');</script>
+    
+
+    <meta name="google-site-verification" content="9i1I8fxXVrNLWPoZxLCneiA6u1j9znyl8KgHuUY7kbI" /><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "以太坊(Web3)DAPP前端开发要点#3 连接钱包和发起交易",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/yootou.com\/posts\/web3_important_point_3\/"
+        },"genre": "posts","wordcount":  1558 ,
+        "url": "https:\/\/yootou.com\/posts\/web3_important_point_3\/","datePublished": "2022-02-23T09:00:00+00:00","dateModified": "2022-02-23T09:00:00+00:00","publisher": {
+            "@type": "Organization",
+            "name": "作者"},"author": {
+                "@type": "Person",
+                "name": "作者"
+            },"description": ""
+    }
+    </script></head>
+
+<body header-desktop="" header-mobile=""><script type="text/javascript">
+        function setTheme(theme) {document.body.setAttribute('theme', theme);}
+        function saveTheme(theme) {window.localStorage && localStorage.setItem('theme', theme);}
+        function getMeta(metaName) {const metas = document.getElementsByTagName('meta'); for (let i = 0; i < metas.length; i++) if (metas[i].getAttribute('name') === metaName) return metas[i]; return '';}
+        if (window.localStorage && localStorage.getItem('theme')) {let theme = localStorage.getItem('theme');theme === 'light' || theme === 'dark' || theme === 'black' ? setTheme(theme) : (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? setTheme('dark') : setTheme('light')); } else { if ('' === 'light' || '' === 'dark' || '' === 'black') setTheme(''), saveTheme(''); else saveTheme('auto'), window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? setTheme('dark') : setTheme('light');}
+        let metaColors = {'light': '#f8f8f8','dark': '#252627','black': '#000000'}
+        getMeta('theme-color').content = metaColors[document.body.getAttribute('theme')];
+    </script>
+    <div id="back-to-top"></div>
+    <div id="mask"></div><div class="wrapper"><div style="display: none"><img src="/android-chrome-512x512.png" width="320" height="320"/></div>
+<header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="芋头乱炖，一只普通程序员的自留地"><img
+        class="lazyload logo"
+        data-src="/logo.png"
+        alt="/logo.png"
+        title="/logo.png"
+    /><span id="desktop-header-typeit" class="typeit"></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><a href="#" onclick="return false;" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a></div>
+        </div>
+    </div>
+</header><div style="display: none"><img src="/android-chrome-512x512.png" width="320" height="320"/></div>
+<header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="芋头乱炖，一只普通程序员的自留地"><img
+        class="lazyload logo"
+        data-src="/logo.png"
+        alt="/logo.png"
+        title="/logo.png"
+    /><span id="mobile-header-typeit" class="typeit"></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/categories/" title="">分类</a><a href="#" onclick="return false;" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+            <div class="container"><script src="/qrcode.js"></script><div class="toc" id="toc-auto">
+        <h2 class="toc-title">目录</h2>
+        <div class="toc-content" id="toc-content-auto"></div>
+        
+        
+    </div><script>document.getElementsByTagName("main")[0].setAttribute("pageStyle", "normal")</script><script>document.getElementsByTagName("main")[0].setAttribute("autoTOC", "false")</script><article class="page single"><h1 class="single-title animate__animated animate__flipInX">以太坊(Web3)DAPP前端开发要点#3 连接钱包和发起交易</h1><div class="post-meta">
+            <div class="post-meta-line">
+                
+                
+                
+
+                
+            </div>
+            <div class="post-meta-line"><span style="padding-right:10px;"><time datetime="2022-02-23">2022-02-23</time> </span>
+                <span style="padding-right:10px;">阅读: <span id="/posts/web3_important_point_3/" class="waline-visitor-count" ></span></span>
+                <span style="padding-right:10px;">评论: <span id="/posts/web3_important_point_3/" class="waline-comment-count" ></span></span>
+                <span style="padding-right:10px;">约 1558 字</span>
+                <span style="padding-right:10px;">预计阅读 4 分钟</span></div>
+        </div><div class="featured-image-preview-post " style="background-image: url(/covers/11.jpeg);">
+                
+            </div><div class="details toc open" id="toc-static"  kept="true">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#概述">概述</a></li>
+    <li><a href="#本文内容">本文内容</a></li>
+    <li><a href="#正文">正文</a>
+      <ul>
+        <li><a href="#1-为什么需要独立的钱包">1. 为什么需要独立的钱包？</a></li>
+        <li><a href="#2-准备abitypechain和网络配置">2. 准备abi、typechain和网络配置</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content heti" id="content"><h2 id="概述">概述</h2>
+<p>如何开发一个以太坊的 dapp？本系列将尽量以比较详细的方式介绍一个 dapp 开发中需要掌握的基本概念和其核心用法。</p>
+<p>本系列会不定时更新，有想了解的问题可以在此博文下留言，我会加入到系列文章内容中。本人也接触此领域不久，不保证以下所有做法都是最佳实践。</p>
+<p>本系列涉及的合约为了方便大家学习，直接内置了一个私钥、一个账户地址、一个合约地址，请大家不要做破坏性的使用</p>
+<p>合约项目地址：<a href="https://github.com/yu-tou/eth-self-token-example" target="_blank" rel="noopener noreffer">https://github.com/yu-tou/eth-self-token-example</a></p>
+<p>前端项目地址：</p>
+<h2 id="本文内容">本文内容</h2>
+<p>本文为了尽量让用户理解在前端代码中连接钱包和合约的细节，而不只是复刻和使用封装库，所以尽量使用前端框架无关的方式连接钱包和合约。</p>
+<p>本文内容大致如下：</p>
+<ol>
+<li>为什么需要独立的钱包？</li>
+<li>准备abi、typechain和网络配置</li>
+<li>连接钱包</li>
+<li>网络检测</li>
+<li>等待连接</li>
+<li>获取 provider</li>
+<li>获取账号信息</li>
+<li>请求合约数据（读</li>
+<li>发起交易</li>
+<li>等待结果</li>
+<li>事件监听</li>
+</ol>
+<p>以下话题放在下一篇内容中分享：</p>
+<ol>
+<li>其他钱包连接</li>
+<li>不用钱包能不能在前端发起交易？</li>
+<li>什么时候需要 approve 操作？如何理解 approve 操作？如何优雅处理 approve？</li>
+<li>gas limit 如何处理？</li>
+<li>错误信息如何显示？</li>
+<li>如何获取交易记录？</li>
+</ol>
+<h2 id="正文">正文</h2>
+<h3 id="1-为什么需要独立的钱包">1. 为什么需要独立的钱包？</h3>
+<p>经过上一篇文章的介绍，大家应该已经了解了使用 web3.js 或者 ethers.js 连接合约的操作，不过之前的操作都是在 Nodejs 中执行的，理论上只适用于在服务器上运行或者在开发部署阶段使用，正常用户在浏览器中看到的页面中，连接合约的方式还是有一些差异的，本文就是总结这部分内容。</p>
+<p>本文依然使用 web3.js 和 ethers.js 这两个库，事实上我们只需要其中之一，我们以 ethers.js 为主，他在等待交易的写法、对 async/await 的支持、ts 类型等方面都更友好一些。</p>
+<p>上篇文章，我们在展示发送交易的时候，提到过 web3.js 和 ethers.js 中的 wallet 概念，也就是钱包，不过因为我们是在服务端或者本机的命令行中执行的脚本，所以我们直接在代码中创建了一个 wallet 实例，导入了一个私钥生成了一个账号，但是私钥实际上是非常隐私的信息，不能暴露给任何人，所以在浏览器中，你是不能这样操作的，也就是你不能把私钥写在代码中，也尽量不要让用户在你的网页中填写私钥（实际上用户也不敢这样做，任何让你给出私钥的网页可能都是诈骗），那你就很难在代码中生成一个 wallet 实例，也就无法连接合约发起交易。</p>
+<p>回忆一段上篇文章的代码：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="kr">const</span> <span class="nx">ethers</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&#34;ethers&#34;</span><span class="p">);</span>
+<span class="kr">const</span> <span class="nx">config</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&#34;../config&#34;</span><span class="p">);</span>
+
+<span class="kr">const</span> <span class="nx">abi</span> <span class="o">=</span>
+  <span class="nx">require</span><span class="p">(</span><span class="s2">&#34;../artifacts/contracts/YuTouMintable.sol/YuTouMintable.json&#34;</span><span class="p">).</span><span class="nx">abi</span><span class="p">;</span>
+
+<span class="kr">const</span> <span class="nx">provider</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ethers</span><span class="p">.</span><span class="nx">providers</span><span class="p">.</span><span class="nx">JsonRpcProvider</span><span class="p">(</span><span class="nx">config</span><span class="p">.</span><span class="nx">network</span><span class="p">.</span><span class="nx">url</span><span class="p">);</span>
+
+<span class="c1">// 实例化钱包，使用私钥
+</span><span class="c1"></span><span class="kr">const</span> <span class="nx">Wallet</span> <span class="o">=</span> <span class="nx">ethers</span><span class="p">.</span><span class="nx">Wallet</span><span class="p">;</span>
+<span class="kr">const</span> <span class="nx">signer</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ethers</span><span class="p">.</span><span class="nx">Wallet</span><span class="p">(</span><span class="nx">config</span><span class="p">.</span><span class="nx">private_key</span><span class="p">,</span> <span class="nx">provider</span><span class="p">);</span>
+
+<span class="c1">// 第三个参数由 provider 更改为 signer
+</span><span class="c1"></span><span class="kr">const</span> <span class="nx">contract</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ethers</span><span class="p">.</span><span class="nx">Contract</span><span class="p">(</span><span class="nx">config</span><span class="p">.</span><span class="nx">contract_address</span><span class="p">,</span> <span class="nx">abi</span><span class="p">,</span> <span class="nx">signer</span><span class="p">);</span>
+
+<span class="kr">const</span> <span class="nx">main</span> <span class="o">=</span> <span class="kr">async</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="kr">const</span> <span class="nx">balanceOf</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">contract</span><span class="p">.</span><span class="nx">balanceOf</span><span class="p">(</span><span class="nx">config</span><span class="p">.</span><span class="nx">deployer</span><span class="p">);</span>
+  <span class="c1">// 格式化一下真实的token余额
+</span><span class="c1"></span>  <span class="kr">const</span> <span class="nx">realBalanceOf</span> <span class="o">=</span> <span class="nx">ethers</span><span class="p">.</span><span class="nx">utils</span><span class="p">.</span><span class="nx">formatUnits</span><span class="p">(</span><span class="nx">balanceOf</span><span class="p">,</span> <span class="mi">8</span><span class="p">);</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;realBalanceOf&#34;</span><span class="p">,</span> <span class="nx">realBalanceOf</span><span class="p">);</span>
+
+  <span class="c1">// 此时即可发送交易
+</span><span class="c1"></span>  <span class="kr">const</span> <span class="nx">trans</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">contract</span><span class="p">.</span><span class="nx">mint</span><span class="p">(</span><span class="nx">config</span><span class="p">.</span><span class="nx">deployer</span><span class="p">,</span> <span class="mi">1024</span> <span class="o">*</span> <span class="mi">10</span> <span class="o">**</span> <span class="mi">8</span><span class="p">);</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;trans&#34;</span><span class="p">,</span> <span class="nx">trans</span><span class="p">);</span>
+  <span class="c1">// 上一句调用只是获取了交易本身的信息，这里我们继续等待交易返回，交易完全执行之后即可获取到真实的结果
+</span><span class="c1"></span>  <span class="kr">const</span> <span class="nx">result</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">trans</span><span class="p">.</span><span class="nx">wait</span><span class="p">();</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;result&#34;</span><span class="p">,</span> <span class="nx">result</span><span class="p">);</span>
+<span class="p">};</span>
+
+<span class="nx">main</span><span class="p">();</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p>实际上，这段代码在浏览器中也是可以跑的，唯一的障碍就是 <code>new ethers.Wallet(config.private_key, provider)</code> 这句话中的 private_key ，也就是私钥，私钥不能写在前端代码中，也不能让用户提供给你，所以这时候，我们就需要一个中间者，它的作用是，在应用端，替代代码中的生成 wallet 实例的操作，直接给你提供 wallet 示例，也就是 signer，另外对用户端，它帮助用户导入私钥、管理账号等，因为它是一个中立的、高信任度的、足够安全的中间者，所以用户可以将私钥提供给它管理，但是不暴露给应用或者网站，这样就可以解决上述的问题了。</p>
+<p>所以，可以将钱包理解成一个帮助用户管理私钥的工具，当用户选择将钱包连接并授权某个应用的时候，钱包用用户的私钥直接生成了一个 web3.js 的 wallet 实例，注入到当前应用的前端代码中，这时候应用就可以按照上篇文章中的方式连接合约和发起交易了。</p>
+<p>这里实际上还涉及到不少概念，如果大家有兴趣了解，可以留言，本文需要分享的内容还是有点多的，这里不再深入探讨钱包是什么了。</p>
+<h3 id="2-准备abitypechain和网络配置">2. 准备abi、typechain和网络配置</h3>
+<p>开始开发前，我们有一些内容要提前准备一下。</p>
+</div>
+
+        <div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-02-23</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="#" onclick="return false;" title="分享到 微博" data-sharer="weibo" data-url="https://yootou.com/posts/web3_important_point_3/" data-title="以太坊(Web3)DAPP前端开发要点#3 连接钱包和发起交易" data-image="/covers/11.jpeg"><i class="fab fa-weibo fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/gis-convex-hull-and-more/" class="prev" rel="prev" title="GIS 计算中的凸包、凹包、内凸包等问题求解"><i class="fas fa-angle-left fa-fw"></i>GIS 计算中的凸包、凹包、内凸包等问题求解</a>
+            <a href="/posts/about-me/" class="next" rel="next" title="关于我">关于我<i class="fas fa-angle-right fa-fw"></i></a></div>
+    <script src="/client.js"></script>
+    <div style="clear: both;margin-top:20px;"></div>
+    <div id="waline"></div>
+<script>
+Waline({
+  el: '#waline',
+  serverURL: 'https://comment-weld.vercel.app',
+  visitor: true, 
+});
+</script>
+</div>
+</article></div>
+        </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2021 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank" rel="noopener noreferrer"></a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+                    <span class="icp"><a href='https://beian.miit.gov.cn/'>浙ICP备12047043号-10</a></span></div>
+        </div></footer>
+</div>
+
+    <div id="fixed-buttons"><a href="#back-to-top" id="back-to-top-button" class="fixed-button" title="回到顶部">
+            <i class="fas fa-arrow-up fa-fw"></i>
+        </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+            <i class="fas fa-comment fa-fw"></i>
+        </a>
+    </div><div class="assets"><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/topbar/topbar.min.js"></script><script type="text/javascript" src="/lib/pjax/pjax.min.js"></script><script type="text/javascript" src="/js/theme.min.js"></script></div>
+
+<div class="pjax-assets"><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/typeit/typeit.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":100},"comment":{},"data":{"desktop-header-typeit":"芋头乱炖","mobile-header-typeit":"芋头乱炖"},"sharerjs":true,"typeit":{"cursorChar":null,"cursorSpeed":null,"data":{"desktop-header-typeit":["desktop-header-typeit"],"mobile-header-typeit":["mobile-header-typeit"]},"duration":null,"speed":null}};</script></div>
+</body>
+
+</html>

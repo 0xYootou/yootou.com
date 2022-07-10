@@ -1,16 +1,7 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>所有文章 - 芋头乱炖，一只普通程序员的自留地</title>
-        <link>http://example.org/posts/</link>
+        <link>https://yootou.com/posts/</link>
         <description>所有文章 | 芋头乱炖，一只普通程序员的自留地</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sat, 05 Feb 2022 10:00:00 &#43;0000</lastBuildDate><atom:link href="http://example.org/posts/" rel="self" type="application/rss+xml" /><item>
-    <title>以太坊(Web3)DAPP前端开发要点#1 js库选择对比</title>
-    <link>http://example.org/posts/web3_important_point/</link>
-    <pubDate>Sun, 09 Jan 2022 00:00:00 &#43;0000</pubDate><author>
-        <name>作者</name>
-    </author><guid>http://example.org/posts/web3_important_point/</guid>
-    <description><![CDATA[<div class="featured-image">
-                <img src="/eth_important/cover.jpeg" referrerpolicy="no-referrer">
-            </div>概述 如何开发一个以太坊的 dapp？本系列将尽量以比较详细的方式介绍一个 dapp 开发中需要掌握的基本概念和其核心用法。 本系列会不定时更新，有想了解的问题可以在此博文下留言，我会加入到系列文章内容中。本人也接触此领域不久，不保证以下所有做法都是最佳实践。 大概以下几个方面： 如何选择连接智能合约的js库？ 如何连接钱包以及获取钱包基本信息？ 如何实例化合约？ 如何在ts中编写强类型合约调用代码？ 如何发起交易？ 如何处理大数单位？ 何时需要 approve？ 发起交易时如何费用估算？ 如何获取交易结果？ 如何拉取交易记录？ 如何选择js库？ 连接智能合约，比较基本的可以使用 web3.js，中文文档：https://web3.tryblockchain.org/ 这个库不止是在前端可以使用，在 nodejs 脚本中也可以使用，所以一些工具会使用 web3.js 来部署合约等，它的能力还有很多，前端调用合约，发起交易只是它非常小的一部分，不过如果纯粹作为前端，实]]></description>
-</item></channel>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Thu, 17 Feb 2022 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://yootou.com/posts/" rel="self" type="application/rss+xml" /></channel>
 </rss>

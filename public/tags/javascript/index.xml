@@ -1,41 +1,41 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>JavaScript - 标签 - 芋头乱炖，一只普通程序员的自留地</title>
-        <link>http://example.org/tags/javascript/</link>
+        <link>https://yootou.com/tags/javascript/</link>
         <description>JavaScript - 标签 - 芋头乱炖，一只普通程序员的自留地</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Thu, 30 Sep 2021 23:17:00 &#43;0000</lastBuildDate><atom:link href="http://example.org/tags/javascript/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Thu, 30 Sep 2021 23:17:00 &#43;0000</lastBuildDate><atom:link href="https://yootou.com/tags/javascript/" rel="self" type="application/rss+xml" /><item>
     <title>如何在浏览器 console 控制台中播放视频？</title>
-    <link>http://example.org/posts/display-video-in-console/</link>
+    <link>https://yootou.com/posts/display-video-in-console/</link>
     <pubDate>Thu, 30 Sep 2021 23:17:00 &#43;0000</pubDate><author>
         <name>芋头</name>
-    </author><guid>http://example.org/posts/display-video-in-console/</guid>
+    </author><guid>https://yootou.com/posts/display-video-in-console/</guid>
     <description><![CDATA[<div class="featured-image">
                 <img src="/display-video-in-console/cover.jpeg" referrerpolicy="no-referrer">
             </div>如何在浏览器 console 控制台中播放视频？ 要实现这个目标，主要涉及到这几个点： 如何获取和解析视频流？ 如何在 console 里播放动态内容？ 如何在 console 里播放彩色内容？ 如何连接视频流和 console？ 事实上最后的代码极其简单，我们就一步一步简单讲一下 效果 测试地址：https://yu-tou.github.io/colors-web/dist/camera.html 如何获取和解析视频流？ 这里我们用电脑摄像头捕获视频流，然后获取视频流每一帧的图像数据，作为下一步的输入。 1 2 3 4 5 6 7 8 9 10 11 12 13 14 // 捕捉电脑摄像头的视频流 const mediaStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true, }); // 创建一个 video 标签 const video = document.createElement(&#34;video&#34;); document.body.appendChild(video); video.onloadedmetadata = function (e) { video.play(); // 等摄像头数据加载完成后，开始播放 }; // video 标签播放视频流 video.srcObject = mediaStream; 如何获取每一帧图像的数据？创建一个 canvas 画布，可以将 video 当前的内容绘制到画布上，然后通过 canvas 的方法即可拿到图像的像素数据。 1 2 3 4 5 6 7 8 const ctx = canvas.getContext(&#34;2d&#34;); canvas.width = width; canvas.height = height; ctx.drawImage(video, 0, 0, width, height); const imageData = ctx.getImageData(0, 0, width, height); const data = imageData.data; // imageData 的]]></description>
 </item><item>
     <title>Mysql 8.0 中存储 gis 数据的正确姿势</title>
-    <link>http://example.org/posts/mysql8-gis-srid/</link>
+    <link>https://yootou.com/posts/mysql8-gis-srid/</link>
     <pubDate>Sun, 01 Aug 2021 23:17:00 &#43;0000</pubDate><author>
         <name>芋头</name>
-    </author><guid>http://example.org/posts/mysql8-gis-srid/</guid>
+    </author><guid>https://yootou.com/posts/mysql8-gis-srid/</guid>
     <description><![CDATA[<div class="featured-image">
                 <img src="/mysql8-gis-srid/cover.jpg" referrerpolicy="no-referrer">
             </div>请为列指定 SRID 如果你想要在使用一些 spatial function 的时候获得尽可能精确的值，请务必为您的数据库中的 geometry 列指定 SRID，如 st_area st_distance 等。否则您将获得直角坐标上的距离，而不是真实的值，另外在 mysql 老版本中，不指定 SRID（默认为 0），可以使用某些计算函数，但是在 mysql 中，某些函数必须指定 SRID，也要求被计算的列必须指定 SRID。 什么是 SRID？ SRID 指定的是 spatial 数据的坐标系，地理数据中一个最重要的指标就是坐标系，没有坐标系，就不存在经纬度，不存在投影，不存在地心，不存在真实距离，一切将会变为平面坐标，与真实地理信息天差地别。 SRID 坐标系定义了什么？ 简单来说，这里不展开，坐标系定义了，大地水准面 -&gt; 椭球体 -&gt; 大地基准面，他们分别是海平面、地球形状和球心、球心偏移等，在每个尺度和地区，这些值都在发生变化，所以会定义不同的坐标系，以尽量消除误差。 最常用的 SRID 是什么？ 在服务端，通常存储数据都是使用 4326 的 SRID，在前端，地图渲染使用 3857 坐标系（代表]]></description>
 </item><item>
     <title>点到任意折线组的最短距离（及 turf.js 的实现解析）</title>
-    <link>http://example.org/posts/turf-point-line-distance/</link>
+    <link>https://yootou.com/posts/turf-point-line-distance/</link>
     <pubDate>Thu, 01 Apr 2021 23:44:00 &#43;0000</pubDate><author>
         <name>芋头</name>
-    </author><guid>http://example.org/posts/turf-point-line-distance/</guid>
+    </author><guid>https://yootou.com/posts/turf-point-line-distance/</guid>
     <description><![CDATA[<div class="featured-image">
                 <img src="/turf-poin-line-distance/cover.jpg" referrerpolicy="no-referrer">
             </div>问题定义： 有一点 Pt，有一任意长度和形状的折线 L： [[P1,P2],[p2,p3],[p3,p4]…] 求 Pt 与折线 L 的最近距离 N 问题澄清： 注意：折线 L 上离 Pt 最近的点，必然在折线上 使用场景： 对行车轨迹进行贴路修正，轨迹点与路上最短的距离的点既是修正后的点。 问题分析： 假设我们还不知道最终答案，甚至还不知晓解题思路（已经知道的同学先不急，这个题其实的确很简单） 我们先画个图分析下可能的思路，按照题目，我们画一个比较“复杂的场景” 其实这个题简单的地方就是，当你把图画出来，基本靠人眼可以一眼判断出答案，如上图，L 中距离 Pt 最近的点很容易用肉眼找到。 事实上，要找出点到折线的最短距离，必然需要遍历整条折线，计算某条线段与点之间的距离，并取其中最小的值。 那如何判断一个点到一条线段的最小距离？这里其实是这道题目最核心的逻辑，基于刚才我们的提示，线段上距离点最近的点，必然在线段内，而不可超出线段之外，我们穷举下点和]]></description>
 </item><item>
     <title>JS 装饰器（Decorator）场景实战</title>
-    <link>http://example.org/posts/js-decorator-code/</link>
+    <link>https://yootou.com/posts/js-decorator-code/</link>
     <pubDate>Thu, 26 Oct 2017 22:36:00 &#43;0000</pubDate><author>
         <name>芋头</name>
-    </author><guid>http://example.org/posts/js-decorator-code/</guid>
+    </author><guid>https://yootou.com/posts/js-decorator-code/</guid>
     <description><![CDATA[<div class="featured-image">
                 <img src="/js-decorator-code/cover.jpeg" referrerpolicy="no-referrer">
             </div>本文不会大篇幅介绍装饰器（Decorator）的概念和基础用法，核心介绍我们团队如何将装饰器应用于实际开发，和一些高级用法的实现。 装饰器简介 Decorator 是 ES7 的一个新语法，正如其“装饰器”的叫法所表达的，他可以对一些对象进行装饰包装然后返回一个被包装过的对象，可以装饰的对象包括：类，属性，方法等。Decorator 的写法与 Java 里的注解（Annotation）非常类似，但是一定不要把 JS 中的装饰器叫做是“注解”，因为这两者的原理和实现的功能还是有所区别的，在 Java 中，注解主要是对某个对象进行标注，然后在运行时或者编译时，可以通过例如反射这样的机制拿到被标注的对象，对其进行一些逻辑包装。而 Decorator 的原理和作用则更为简单，就是包装对象，然后返回一个新的对象描述（descriptor），其作用也非常单一简单，基本上就是获取包装对象的宿主、键值几个有限的信息。 关于 Decorator 的详细介绍参见文章： zhuanlan.zhihu.com/F]]></description>

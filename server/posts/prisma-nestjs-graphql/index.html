@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noodp" />
+    <title class="pjax-title">Prisma &#43; NestJs &#43; GraphQL 表现层应用开发 - 芋头乱炖，一只普通程序员的自留地</title><meta name="Description" content=""><meta property="og:title" content="Prisma &#43; NestJs &#43; GraphQL 表现层应用开发" />
+<meta property="og:description" content="介绍 本文 github 项目地址：https://github.com/yu-tou/nestjs-prisma-example 这是一个 prisma &#43; nestjs &#43; graphql 的集成示例 对于开发者来说，特别是使用 graphql 的时候，只需要写非常少量的代码即可完成数据的各种操作，同时也支持接口透传。 开发&amp;部署 本地开发 npm run start:dev swagger 地址：http://localhost:3001/swagger graphql playground：http://localhost:3001/index.html 核心能力 1. prisma 集成 prisma 接管数据模型定义 prisma 提供 orm 数据操作 prisma 提供数据订正和管理 2. graphql 集成 prisma-nestjs-graphql 提供 prisma 数据模型到 graphql 类型的转换 使用 nestjs 内置的代码优先模式，使用生成的类型提供 graphql 模型 使用 graphql 模型 &#43; orm，自动通过 resolver 提供给前端访问接口 此方案中，普通和高级的增删改查基本不需要自己增加代码 3. restful api proxy 通过 swagger-to-graphql 将 openapi 接口通过 oas 文档直接转换为 graphql 定义 通过 graphqlHTTP 将请求代理到 restful 接口 此方案中，swagger 的描述无缝转换到" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://example.org/posts/prisma-nestjs-graphql/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-12-20T23:59:59+00:00" />
+<meta property="article:modified_time" content="2021-12-20T23:59:59+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Prisma &#43; NestJs &#43; GraphQL 表现层应用开发"/>
+<meta name="twitter:description" content="介绍 本文 github 项目地址：https://github.com/yu-tou/nestjs-prisma-example 这是一个 prisma &#43; nestjs &#43; graphql 的集成示例 对于开发者来说，特别是使用 graphql 的时候，只需要写非常少量的代码即可完成数据的各种操作，同时也支持接口透传。 开发&amp;部署 本地开发 npm run start:dev swagger 地址：http://localhost:3001/swagger graphql playground：http://localhost:3001/index.html 核心能力 1. prisma 集成 prisma 接管数据模型定义 prisma 提供 orm 数据操作 prisma 提供数据订正和管理 2. graphql 集成 prisma-nestjs-graphql 提供 prisma 数据模型到 graphql 类型的转换 使用 nestjs 内置的代码优先模式，使用生成的类型提供 graphql 模型 使用 graphql 模型 &#43; orm，自动通过 resolver 提供给前端访问接口 此方案中，普通和高级的增删改查基本不需要自己增加代码 3. restful api proxy 通过 swagger-to-graphql 将 openapi 接口通过 oas 文档直接转换为 graphql 定义 通过 graphqlHTTP 将请求代理到 restful 接口 此方案中，swagger 的描述无缝转换到"/>
+<meta name="application-name" content="芋头乱炖，一只普通程序员的自留地">
+<meta name="apple-mobile-web-app-title" content="芋头乱炖，一只普通程序员的自留地">
+
+<meta name="theme-color" content="#f8f8f8"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="canonical" href="http://example.org/posts/prisma-nestjs-graphql/" /><link rel="prev" href="http://example.org/posts/display-video-in-console/" /><link rel="next" href="http://example.org/posts/eth_simple_example/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/fontawesome-free/all.min.css">
+    <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/animate/animate.min.css">
+    <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Prisma + NestJs + GraphQL 表现层应用开发",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/example.org\/posts\/prisma-nestjs-graphql\/"
+        },"genre": "posts","wordcount":  1091 ,
+        "url": "http:\/\/example.org\/posts\/prisma-nestjs-graphql\/","datePublished": "2021-12-20T23:59:59+00:00","dateModified": "2021-12-20T23:59:59+00:00","publisher": {
+            "@type": "Organization",
+            "name": "芋头"},"author": {
+                "@type": "Person",
+                "name": "芋头"
+            },"description": ""
+    }
+    </script></head>
+
+<body header-desktop="" header-mobile=""><script type="text/javascript">
+        function setTheme(theme) {document.body.setAttribute('theme', theme);}
+        function saveTheme(theme) {window.localStorage && localStorage.setItem('theme', theme);}
+        function getMeta(metaName) {const metas = document.getElementsByTagName('meta'); for (let i = 0; i < metas.length; i++) if (metas[i].getAttribute('name') === metaName) return metas[i]; return '';}
+        if (window.localStorage && localStorage.getItem('theme')) {let theme = localStorage.getItem('theme');theme === 'light' || theme === 'dark' || theme === 'black' ? setTheme(theme) : (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? setTheme('dark') : setTheme('light')); } else { if ('' === 'light' || '' === 'dark' || '' === 'black') setTheme(''), saveTheme(''); else saveTheme('auto'), window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? setTheme('dark') : setTheme('light');}
+        let metaColors = {'light': '#f8f8f8','dark': '#252627','black': '#000000'}
+        getMeta('theme-color').content = metaColors[document.body.getAttribute('theme')];
+    </script>
+    <div id="back-to-top"></div>
+    <div id="mask"></div><div class="wrapper"><div style="display: none"><img src="/android-chrome-512x512.png" width="320" height="320"/></div>
+<header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="芋头乱炖，一只普通程序员的自留地"><img
+        class="lazyload logo"
+        data-src="/logo.png"
+        alt="/logo.png"
+        title="/logo.png"
+    /><span id="desktop-header-typeit" class="typeit"></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><a href="#" onclick="return false;" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a></div>
+        </div>
+    </div>
+</header><div style="display: none"><img src="/android-chrome-512x512.png" width="320" height="320"/></div>
+<header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="芋头乱炖，一只普通程序员的自留地"><img
+        class="lazyload logo"
+        data-src="/logo.png"
+        alt="/logo.png"
+        title="/logo.png"
+    /><span id="mobile-header-typeit" class="typeit"></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/categories/" title="">分类</a><a href="#" onclick="return false;" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+            <div class="container"><script src="/qrcode.js"></script><div class="toc" id="toc-auto">
+        <h2 class="toc-title">目录</h2>
+        <div class="toc-content" id="toc-content-auto"></div>
+        
+        
+    </div><script>document.getElementsByTagName("main")[0].setAttribute("pageStyle", "normal")</script><script>document.getElementsByTagName("main")[0].setAttribute("autoTOC", "false")</script><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Prisma &#43; NestJs &#43; GraphQL 表现层应用开发</h1><div class="post-meta">
+            <div class="post-meta-line">
+                
+                
+                
+
+                
+            </div>
+            <div class="post-meta-line"><span style="padding-right:10px;"><time datetime="2021-12-20">2021-12-20</time> </span>
+                <span style="padding-right:10px;">阅读: <span id="/posts/prisma-nestjs-graphql/" class="waline-visitor-count" ></span></span>
+                <span style="padding-right:10px;">评论: <span id="/posts/prisma-nestjs-graphql/" class="waline-comment-count" ></span></span>
+                <span style="padding-right:10px;">约 1091 字</span>
+                <span style="padding-right:10px;">预计阅读 3 分钟</span></div>
+        </div><div class="featured-image-preview-post " style="background-image: url(/Nodejs/cover.jpeg);">
+                
+            </div><div class="details toc open" id="toc-static"  kept="true">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#介绍">介绍</a>
+      <ul>
+        <li><a href="#开发部署">开发&amp;部署</a></li>
+        <li><a href="#核心能力">核心能力</a></li>
+        <li><a href="#开发流程">开发流程</a></li>
+      </ul>
+    </li>
+    <li><a href="#本文关联分享">本文关联分享</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content heti" id="content"><h2 id="介绍">介绍</h2>
+<p>本文 github 项目地址：https://github.com/yu-tou/nestjs-prisma-example</p>
+<p>这是一个 prisma + nestjs + graphql 的集成示例</p>
+<p>对于开发者来说，特别是使用 graphql 的时候，只需要写非常少量的代码即可完成数据的各种操作，同时也支持接口透传。</p>
+<h3 id="开发部署">开发&amp;部署</h3>
+<h4 id="本地开发">本地开发</h4>
+<p>npm run start:dev</p>
+<p>swagger 地址：http://localhost:3001/swagger</p>
+<p>graphql playground：http://localhost:3001/index.html</p>
+<h3 id="核心能力">核心能力</h3>
+<h4 id="1-prisma-集成">1. prisma 集成</h4>
+<ul>
+<li>prisma 接管数据模型定义</li>
+<li>prisma 提供 orm 数据操作</li>
+<li>prisma 提供数据订正和管理</li>
+</ul>
+<h4 id="2-graphql-集成">2. graphql 集成</h4>
+<ul>
+<li>prisma-nestjs-graphql 提供 prisma 数据模型到 graphql 类型的转换</li>
+<li>使用 nestjs 内置的代码优先模式，使用生成的类型提供 graphql 模型</li>
+<li>使用 graphql 模型 + orm，自动通过 resolver 提供给前端访问接口</li>
+<li>此方案中，普通和高级的增删改查基本不需要自己增加代码</li>
+</ul>
+<h4 id="3-restful-api-proxy">3. restful api proxy</h4>
+<ul>
+<li>通过 swagger-to-graphql 将 openapi 接口通过 oas 文档直接转换为 graphql 定义</li>
+<li>通过 graphqlHTTP 将请求代理到 restful 接口</li>
+<li>此方案中，swagger 的描述无缝转换到 graphql 描述，并自动代理请求</li>
+</ul>
+<h4 id="4-nestjs-本身一些特性的示例">4. nestjs 本身一些特性的示例</h4>
+<ul>
+<li>全局钩子，并且兼容 graphql 和 rest 请求，如 登录校验、返回封装、错误处理等</li>
+<li>graphql 集成和配置，graphql 代理集成和配置</li>
+<li>yaml 配置和加载</li>
+</ul>
+<h4 id="5-graphiql-explorer-快速组合查询">5. graphiql-explorer 快速组合查询</h4>
+<ul>
+<li>通过 graphiQL 的第三方插件 graphiql-explorer 快速预览和组合 graphql 请求</li>
+</ul>
+<p><img
+        class="lazyload"
+        data-src="/Nodejs/F0698852-0F7F-4C35-88F5-E2BA76E47B09.png"
+        alt="/Nodejs/F0698852-0F7F-4C35-88F5-E2BA76E47B09.png"
+        title="/Nodejs/F0698852-0F7F-4C35-88F5-E2BA76E47B09.png"
+    /></p>
+<p>更多信息：<a href="./share.md" rel=""></a></p>
+<h3 id="开发流程">开发流程</h3>
+<h4 id="1-首先定义业务模型prisma-scheme">1. 首先定义业务模型（prisma scheme）</h4>
+<p>修改 ./prisma/scheme.prisma</p>
+<p>添加新的业务模型</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-graphql" data-lang="graphql"><span class="py">model</span><span class="w"> </span><span class="py">xxx</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">  </span><span class="py">id</span><span class="w">         </span><span class="py">Int</span><span class="w">      </span><span class="nd">@id</span><span class="w"> </span><span class="nd">@default</span><span class="p">(</span><span class="py">autoincrement</span><span class="p">())</span><span class="w">
+</span><span class="w">  </span><span class="py">uid</span><span class="w">        </span><span class="py">String</span><span class="w">   </span><span class="nd">@unique</span><span class="w"> </span><span class="nd">@default</span><span class="p">(</span><span class="py">uuid</span><span class="p">())</span><span class="w">
+</span><span class="w">  </span><span class="py">name</span><span class="w">       </span><span class="py">String</span><span class="w">   </span><span class="nd">@unique</span><span class="w"> </span><span class="nd">@db</span><span class="err">.</span><span class="py">VarChar</span><span class="p">(</span><span class="py">20</span><span class="p">)</span><span class="w">
+</span><span class="w"></span><span class="p">}</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><h4 id="2-创建数据库表">2. 创建数据库表</h4>
+<p>可以使用 prisma cli 创建表结构，不过为了安全起见，最好使用本地数据库操作，然后将数据库的 create sql 同步至其他环境</p>
+<h4 id="3-prisma-orm-sdk-生成">3. prisma orm sdk 生成</h4>
+<p><code>npm run gen</code></p>
+<p>之后即可在代码中使用 prisma 的对象</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="k">this</span><span class="p">.</span><span class="nx">prisma</span><span class="p">.</span><span class="nx">tag</span><span class="p">.</span><span class="nx">findMany</span><span class="p">({</span>
+  <span class="nx">skip</span><span class="o">:</span> <span class="p">(</span><span class="nx">pager</span><span class="p">.</span><span class="nx">pageIndex</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="nx">pager</span><span class="p">.</span><span class="nx">pageSize</span><span class="p">,</span>
+  <span class="nx">take</span><span class="o">:</span> <span class="nx">pager</span><span class="p">.</span><span class="nx">pageSize</span><span class="p">,</span>
+  <span class="nx">where</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">is_delete</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+  <span class="p">},</span>
+  <span class="nx">orderBy</span><span class="o">:</span> <span class="p">[{</span> <span class="nx">use_count</span><span class="o">:</span> <span class="s2">&#34;desc&#34;</span> <span class="p">}],</span>
+  <span class="nx">select</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">is_delete</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="nx">id</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="nx">uid</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="nx">name</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="nx">use_count</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="nx">created_at</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="nx">updated_at</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="p">},</span>
+<span class="p">});</span>
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="4-创建-crud-接口">4. 创建 crud 接口</h4>
+<p><code>npm run crud</code></p>
+<p>生成新的业务模型的增伤改查接口，可以选择生成 rest 接口或者 graphql 接口（代码优先）</p>
+<h4 id="5-开发业务逻辑rest">5. 开发业务逻辑(rest)</h4>
+<p>修改接口定义 xxx.controller.ts</p>
+<p>修改 service 实现：xxx.service.ts</p>
+<p>定义 swagger 注解</p>
+<h4 id="5-开发业务逻辑graphql">5. 开发业务逻辑（graphql）</h4>
+<p>在运行 npm run gen 的过程中，会使用 prisma-nestjs-graphql 生成 gql 类型定义</p>
+<p>在 xxx.resolver.ts 中开发逻辑</p>
+<p>在使用 gen 生成 gql 的类型代码之后，基本不需要写太多 service 逻辑，特别是普通的单个和列表查询</p>
+<p>如：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts">
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">FindManytagArgs</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;../@generated/tag/find-manytag.args&#39;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">FindUniquetagArgs</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;../@generated/tag/find-uniquetag.args&#39;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">tagWhereInput</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;../@generated/tag/tag-where.input&#39;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">tagCreateInput</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;../@generated/tag/tag-create.input&#39;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">tag</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;../@generated/tag/tag.model&#39;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">tag_event_relation</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;../@generated/tag-event-relation/tag-event-relation.model&#39;</span><span class="p">;</span>
+
+<span class="p">...</span>
+
+<span class="kd">@Query</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="nx">tag</span><span class="p">],</span> <span class="p">{</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;tagsAll&#39;</span> <span class="p">})</span>
+<span class="kr">async</span> <span class="nx">findAll</span><span class="p">(</span><span class="kd">@Args</span><span class="p">()</span> <span class="nx">args</span>: <span class="kt">FindManytagArgs</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kr">const</span> <span class="nx">result</span> <span class="o">=</span> <span class="k">await</span> <span class="k">this</span><span class="p">.</span><span class="nx">tagsGqlService</span><span class="p">.</span><span class="nx">findMany</span><span class="p">({</span> <span class="p">...</span><span class="nx">args</span> <span class="p">});</span>
+    <span class="k">return</span> <span class="nx">result</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>FindManytagArgs 是 生成的类型</p>
+<p>this.tagsGqlService.findMany 就是一个透传，内部是 this.prisma.tag.findMany</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts">
+<span class="kd">@Injectable</span><span class="p">()</span>
+<span class="kr">export</span> <span class="kr">class</span> <span class="nx">TagsGqlService</span> <span class="p">{</span>
+  <span class="kr">constructor</span><span class="p">(</span><span class="kr">private</span> <span class="nx">prisma</span>: <span class="kt">PrismaService</span><span class="p">)</span> <span class="p">{}</span>
+
+  <span class="nx">update</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">prisma</span><span class="p">.</span><span class="nx">tag</span><span class="p">.</span><span class="nx">update</span><span class="p">;</span>
+  <span class="k">delete</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">prisma</span><span class="p">.</span><span class="nx">tag</span><span class="p">.</span><span class="k">delete</span><span class="p">;</span>
+  <span class="nx">findUnique</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">prisma</span><span class="p">.</span><span class="nx">tag</span><span class="p">.</span><span class="nx">findUnique</span><span class="p">;</span>
+  <span class="nx">findMany</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">prisma</span><span class="p">.</span><span class="nx">tag</span><span class="p">.</span><span class="nx">findMany</span><span class="p">;</span>
+  <span class="nx">count</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">prisma</span><span class="p">.</span><span class="nx">tag</span><span class="p">.</span><span class="nx">count</span><span class="p">;</span>
+  <span class="nx">create</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">prisma</span><span class="p">.</span><span class="nx">tag</span><span class="p">.</span><span class="nx">create</span><span class="p">;</span>
+<span class="p">}</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p><img
+        class="lazyload"
+        data-src="/Nodejs/5C44E121-4090-4C9B-8197-30771B9F9671.png"
+        alt="/Nodejs/5C44E121-4090-4C9B-8197-30771B9F9671.png"
+        title="/Nodejs/5C44E121-4090-4C9B-8197-30771B9F9671.png"
+    /></p>
+<h4 id="6-查看-swagger-和-graphql-playground">6. 查看 swagger 和 graphql playground</h4>
+<p>swagger 地址：http://localhost:3000/swagger</p>
+<p>graphql playground：http://localhost:3000/index.html</p>
+<h2 id="本文关联分享">本文关联分享</h2>
+<p><img
+        class="lazyload"
+        data-src="/Nodejs/1.png"
+        alt="/Nodejs/1.png"
+        title="/Nodejs/1.png"
+    /></p>
+<p><img
+        class="lazyload"
+        data-src="/Nodejs/2.png"
+        alt="/Nodejs/2.png"
+        title="/Nodejs/2.png"
+    /></p>
+<p><img
+        class="lazyload"
+        data-src="/Nodejs/3.png"
+        alt="/Nodejs/3.png"
+        title="/Nodejs/3.png"
+    /></p>
+<p><img
+        class="lazyload"
+        data-src="/Nodejs/4.png"
+        alt="/Nodejs/4.png"
+        title="/Nodejs/4.png"
+    /></p>
+<p><img
+        class="lazyload"
+        data-src="/Nodejs/5.png"
+        alt="/Nodejs/5.png"
+        title="/Nodejs/5.png"
+    /></p>
+<p><img
+        class="lazyload"
+        data-src="/Nodejs/6.png"
+        alt="/Nodejs/6.png"
+        title="/Nodejs/6.png"
+    /></p>
+<p><img
+        class="lazyload"
+        data-src="/Nodejs/7.png"
+        alt="/Nodejs/7.png"
+        title="/Nodejs/7.png"
+    /></p>
+<p><img
+        class="lazyload"
+        data-src="/Nodejs/8.png"
+        alt="/Nodejs/8.png"
+        title="/Nodejs/8.png"
+    /></p>
+<p><img
+        class="lazyload"
+        data-src="/Nodejs/9.png"
+        alt="/Nodejs/9.png"
+        title="/Nodejs/9.png"
+    /></p>
+<p><img
+        class="lazyload"
+        data-src="/Nodejs/10.png"
+        alt="/Nodejs/10.png"
+        title="/Nodejs/10.png"
+    /></p>
+<p><img
+        class="lazyload"
+        data-src="/Nodejs/11.png"
+        alt="/Nodejs/11.png"
+        title="/Nodejs/11.png"
+    /></p>
+<p><img
+        class="lazyload"
+        data-src="/Nodejs/12.png"
+        alt="/Nodejs/12.png"
+        title="/Nodejs/12.png"
+    /></p>
+<p><img
+        class="lazyload"
+        data-src="/Nodejs/13.png"
+        alt="/Nodejs/13.png"
+        title="/Nodejs/13.png"
+    /></p>
+<p><img
+        class="lazyload"
+        data-src="/Nodejs/14.png"
+        alt="/Nodejs/14.png"
+        title="/Nodejs/14.png"
+    /></p>
+<p><img
+        class="lazyload"
+        data-src="/Nodejs/15.png"
+        alt="/Nodejs/15.png"
+        title="/Nodejs/15.png"
+    /></p>
+<p><img
+        class="lazyload"
+        data-src="/Nodejs/16.png"
+        alt="/Nodejs/16.png"
+        title="/Nodejs/16.png"
+    /></p>
+<p><img
+        class="lazyload"
+        data-src="/Nodejs/17.png"
+        alt="/Nodejs/17.png"
+        title="/Nodejs/17.png"
+    /></p>
+<p><img
+        class="lazyload"
+        data-src="/Nodejs/18.png"
+        alt="/Nodejs/18.png"
+        title="/Nodejs/18.png"
+    /></p>
+<p><img
+        class="lazyload"
+        data-src="/Nodejs/19.png"
+        alt="/Nodejs/19.png"
+        title="/Nodejs/19.png"
+    /></p>
+<p><img
+        class="lazyload"
+        data-src="/Nodejs/20.png"
+        alt="/Nodejs/20.png"
+        title="/Nodejs/20.png"
+    /></p>
+<p><img
+        class="lazyload"
+        data-src="/Nodejs/21.png"
+        alt="/Nodejs/21.png"
+        title="/Nodejs/21.png"
+    /></p>
+<p><img
+        class="lazyload"
+        data-src="/Nodejs/22.png"
+        alt="/Nodejs/22.png"
+        title="/Nodejs/22.png"
+    /></p>
+<p><img
+        class="lazyload"
+        data-src="/Nodejs/23.png"
+        alt="/Nodejs/23.png"
+        title="/Nodejs/23.png"
+    /></p>
+<p><img
+        class="lazyload"
+        data-src="/Nodejs/24.png"
+        alt="/Nodejs/24.png"
+        title="/Nodejs/24.png"
+    /></p>
+<p><img
+        class="lazyload"
+        data-src="/Nodejs/25.png"
+        alt="/Nodejs/25.png"
+        title="/Nodejs/25.png"
+    /></p>
+<p><img
+        class="lazyload"
+        data-src="/Nodejs/26.png"
+        alt="/Nodejs/26.png"
+        title="/Nodejs/26.png"
+    /></p>
+<p><img
+        class="lazyload"
+        data-src="/Nodejs/27.png"
+        alt="/Nodejs/27.png"
+        title="/Nodejs/27.png"
+    /></p>
+<p><img
+        class="lazyload"
+        data-src="/Nodejs/28.png"
+        alt="/Nodejs/28.png"
+        title="/Nodejs/28.png"
+    /></p>
+<p><img
+        class="lazyload"
+        data-src="/Nodejs/29.png"
+        alt="/Nodejs/29.png"
+        title="/Nodejs/29.png"
+    /></p>
+<p><img
+        class="lazyload"
+        data-src="/Nodejs/30.png"
+        alt="/Nodejs/30.png"
+        title="/Nodejs/30.png"
+    /></p>
+<p><img
+        class="lazyload"
+        data-src="/Nodejs/31.png"
+        alt="/Nodejs/31.png"
+        title="/Nodejs/31.png"
+    /></p>
+<p><img
+        class="lazyload"
+        data-src="/Nodejs/32.png"
+        alt="/Nodejs/32.png"
+        title="/Nodejs/32.png"
+    /></p>
+<p><img
+        class="lazyload"
+        data-src="/Nodejs/33.png"
+        alt="/Nodejs/33.png"
+        title="/Nodejs/33.png"
+    /></p>
+</div>
+
+        <div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2021-12-20</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="#" onclick="return false;" title="分享到 微博" data-sharer="weibo" data-url="http://example.org/posts/prisma-nestjs-graphql/" data-title="Prisma &#43; NestJs &#43; GraphQL 表现层应用开发" data-image="/Nodejs/cover.jpeg"><i class="fab fa-weibo fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/display-video-in-console/" class="prev" rel="prev" title="如何在浏览器 console 控制台中播放视频？"><i class="fas fa-angle-left fa-fw"></i>如何在浏览器 console 控制台中播放视频？</a>
+            <a href="/posts/eth_simple_example/" class="next" rel="next" title="以太坊小示例和基本概念">以太坊小示例和基本概念<i class="fas fa-angle-right fa-fw"></i></a></div>
+    <script src="/client.js"></script>
+    <div style="clear: both;margin-top:20px;"></div>
+    <div id="waline"></div>
+<script>
+Waline({
+  el: '#waline',
+  serverURL: 'https://comment-weld.vercel.app',
+  visitor: true, 
+});
+</script>
+</div>
+</article></div>
+        </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2021 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank" rel="noopener noreferrer"></a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+                    <span class="icp"><a href='https://beian.miit.gov.cn/'>浙ICP备12047043号-10</a></span></div>
+        </div></footer>
+</div>
+
+    <div id="fixed-buttons"><a href="#back-to-top" id="back-to-top-button" class="fixed-button" title="回到顶部">
+            <i class="fas fa-arrow-up fa-fw"></i>
+        </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+            <i class="fas fa-comment fa-fw"></i>
+        </a>
+    </div><div class="assets"><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/topbar/topbar.min.js"></script><script type="text/javascript" src="/lib/pjax/pjax.min.js"></script><script type="text/javascript" src="/js/theme.min.js"></script></div>
+
+<div class="pjax-assets"><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/typeit/typeit.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":100},"comment":{},"data":{"desktop-header-typeit":"芋头乱炖","mobile-header-typeit":"芋头乱炖"},"sharerjs":true,"typeit":{"cursorChar":null,"cursorSpeed":null,"data":{"desktop-header-typeit":["desktop-header-typeit"],"mobile-header-typeit":["mobile-header-typeit"]},"duration":null,"speed":null}};</script></div>
+</body>
+
+</html>

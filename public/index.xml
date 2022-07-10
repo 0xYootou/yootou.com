@@ -1,99 +1,99 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>芋头乱炖，一只普通程序员的自留地</title>
-        <link>http://example.org/</link>
+        <link>https://yootou.com/</link>
         <description>芋头乱炖，一只普通程序员的自留地</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sat, 05 Feb 2022 10:00:00 &#43;0000</lastBuildDate>
-            <atom:link href="http://example.org/index.xml" rel="self" type="application/rss+xml" />
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Thu, 17 Feb 2022 00:00:00 &#43;0000</lastBuildDate>
+            <atom:link href="https://yootou.com/index.xml" rel="self" type="application/rss+xml" />
         <item>
     <title>关于我</title>
-    <link>http://example.org/posts/about-me/</link>
+    <link>https://yootou.com/posts/about-me/</link>
     <pubDate>Sat, 27 Nov 2021 22:07:07 &#43;0800</pubDate><author>
         <name>芋头</name>
-    </author><guid>http://example.org/posts/about-me/</guid>
+    </author><guid>https://yootou.com/posts/about-me/</guid>
     <description><![CDATA[<div class="featured-image">
                 <img src="/aboutme/cover3.jpeg" referrerpolicy="no-referrer">
-            </div>BLOG Languages Skill Framework Social Media My Side Product Vistor counts My eWallet Address]]></description>
+            </div>LINK ON SELL HOT DOMAIN Languages Skill Framework Social Media My Side Product Vistor counts My eWallet Address]]></description>
+</item><item>
+    <title>GIS 计算中的凸包、凹包、内凸包等问题求解</title>
+    <link>https://yootou.com/posts/gis-convex-hull-and-more/</link>
+    <pubDate>Thu, 17 Feb 2022 00:00:00 &#43;0000</pubDate><author>
+        <name>作者</name>
+    </author><guid>https://yootou.com/posts/gis-convex-hull-and-more/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="/covers/9.jpeg" referrerpolicy="no-referrer">
+            </div>1. 最小凸包 convex hull 1.1 凸包的定义（convex） 几何定义： 如果一个面是 convex，那它边上的任意两点相连出来的线段都落在面的内部。 如果一个面是 convex，那它内部任意两点相连都将面划分为半空间 half-space 表象：所有两个边所成的内边角不大于180度 通俗的表象：将点的集合看成一根根柱子，用一根皮筋圈套住所有的柱子形成的皮筋形状就是凸包的形状。 1.2 最小凸包的定义 convex hull 针对一群点的集合，其最小面积的包含所有点的凸集合形成的面 1.3 特性或用途 凸包是一个确定的、包容的、平滑的、优雅的图形。 实际上凹包用的更多。。。 1.4 凸包计算步骤（滚球法） 求极心 P0 找出屏幕最左边的一个点，这个点一定是凸包边的一部分 选中 P1，寻找下一个点 P2 求极心到上一个选中的点的角度 P0-&gt;P1，目的是作为内外侧判断的基准 用已选定的点轮训所有的点，求角度 P1-&gt;P2，然后求P1-&gt;P2与P0-&gt;P1的角度差 选中角度差最小的点 P2 使用 P2 循环]]></description>
 </item><item>
     <title>工具&amp;产品推荐#1 geogebra &amp;&amp; rawpixel</title>
-    <link>http://example.org/posts/tools-recommend-1/</link>
+    <link>https://yootou.com/posts/tools-recommend-1/</link>
     <pubDate>Sat, 05 Feb 2022 10:00:00 &#43;0000</pubDate><author>
         <name>作者</name>
-    </author><guid>http://example.org/posts/tools-recommend-1/</guid>
+    </author><guid>https://yootou.com/posts/tools-recommend-1/</guid>
     <description><![CDATA[<div class="featured-image">
                 <img src="/covers/3.jpeg" referrerpolicy="no-referrer">
             </div>前言 本系列不定期向大家推荐我日常工作和学习中使用到的一些工具，尽量只介绍大家不常见但是很有用或者很有意思的工具，希望对大家能够有所帮助。 工具：几何画图工具 geogebra.org 平常做 GIS 相关的项目，有时候会涉及到一些几何的算法之类的，需要画一些坐标做分析，之前我都是在纸上画，但是画来画去，如果太复杂，就乱套了，而且不能擦除，非常不方便，最后涂来涂去已经不记得现在的结果是什么了，后来就找了一下，发现了这个工具 geogebra： https://www.geogebra.org/geometry 这个工具非常简洁，他不做计算，就是作图，我相信做几何分析的职业或者老师，应该会需要这个工具，我是准备用这个工具来做 ppt 里的分析步骤的图片，之前都是自己用设计工具画，调整起来非常不方便。 而且这个工具，支持 pc 和 mobile，而且有原生的 app，随时随地做图，很方便。 截图： 网站：简约设计素材网站 rawpixel.com https://www.rawpixel.com/ 不知道大家发现没有，本站的题图风格是比较一致的，大部分文章的头图都是简单的抽象画，使用比较明艳的色彩]]></description>
 </item><item>
     <title>以太坊(Web3)DAPP前端开发要点#2 连接合约和发送交易</title>
-    <link>http://example.org/posts/web3_important_point_2/</link>
+    <link>https://yootou.com/posts/web3_important_point_2/</link>
     <pubDate>Sat, 05 Feb 2022 09:00:00 &#43;0000</pubDate><author>
         <name>作者</name>
-    </author><guid>http://example.org/posts/web3_important_point_2/</guid>
+    </author><guid>https://yootou.com/posts/web3_important_point_2/</guid>
     <description><![CDATA[<div class="featured-image">
                 <img src="/covers/2.jpeg" referrerpolicy="no-referrer">
             </div>概述 如何开发一个以太坊的 dapp？本系列将尽量以比较详细的方式介绍一个 dapp 开发中需要掌握的基本概念和其核心用法。 本系列会不定时更新，有想了解的问题可以在此博文下留言，我会加入到系列文章内容中。本人也接触此领域不久，不保证以下所有做法都是最佳实践。 本系列涉及的合约为了方便大家学习，直接内置了一个私钥、一个账户地址、一个合约地址，请大家不要做破坏性的使用 合约项目地址：https://github.com/yu-tou/eth-self-token-example 本文内容大致如下： 如何连接合约？ 如何发送交易？ 如何使用类型？ 正文 我们首先分别看两个最基本的连接合约的示例，这是基础方法，在实际的项目中，情况会更为复杂，这里暂时只讲最基本的用法。 本文因为只是最简单的合约连接，所以使用了 nodejs 脚本，没有涉及到真实的第三方钱包以及前端连接合约的用法，这些在稍后的教程中会继续分享，因为要理解在前端页面如何连接钱包，]]></description>
 </item><item>
     <title>Web 体验技术发展前沿速览</title>
-    <link>http://example.org/posts/frontend-modern-experience-share-slide/</link>
+    <link>https://yootou.com/posts/frontend-modern-experience-share-slide/</link>
     <pubDate>Fri, 21 Jan 2022 00:00:00 &#43;0000</pubDate><author>
         <name>作者</name>
-    </author><guid>http://example.org/posts/frontend-modern-experience-share-slide/</guid>
+    </author><guid>https://yootou.com/posts/frontend-modern-experience-share-slide/</guid>
     <description><![CDATA[<div class="featured-image">
                 <img src="/modern/cover.jpeg" referrerpolicy="no-referrer">
             </div>我最近在听的音乐推荐 小芋头君@ yootou.com 在线 Slide 地址 在线 Slide 声明 本分享内容具有一定局限性，不代表社区真实现状，仅做参考！ 部分内容面向非专业用户（偏产品向）。 感谢 本文主要内容 实时体验（Realtime experience） 在线协作（Online collaboration） 快速建站（Jamstack） 浏览器计算能力 浏览器系统能力 移动端 区块链 一 实时体验 实时体验 https://vercel.com 在 2021 年 6 月，Next.js 框架背后的开发商 Vercel 在 C 轮融资中筹集了 1.02 亿美金，使其估值达到 11 亿美元，正式成为了一家独角兽企业。11 月份，Vercel 再次宣布获得新的融资，其在 D 轮融资中筹集了 1.5 亿美元，使其估值相比之前翻了一番，达到 25 亿美元。 70 CITIES 24B+ REQUESTS PER WEEK 10PB DATA SERVED 99.99% GUARANTEED UPTIME 部署前端应用的云服务，也支持简单的服务端、存储等。 vercel 核心特色 产品定位和产品功能极简，官方定义：Develop. Preview. Ship. 部署过程极简，连接 Github 账号、导入 Github 项目、Deploy、Preview，最小步骤完成。]]></description>
 </item><item>
     <title>Arduino LED 频谱仪 #3 LED选择和FastLED</title>
-    <link>http://example.org/posts/arduino-fft-fastled-3/</link>
+    <link>https://yootou.com/posts/arduino-fft-fastled-3/</link>
     <pubDate>Tue, 11 Jan 2022 00:00:00 &#43;0000</pubDate><author>
         <name>作者</name>
-    </author><guid>http://example.org/posts/arduino-fft-fastled-3/</guid>
+    </author><guid>https://yootou.com/posts/arduino-fft-fastled-3/</guid>
     <description><![CDATA[<div class="featured-image">
                 <img src="/fft-3/2.png" referrerpolicy="no-referrer">
             </div>关于本系列 本系列文章将带着大家一起简单了解如何制作一个音频频谱显示的 arduino 小作品。 本节将介绍 LED 的选择及其驱动和注意事项。 前续文章： #1 arduino 芯片选择 #2 音频传感器选择 视频 元旦跨年家庭小 Party 的时候，这个小玩意发挥了很大的作用，一群朋友听着音乐跳舞跨年，我则打开 LED 频谱仪，给大家来了一个现场 DJ。 以下是成品视频，这系列文章会比较长，感兴趣的小朋友可以收藏我的博客，然后慢慢追更。 LED 序列的选择 在 LED 选择这块，我也趟过坑，例如想要自己用最原始的 LED 小灯泡自己组线，但是这样的话，会有三个问题： 涉及到模拟电路，这块需要一些电路知识，基本忘光了，例如需要搭配电阻和电容。 彩色 LED 涉及到编码驱动，特别是 LED 多了之后，太麻烦了。 LED 阵列的灯泡数量很多，例如一个 8*32 的阵列，需要 256 个灯泡，每个灯泡需要正负极，串联或者并联，连线会非常复杂。 所以，一般做电路搭建实验，不会使用原始器件，例如麦克风也一样，不会直接使用 咪头，因为他们需要搭配周边电路，]]></description>
 </item><item>
     <title>以太坊(Web3)DAPP前端开发要点#1 js库选择对比</title>
-    <link>http://example.org/posts/web3_important_point/</link>
+    <link>https://yootou.com/posts/web3_important_point/</link>
     <pubDate>Sun, 09 Jan 2022 00:00:00 &#43;0000</pubDate><author>
         <name>作者</name>
-    </author><guid>http://example.org/posts/web3_important_point/</guid>
+    </author><guid>https://yootou.com/posts/web3_important_point/</guid>
     <description><![CDATA[<div class="featured-image">
                 <img src="/eth_important/cover.jpeg" referrerpolicy="no-referrer">
             </div>概述 如何开发一个以太坊的 dapp？本系列将尽量以比较详细的方式介绍一个 dapp 开发中需要掌握的基本概念和其核心用法。 本系列会不定时更新，有想了解的问题可以在此博文下留言，我会加入到系列文章内容中。本人也接触此领域不久，不保证以下所有做法都是最佳实践。 大概以下几个方面： 如何选择连接智能合约的js库？ 如何连接钱包以及获取钱包基本信息？ 如何实例化合约？ 如何在ts中编写强类型合约调用代码？ 如何发起交易？ 如何处理大数单位？ 何时需要 approve？ 发起交易时如何费用估算？ 如何获取交易结果？ 如何拉取交易记录？ 如何选择js库？ 连接智能合约，比较基本的可以使用 web3.js，中文文档：https://web3.tryblockchain.org/ 这个库不止是在前端可以使用，在 nodejs 脚本中也可以使用，所以一些工具会使用 web3.js 来部署合约等，它的能力还有很多，前端调用合约，发起交易只是它非常小的一部分，不过如果纯粹作为前端，实]]></description>
 </item><item>
     <title>pkg 打包 Nodejs native addons 的 bug</title>
-    <link>http://example.org/posts/pkg_package_node_bind_centos/</link>
+    <link>https://yootou.com/posts/pkg_package_node_bind_centos/</link>
     <pubDate>Fri, 07 Jan 2022 00:00:00 &#43;0000</pubDate><author>
         <name>作者</name>
-    </author><guid>http://example.org/posts/pkg_package_node_bind_centos/</guid>
+    </author><guid>https://yootou.com/posts/pkg_package_node_bind_centos/</guid>
     <description><![CDATA[<div class="featured-image">
                 <img src="/pkg/cover.jpeg" referrerpolicy="no-referrer">
             </div>问题 先说结论：pkg@5.5.1 和 pkg@5.4.1 打包出来的可执行文件，如果包含 native addons，可能会在某些版本的 centos 中报错。 原因是 pkg 本身的bug，和系统有一定关系，但是关系不大，而且此问题出现概率较高，等待官方修复。 什么是 pkg 最近在公司的产品里尝试使用了 prisma + nestjs + graphql 的选型，涉及到将这个应用部署到用户环境的问题，我们公司的产品比较特殊，虽然不需要给客户定制，但是部署环境经常需要部署到客户的内网，所以应用的部署环境标准化是非常迫切的需求。 在用户私网环境内部署，最重要要解决的问题有几个： 环境的复杂性，可能需要兼容各种系统，因为可能需要和客户其他服务共享机器。 机器可能和外网不通，不能方便地安装比较复杂的环境。 所以保持部署的一致性和简单化非常重要，我们现在通常都是将应用、nginx、系统软件等打包成一个标准的 rpm 安装包，客户处的运维一键安装和升级。 而之前在公司里使用 Nodejs，通常都是在机器上安装 Nodejs 运行环境，然后再运]]></description>
 </item><item>
     <title>Arduino LED 频谱仪 #2 音频传感器选择</title>
-    <link>http://example.org/posts/fft-2/</link>
+    <link>https://yootou.com/posts/fft-2/</link>
     <pubDate>Thu, 06 Jan 2022 00:00:00 &#43;0000</pubDate><author>
         <name>作者</name>
-    </author><guid>http://example.org/posts/fft-2/</guid>
+    </author><guid>https://yootou.com/posts/fft-2/</guid>
     <description><![CDATA[<div class="featured-image">
                 <img src="/fft-2/IMG_6475.JPG" referrerpolicy="no-referrer">
             </div>本系列文章将带着大家一起简单了解如何制作一个音频频谱显示的 arduino 小作品。 最终效果： 前一篇：#1 arduino 芯片选择 特别注意 今天跟大家分享下关于音频采集和频域分析的过程，也比较简单，不过相比于网上很多示例来说，至少是真的 run 起来了，之前我在网上看到很多文章和示例代码，实际上都非常浅，也基本上很难跑起来，所以也趟了不少坑。 另外我在这个环节趟过的最大的坑是电气隔离的坑，因为麦克风采集的电信号非常微弱，所以它很容易被电路干扰，实际上玩 hifi 的同学应该对相关的经验比较了解，按理说我也是个 hifi 玩家，应该比较早想到这个问题的，但是我的确忽略了，因为调了很久电路，一直达不到自己想要的结果，而且差异很大，后来突然想起来这回事，把电路做了隔离才ok的。 另外就是关于元器件的运行电压，例如今天要讲的麦克风传感器，官方规格描述是要低于3.3v电压，否则容易损坏，所以不能直接接入usb的5v电压。 音频采集 说到音频采集，最重要的当然是麦克风]]></description>
 </item><item>
     <title>Arduino LED 频谱仪 #1 arduino 芯片选择</title>
-    <link>http://example.org/posts/arduino-fft-fastled/</link>
+    <link>https://yootou.com/posts/arduino-fft-fastled/</link>
     <pubDate>Wed, 05 Jan 2022 00:00:00 &#43;0000</pubDate><author>
         <name>作者</name>
-    </author><guid>http://example.org/posts/arduino-fft-fastled/</guid>
+    </author><guid>https://yootou.com/posts/arduino-fft-fastled/</guid>
     <description><![CDATA[<div class="featured-image">
                 <img src="/Arduino%20%E9%9F%B3%E9%A2%91%E7%9B%92%E5%AD%90%E5%88%B6%E4%BD%9C%20%231%20arduino%20%E8%8A%AF%E7%89%87%E9%80%89%E6%8B%A9/IMG_6479.JPG" referrerpolicy="no-referrer">
             </div>本系列文章将带着大家一起简单了解如何制作一个音频频谱显示的 arduino 小作品。 最终效果： 此小产品涉及到以下功能： 音频采集 音频傅立叶变化 fastled 驱动 led 板 时间显示及其他动效 亮度和灵敏度调节 亚克力盒子制作 主要涉及以下芯片： arduino 芯片，我们选择 esp32。 音频传感器， WS2812B 8*32 芯片 2 位数码管 INMP441 全向麦克风 旋转编码器和旋钮盖 面包板和杜邦线、插线柱等等若干 电烙铁和焊锡 亚克力板 3mm 以上厚度若干，立柱若干、半透亚克力板 1mm 若干 稍后我会一一介绍为什么选择这些元件以及如何购买比较划算。 以下是半成品 第一部分 arduino 芯片选择 Arduino 芯片有很多类型，一般入门用的都是 uno，功能简单，但是便宜，不过我一般不使用 arduino uno，主要是 uno 主频很低，处理稍微复杂一些的场景就性能不足，另外就是也没有联网之类的功能，另外也缺少一些端口，我之前做物联网应用的时候，用的是 esp8266 芯片，其技术参数见： https://www.espressif.com/sites/default/files/documentation/esp8266-technical_reference_cn.pdf 单核处理器，运行频率为 80MHz 802.11 b/g/n Wi-Fi Direct (P2P)、soft-AP 内置 TCP/IP 协议栈 内置 TR 开关、ba]]></description>
-</item><item>
-    <title>TypeScript 类型小甜点</title>
-    <link>http://example.org/posts/typescript_type_tip/</link>
-    <pubDate>Tue, 04 Jan 2022 00:00:00 &#43;0000</pubDate><author>
-        <name>作者</name>
-    </author><guid>http://example.org/posts/typescript_type_tip/</guid>
-    <description><![CDATA[<div class="featured-image">
-                <img src="/TypeScript_type_tip/cover.png" referrerpolicy="no-referrer">
-            </div>TypeScript 的类型是非常复杂的，虽然日常大家经常用到的无非是那几个简单的 type interface 之类的，但是你打开某些知名的 js lib 的源码，有时候会发现一些非常复杂的类型定义，今天简单分享个我之前写 colors-web 的时候定义的一个类型，其实很简单。 首先，我们看下需求： 现有一个 class，他的方法是运行时动态赋予的，可能会有一百多个方法 如 Color 类 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 class Color { styles = []; constructor() {} color(colorValue} { this.styles.push(&#39;color:&#39;+colorValue); return this; } bgColor(colorValue) { this.styles.push(&#39;background-color:&#39;+colorValue); return this; } } const cssColors = [&#39;red&#39;,&#39;green&#39;,&#39;yello&#39;...] // 这里定义所有的 css 标准颜色名称，供146个 // 将 colors 变成 Color 的实例方法 const ColorFactory = ()=&gt; { const instance = new Color(); cssColors.forEach((color) =&gt; { Object.defineProperty(inst, color, { get() { this.styles.push(`color:${color};`); return this; }, }); Object.defineProperty(inst, color + &#34;Bg&#34;, { get() { this.styles.push(`background:${color};`); return this; }, }); }); } 需求是通过 d.ts 定义以上方法的类型。 实现 本文只提供一种实现思路，实际上这个需求应该还可以有其他实现方式，只是我对 ts 的理解还没有太深入 基本类型 首先，我们先把 Color 类本身的类型定义好。 1. 定义好 cssColors 类型，Color 类的参数和后续的方法都依赖这个基本的类型定义 1 2 3 4 5]]></description>
 </item></channel>
 </rss>

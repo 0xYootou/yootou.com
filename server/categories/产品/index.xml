@@ -1,0 +1,25 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>产品 - 分类 - 芋头乱炖，一只普通程序员的自留地</title>
+        <link>http://example.org/categories/%E4%BA%A7%E5%93%81/</link>
+        <description>产品 - 分类 - 芋头乱炖，一只普通程序员的自留地</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sun, 18 Mar 2018 23:14:00 &#43;0000</lastBuildDate><atom:link href="http://example.org/categories/%E4%BA%A7%E5%93%81/" rel="self" type="application/rss+xml" /><item>
+    <title>帅气程序员和漂亮幼师老婆一起做了一个 app</title>
+    <link>http://example.org/posts/make-app-with-wife/</link>
+    <pubDate>Sun, 18 Mar 2018 23:14:00 &#43;0000</pubDate><author>
+        <name>芋头</name>
+    </author><guid>http://example.org/posts/make-app-with-wife/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="/make-app-with-wife/v2-455f120c78a4b74fb1b960084741385b_1440w.jpg" referrerpolicy="no-referrer">
+            </div>狗粮不想多撒了，大家可以下载玩一下，如果家里有孩子，那最好不错了，听过故事的都说卓老师的声音很好听，小孩听了会上瘾。没有小孩的，可以下载一个晚上听，有助于单身狗的睡眠。 程序员业余时间做的 app，这个倒不难，主要是里面的故事，录制、剪辑、素材准备，还是很不容易的。 App store 搜索 “喵老师绘本故事” 即可下载 或者直接用 H5 听： http://www.html-js.com/music/207 做个 app 真不容易啊，又不收费，也不知道是为了啥，纯粹好玩吧，感兴趣的同学支持下哈。 知乎管理员大大说我违规了，已经把媳妇照片删除。。]]></description>
+</item><item>
+    <title>开发笔记：个人开发者的困境与突破</title>
+    <link>http://example.org/posts/self-develper-1/</link>
+    <pubDate>Thu, 12 Oct 2017 23:20:00 &#43;0000</pubDate><author>
+        <name>芋头</name>
+    </author><guid>http://example.org/posts/self-develper-1/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="/self-developer-1/cover.jpeg" referrerpolicy="no-referrer">
+            </div>本文主要与大家分享我业余时间如何学习多门技术以及开发业余项目的一些心得，分为 初衷、硬技能、软技能、第一生产力、环境、时间几个部分，阅读大概需要 10 分钟。 关于我之前做的一些业余项目，我在知乎上的一个回答大概可以总结： 小芋头君：作为程序员，你有哪些正在做的个人项目？ 业余开发项目的初衷 总体来说，在我的感觉里，国内的环境对于业余开发者来说其实是非常不友好的，不过作为一个开发者，一味抱怨并不会有大的改观，能做的就是不忘初心，多做尝试多做积累。包括我之前也和一些朋友深入聊过类似的话题，例如“在行”上约我聊相关话题的同学，我其实是鼓励大家勇敢的去做自由职业者或者业余开发者，虽然环境的确不是很友好，但是年轻时多尝试总是没错的，毕竟我们还有资本去寻找更多可能性，而且我相信每个开发者其实内心都是向往利用自己的力量改变人们的生活方式的，而我们通常做的事情却总是一个大工程中的螺丝钉，时间长了失却了创新的初衷意味，这]]></description>
+</item></channel>
+</rss>
